@@ -1,0 +1,14 @@
+spring:
+    application:
+        name: api-gateway
+server:
+    port: 8084
+    cloud:
+        gateway:
+            routes:
+eureka:
+    client:
+        service-url:
+            defaultZone: http://${EUREKA_SERVER_ADDRESS:localhost}:8761/eureka
+        fetch-registry: true
+        register-with-eureka: true

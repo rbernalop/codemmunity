@@ -1,0 +1,71 @@
+name: CICD
+
+on:
+    push:
+        branches:
+            - 'main'
+
+env:
+    JAVA_VERSION: '18'
+    JAVA_DISTRIBUTION: 'temurin'
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            # SETUP
+            - uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
+            - uses: actions/setup-java@v3
+              with:
+                  java-version: ${{ env.JAVA_VERSION }}
+                  distribution: ${{ env.JAVA_DISTRIBUTION }}
+            - uses: actions/cache@v1
+              with:
+                  path: ~/.m2/repository
+                  key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+                  restore-keys: |
+                      ${{ runner.os }}-maven-
+            # UPLOAD TO DOCKERHUB
+            - name: Docker Login
+              if: success()
+              uses: docker/login-action@f3364599c6aa293cdc2b8391b1b56d0c30e45c8a
+              with:
+                  username: ${{ secrets.DOCKER_USERNAME }}
+                  password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+            - name: Git Fetch
+              if: success()
+              run: git fetch --all
+
+            - name: Build and Push Docker Image
+              if: success()
+              run: |
+                MODIFIED_CONTEXTS=$(git diff --name-status ${{ github.event.before }} | grep "src/" | awk -F '/' '{print $2}' | uniq)
+                IFS=$'\n'
+                for modified_context in $MODIFIED_CONTEXTS; do
+                    echo "Building $modified_context"
+                    cd src/"$modified_context" || exit
+                    mvn clean verify -P build-docker-image -DskipTests
+                    cd ../../
+                done
+            # MESSAGES
+            -   name: Send OK Discord Message
+                uses: rjstone/discord-webhook-notify@v1
+                if: ${{ success() }}
+                with:
+                    severity: info
+                    details: |
+                        **Upload to DockerHub ✅**
+                    webhookUrl: ${{secrets.DISCORD_URL}}
+
+            -   name: Send Error Discord Message
+                uses: rjstone/discord-webhook-notify@v1
+                if: failure()
+                with:
+                    severity: error
+                    details: |
+                        **Upload to DockerHub ❌**
+                    webhookUrl: ${{secrets.DISCORD_URL}}
