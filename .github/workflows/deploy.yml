@@ -48,7 +48,7 @@ jobs:
                 for modified_context in $MODIFIED_CONTEXTS; do
                     echo "Building $modified_context"
                     cd src/"$modified_context" || exit
-                    mvn clean verify -P build-docker-image -DskipTests
+                    mvn clean verify -P build-docker-image -DskipTests -Ddocker.username="${{ secrets.DOCKER_USERNAME }}"
                     cd ../../
                 done
             # MESSAGES
