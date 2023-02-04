@@ -1,0 +1,15 @@
+.page-section {
+    background: #fff;
+    padding: 24px;
+    text-align: center;
+    margin-right: 24px;
+    margin-left: 24px;
+    border: 1px solid #1890ff;
+    cursor: pointer;
+}
+
+.page-section:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: all 0.3s ease-in-out;
+}

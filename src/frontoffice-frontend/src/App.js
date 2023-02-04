@@ -11,7 +11,7 @@ const App = () => {
         <BrowserRouter>
             <Layout className="layout">
                 <Header />
-                <Content style={{ padding: '50px', minHeight: 'calc(100vh - 64px - 70px)' }}>
+                <Content style={{ padding: '50px', minHeight: 'calc(100vh - 64px - 70px)', backgroundColor: '#fff' }}>
                     <RouteManager />
                 </Content>
                 <Footer style={{ textAlign: 'center' }}>Codemmunity ©2023</Footer>

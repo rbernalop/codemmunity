@@ -1,0 +1,17 @@
+
+.usages-row {
+    margin-left: 271px;
+    margin-right: 271px;
+}
+
+.usages-column { border-radius: 100%;
+ border: 1px solid #1890ff;
+ padding: 24px;
+ text-align: center
+}
+
+.usages-container {
+    background: #fff;
+    padding: 24px;
+    text-align: center;
+}
