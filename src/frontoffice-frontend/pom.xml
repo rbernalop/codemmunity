@@ -11,7 +11,7 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
     <packaging>pom</packaging>
-    <artifactId>frontend-react</artifactId>
+    <artifactId>frontoffice-frontend</artifactId>
 
     <profiles>
         <profile>
