@@ -10,7 +10,7 @@
     <modules>
         <module>src/eureka-server</module>
         <module>src/api-gateway</module>
-        <module>src/frontend-react</module>
+        <module>src/frontoffice-frontend</module>
         <module>src/shared</module>
     </modules>
 
