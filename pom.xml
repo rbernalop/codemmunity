@@ -12,6 +12,7 @@
         <module>src/api-gateway</module>
         <module>src/frontoffice-frontend</module>
         <module>src/shared</module>
+        <module>src/api-authentication</module>
     </modules>
 
     <properties>
