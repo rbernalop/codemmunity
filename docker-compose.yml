@@ -74,9 +74,28 @@ services:
         depends_on:
             - 'elasticsearch'
 
+    #
+    # DATABASES
+    #
+    applicationdb:
+        image: postgres:alpine
+        container_name: applicationdb
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: postgres
+        volumes:
+            - applicationdb:/var/lib/postgresql/data
+            - applicationdb_data:/var/lib/postgresql/data
+
+
 volumes:
     sonarqube_data: { }
     sonarqube_extensions: { }
     sonarqube_logs: { }
     postgresql: {}
     postgresql_data: {}
+    applicationdb: {}
+    applicationdb_data: {}
