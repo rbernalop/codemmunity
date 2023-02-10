@@ -46,8 +46,8 @@ public class User extends AggregateRoot {
     }
 
     @Override
-    public String getId() {
-        return id.getId();
+    public UserId getId() {
+        return id;
     }
 
     public String getName() {

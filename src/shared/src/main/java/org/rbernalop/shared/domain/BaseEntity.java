@@ -6,12 +6,13 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.Transient;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.rbernalop.shared.domain.valueobject.Identifier;
 import org.springframework.data.domain.Persistable;
 
 import java.time.LocalDateTime;
 
 @MappedSuperclass
-public abstract class BaseEntity implements Persistable<String> {
+public abstract class BaseEntity implements Persistable<Identifier> {
     @CreationTimestamp
     private LocalDateTime createdAt;
 

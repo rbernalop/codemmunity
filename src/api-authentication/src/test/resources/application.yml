@@ -1,0 +1,9 @@
+spring:
+    datasource:
+        url: ${AUTHENTICATION_DB_URL:jdbc:postgresql://localhost:5432/authenticationtestdb}
+        username: ${AUTHENTICATION_DB_USERNAME:postgres}
+        password: ${AUTHENTICATION_DB_PASSWORD:postgres}
+        driver-class-name: ${AUTHENTICATION_DB_DRIVER_CLASS_NAME:org.postgresql.Driver}
+    jpa:
+        hibernate:
+            ddl-auto: create-drop

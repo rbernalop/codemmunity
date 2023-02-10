@@ -28,7 +28,7 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         // GIVEN
         CreateUserCommand command = CreateUserCommandMother.random();
         User user = UserMother.fromCommand(command);
-        UserId userId = new UserId(user.getId());
+        UserId userId = user.getId();
         UserUsername userUsername = new UserUsername(user.getUsername());
         UserEmail userEmail = new UserEmail(user.getEmail());
 
@@ -53,7 +53,7 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         // GIVEN
         CreateUserCommand command = CreateUserCommandMother.random();
         User user = UserMother.fromCommand(command);
-        UserId userId = new UserId(user.getId());
+        UserId userId = user.getId();
 
         when(repository.findById(userId)).thenReturn(Optional.of(user));
 
@@ -75,7 +75,7 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         // GIVEN
         CreateUserCommand command = CreateUserCommandMother.random();
         User user = UserMother.fromCommand(command);
-        UserId userId = new UserId(user.getId());
+        UserId userId = user.getId();
         UserUsername userUsername = new UserUsername(user.getUsername());
 
         when(repository.findById(userId)).thenReturn(Optional.empty());
@@ -99,7 +99,7 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         // GIVEN
         CreateUserCommand command = CreateUserCommandMother.random();
         User user = UserMother.fromCommand(command);
-        UserId userId = new UserId(user.getId());
+        UserId userId = user.getId();
         UserUsername userUsername = new UserUsername(user.getUsername());
         UserEmail userEmail = new UserEmail(user.getEmail());
 

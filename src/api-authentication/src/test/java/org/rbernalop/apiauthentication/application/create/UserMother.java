@@ -16,4 +16,8 @@ public class UserMother {
             new UserBirthDate(command.getBirthDate())
         );
     }
+
+    public static User random() {
+        return fromCommand(CreateUserCommandMother.random());
+    }
 }
