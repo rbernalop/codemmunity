@@ -6,12 +6,11 @@
 
     <parent>
         <groupId>org.rbernalop</groupId>
-        <artifactId>spring-cloud-skeleton</artifactId>
+        <artifactId>codemmunity</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
     <artifactId>shared</artifactId>
-    <packaging>pom</packaging>
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -21,6 +20,10 @@
             <groupId>org.reflections</groupId>
             <artifactId>reflections-spring</artifactId>
             <version>0.9.9-RC1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
     </dependencies>
 

@@ -1,11 +1,11 @@
 spring:
     application:
         name: api-gateway
-server:
-    port: 8084
     cloud:
         gateway:
             routes:
+server:
+    port: 8084
 eureka:
     client:
         service-url:
