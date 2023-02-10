@@ -9,11 +9,10 @@ import org.rbernalop.shared.domain.criteria.FilterOperator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.BiFunction;
-import java.util.stream.Collectors;
 
 @AllArgsConstructor
 public final class HibernateCriteriaConverter<T> {
-    private final CriteriaBuilder builder;
+    private CriteriaBuilder builder;
 
     private final HashMap<FilterOperator, BiFunction<Path<String>, String, Predicate>> predicateTransformers =
         new HashMap<>() {{
