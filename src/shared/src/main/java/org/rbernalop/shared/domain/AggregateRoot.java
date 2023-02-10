@@ -4,7 +4,7 @@ import org.rbernalop.shared.domain.bus.event.DomainEvent;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AggregateRoot {
+public abstract class AggregateRoot extends BaseEntity {
     private List<DomainEvent> recordedDomainEvents = new LinkedList<>();
 
     final public List<DomainEvent> pullDomainEvents() {
