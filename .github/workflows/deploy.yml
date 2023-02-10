@@ -28,6 +28,8 @@ jobs:
                   key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
                   restore-keys: |
                       ${{ runner.os }}-maven-
+            - name: Install shared dependencies
+              run: cd ./src/shared && mvn clean install -DskipTests && cd ../..
             # UPLOAD TO DOCKERHUB
             - name: Docker Login
               if: success()
