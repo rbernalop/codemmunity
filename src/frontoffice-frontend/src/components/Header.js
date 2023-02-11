@@ -1,7 +1,11 @@
 import {Layout, Row, Col, Button} from 'antd';
 import { Link } from 'react-router-dom';
+import {useState} from "react";
+import Authenticate from "../views/authenticate";
 
 const Header = () => {
+    const [showAuthModal, setShowAuthModal] = useState(false);
+    const [formTab, setFormTab] = useState('login');
     return (
         <Layout.Header>
             <Row justify="space-between">
@@ -11,14 +15,18 @@ const Header = () => {
                     </Link>
                 </Col>
                 <Col>
-                    <Link to="/login">
-                        <Button type="primary" style={{ marginRight: '10px' }}>Login</Button>
-                    </Link>
-                    <Link to="/register">
-                        <Button type="primary">Register</Button>
-                    </Link>
+                    <Button type="primary" style={{ marginRight: '10px' }} onClick={() => {
+                        setFormTab('login');
+                        setShowAuthModal(true)
+                    }}>Login</Button>
+
+                    <Button type="primary" onClick={() => {
+                        setFormTab('register');
+                        setShowAuthModal(true)
+                    }}>Register</Button>
                 </Col>
             </Row>
+            <Authenticate showModal={showAuthModal} setShowModal={setShowAuthModal} formTab={formTab} setFormTab={setFormTab} />
         </Layout.Header>
     );
 };
