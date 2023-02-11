@@ -4,6 +4,10 @@ spring:
     cloud:
         gateway:
             routes:
+                - id: api-authentication
+                  uri: lb://api-authentication
+                  predicates:
+                    - Path=/api/v1/user/**
 server:
     port: 8084
 eureka:
