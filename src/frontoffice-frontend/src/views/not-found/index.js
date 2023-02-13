@@ -9,7 +9,7 @@ const NotFound = () => {
             subTitle="Sorry, the page you're looking for is not found."
             extra={
                 <Link to="/">
-                    <Button type="primary">Back to Homepage</Button>
+                    <Button id="back-to-home-btn" type="primary">Back to Homepage</Button>
                 </Link>
             }
         />

@@ -20,7 +20,7 @@ const Header = () => {
                         setShowAuthModal(true)
                     }}>Login</Button>
 
-                    <Button type="primary" onClick={() => {
+                    <Button id="register-btn" type="primary" onClick={() => {
                         setFormTab('register');
                         setShowAuthModal(true)
                     }}>Register</Button>
