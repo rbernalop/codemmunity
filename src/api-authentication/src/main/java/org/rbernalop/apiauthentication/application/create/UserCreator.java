@@ -4,13 +4,20 @@ import lombok.AllArgsConstructor;
 import org.rbernalop.apiauthentication.domain.aggregate.User;
 import org.rbernalop.apiauthentication.domain.exception.UserAlreadyExistsException;
 import org.rbernalop.apiauthentication.domain.port.UserRepository;
+import org.rbernalop.apiauthentication.domain.service.DomainUserFinder;
 import org.rbernalop.apiauthentication.domain.service.DomainUserSearcher;
 import org.rbernalop.apiauthentication.domain.value_object.*;
+import org.rbernalop.shared.application.UseCase;
+import org.rbernalop.shared.domain.bus.query.QueryBus;
 
-@AllArgsConstructor
-public class UserCreator {
+public class UserCreator extends UseCase {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserCreator(QueryBus queryBus, UserRepository userRepository) {
+        super(queryBus);
+        this.userRepository = userRepository;
+    }
 
     public void create(UserId id, UserName name, UserSurname surname, UserUsername username, UserEmail email,
        UserPassword password, UserBirthDate birthDate) {

@@ -6,12 +6,14 @@ import org.rbernalop.apiauthentication.domain.port.UserRepository;
 import org.rbernalop.apiauthentication.domain.value_object.*;
 import org.rbernalop.shared.domain.Service;
 import org.rbernalop.shared.domain.bus.command.CommandHandler;
+import org.rbernalop.shared.domain.bus.query.QueryBus;
 
 @Service
 @AllArgsConstructor
 @Slf4j
 public class CreateUserCommandHandler implements CommandHandler<CreateUserCommand> {
     private final UserRepository userRepository;
+    private final QueryBus queryBus;
 
     @Override
     public void handle(CreateUserCommand command) {
@@ -27,7 +29,7 @@ public class CreateUserCommandHandler implements CommandHandler<CreateUserComman
         UserPassword password = new UserPassword(command.getPassword());
         UserBirthDate birthDate = new UserBirthDate(command.getBirthDate());
 
-        UserCreator userCreator = new UserCreator(userRepository);
+        UserCreator userCreator = new UserCreator(queryBus, userRepository);
         userCreator.create(id, name, surname, username, email, password, birthDate);
     }
 }

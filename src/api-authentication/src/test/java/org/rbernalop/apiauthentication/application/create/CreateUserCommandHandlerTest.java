@@ -1,5 +1,6 @@
 package org.rbernalop.apiauthentication.application.create;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.rbernalop.apiauthentication.domain.aggregate.User;
@@ -10,6 +11,7 @@ import org.rbernalop.apiauthentication.domain.value_object.UserEmail;
 import org.rbernalop.apiauthentication.domain.value_object.UserId;
 import org.rbernalop.apiauthentication.domain.value_object.UserUsername;
 import org.rbernalop.shared.domain.InvalidIdException;
+import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.infrastructure.testing.UnitTestCase;
 
 import java.util.Optional;
@@ -22,6 +24,16 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
 
     @Mock
     private UserRepository repository;
+
+    @Mock
+    private QueryBus queryBus;
+
+    private CreateUserCommandHandler handler;
+
+    @BeforeEach
+    void setUp() {
+        handler = new CreateUserCommandHandler(repository, queryBus);
+    }
 
     @Test
     void should_create_a_valid_user() {
@@ -38,7 +50,6 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         when(repository.save(user)).thenReturn(user);
 
         // WHEN
-        CreateUserCommandHandler handler = new CreateUserCommandHandler(repository);
         handler.handle(command);
 
         // THEN
@@ -58,7 +69,6 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         when(repository.findById(userId)).thenReturn(Optional.of(user));
 
         // WHEN
-        CreateUserCommandHandler handler = new CreateUserCommandHandler(repository);
         UserAlreadyExistsException actualException =
             assertThrows(UserAlreadyExistsException.class, () -> handler.handle(command));
 
@@ -82,7 +92,6 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         when(repository.findByUsername(userUsername)).thenReturn(Optional.of(user));
 
         // WHEN
-        CreateUserCommandHandler handler = new CreateUserCommandHandler(repository);
         UserAlreadyExistsException actualException =
             assertThrows(UserAlreadyExistsException.class, () -> handler.handle(command));
 
@@ -108,7 +117,6 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         when(repository.findByEmail(userEmail)).thenReturn(Optional.of(user));
 
         // WHEN
-        CreateUserCommandHandler handler = new CreateUserCommandHandler(repository);
         UserAlreadyExistsException actualException =
             assertThrows(UserAlreadyExistsException.class, () -> handler.handle(command));
 
@@ -126,7 +134,6 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         CreateUserCommand command = CreateUserCommandMother.randomUnderAge();
 
         // WHEN
-        CreateUserCommandHandler handler = new CreateUserCommandHandler(repository);
         InvalidUserDataException actualException =
             assertThrows(InvalidUserDataException.class, () -> handler.handle(command));
 
@@ -144,7 +151,6 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         CreateUserCommand command = CreateUserCommandMother.randomWithInvalidEmail();
 
         // WHEN
-        CreateUserCommandHandler handler = new CreateUserCommandHandler(repository);
         InvalidUserDataException actualException =
             assertThrows(InvalidUserDataException.class, () -> handler.handle(command));
 
@@ -162,7 +168,6 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         CreateUserCommand command = CreateUserCommandMother.randomWithBlankName();
 
         // WHEN
-        CreateUserCommandHandler handler = new CreateUserCommandHandler(repository);
         InvalidUserDataException actualException =
             assertThrows(InvalidUserDataException.class, () -> handler.handle(command));
 
@@ -180,7 +185,6 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         CreateUserCommand command = CreateUserCommandMother.randomWithBlankSurname();
 
         // WHEN
-        CreateUserCommandHandler handler = new CreateUserCommandHandler(repository);
         InvalidUserDataException actualException =
             assertThrows(InvalidUserDataException.class, () -> handler.handle(command));
 
@@ -198,7 +202,6 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         CreateUserCommand command = CreateUserCommandMother.randomWithBlankUsername();
 
         // WHEN
-        CreateUserCommandHandler handler = new CreateUserCommandHandler(repository);
         InvalidUserDataException actualException =
             assertThrows(InvalidUserDataException.class, () -> handler.handle(command));
 
@@ -216,7 +219,6 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         CreateUserCommand command = CreateUserCommandMother.randomWithInvalidId();
 
         // WHEN
-        CreateUserCommandHandler handler = new CreateUserCommandHandler(repository);
         InvalidIdException actualException =
             assertThrows(InvalidIdException.class, () -> handler.handle(command));
 
