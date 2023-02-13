@@ -8,7 +8,7 @@ import org.rbernalop.apiauthentication.domain.value_object.UserId;
 import org.rbernalop.apiauthentication.domain.value_object.UserUsername;
 
 @AllArgsConstructor
-public class UserSearcher {
+public class DomainUserSearcher {
     private final UserRepository userRepository;
 
     public User findById(UserId id) {

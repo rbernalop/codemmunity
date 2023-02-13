@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import org.rbernalop.apiauthentication.domain.aggregate.User;
 import org.rbernalop.apiauthentication.domain.exception.UserAlreadyExistsException;
 import org.rbernalop.apiauthentication.domain.port.UserRepository;
-import org.rbernalop.apiauthentication.domain.service.UserSearcher;
+import org.rbernalop.apiauthentication.domain.service.DomainUserSearcher;
 import org.rbernalop.apiauthentication.domain.value_object.*;
 
 @AllArgsConstructor
@@ -14,17 +14,17 @@ public class UserCreator {
 
     public void create(UserId id, UserName name, UserSurname surname, UserUsername username, UserEmail email,
        UserPassword password, UserBirthDate birthDate) {
-        UserSearcher userSearcher = new UserSearcher(userRepository);
+        DomainUserSearcher domainUserSearcher = new DomainUserSearcher(userRepository);
 
-        if (userSearcher.findById(id) != null) {
+        if (domainUserSearcher.findById(id) != null) {
             throw new UserAlreadyExistsException("User with id " + id.getId() + " already exists");
         }
 
-        if (userSearcher.findByUsername(username) != null) {
+        if (domainUserSearcher.findByUsername(username) != null) {
             throw new UserAlreadyExistsException("User already exists");
         }
 
-        if (userSearcher.findByEmail(email) != null) {
+        if (domainUserSearcher.findByEmail(email) != null) {
             throw new UserAlreadyExistsException("Email already exists");
         }
 
