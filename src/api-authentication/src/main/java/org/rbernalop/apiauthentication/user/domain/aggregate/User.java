@@ -4,7 +4,6 @@ package org.rbernalop.apiauthentication.user.domain.aggregate;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.rbernalop.apiauthentication.domain.value_object.*;
 import org.rbernalop.apiauthentication.user.domain.value_object.*;
 import org.rbernalop.shared.domain.AggregateRoot;
 
