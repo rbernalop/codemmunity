@@ -12,7 +12,7 @@ public class UserMother {
             new UserSurname(command.getSurname()),
             new UserUsername(command.getUsername()),
             new UserEmail(command.getEmail()),
-            new UserPassword(command.getPassword()),
+            new UserPasswordEncrypted(command.getPassword()),
             new UserBirthDate(command.getBirthDate())
         );
     }

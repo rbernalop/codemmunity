@@ -30,12 +30,12 @@ public class User extends AggregateRoot {
     private UserEmail email;
 
     @Embedded
-    private UserPassword password;
+    private UserPasswordEncrypted password;
 
     @Embedded
     private UserBirthDate birthDate;
 
-    public User(UserId id, UserName name, UserSurname surname, UserUsername username, UserEmail email, UserPassword password, UserBirthDate birthDate) {
+    public User(UserId id, UserName name, UserSurname surname, UserUsername username, UserEmail email, UserPasswordEncrypted password, UserBirthDate birthDate) {
         this.id = id;
         this.name = name;
         this.surname = surname;

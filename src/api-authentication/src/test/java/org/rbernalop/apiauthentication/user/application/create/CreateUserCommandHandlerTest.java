@@ -13,6 +13,7 @@ import org.rbernalop.apiauthentication.user.domain.value_object.UserUsername;
 import org.rbernalop.shared.domain.InvalidIdException;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.infrastructure.testing.UnitTestCase;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
@@ -28,11 +29,14 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
     @Mock
     private QueryBus queryBus;
 
+    @Mock
+    private PasswordEncoder passwordEncoder;
+
     private CreateUserCommandHandler handler;
 
     @BeforeEach
     void setUp() {
-        handler = new CreateUserCommandHandler(repository, queryBus);
+        handler = new CreateUserCommandHandler(repository, queryBus, passwordEncoder);
     }
 
     @Test
@@ -47,6 +51,7 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         when(repository.findById(userId)).thenReturn(Optional.empty());
         when(repository.findByUsername(userUsername)).thenReturn(Optional.empty());
         when(repository.findByEmail(userEmail)).thenReturn(Optional.empty());
+        when(passwordEncoder.encode(user.getPassword())).thenReturn(user.getPassword());
         when(repository.save(user)).thenReturn(user);
 
         // WHEN
@@ -56,6 +61,7 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         verify(repository, times(1)).findById(userId);
         verify(repository, times(1)).findByUsername(userUsername);
         verify(repository, times(1)).findByEmail(userEmail);
+        verify(passwordEncoder, times(1)).encode(user.getPassword());
         verify(repository, times(1)).save(user);
     }
 
@@ -77,6 +83,7 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         verify(repository, times(1)).findById(userId);
         verify(repository, never()).findByUsername(any());
         verify(repository, never()).findByEmail(any());
+        verify(passwordEncoder, never()).encode(any());
         verify(repository, never()).save(any());
     }
 
@@ -100,6 +107,7 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         verify(repository, times(1)).findById(userId);
         verify(repository, times(1)).findByUsername(userUsername);
         verify(repository, never()).findByEmail(any());
+        verify(passwordEncoder, never()).encode(any());
         verify(repository, never()).save(any());
     }
 
@@ -125,6 +133,7 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         verify(repository, times(1)).findById(userId);
         verify(repository, times(1)).findByUsername(userUsername);
         verify(repository, times(1)).findByEmail(userEmail);
+        verify(passwordEncoder, never()).encode(any());
         verify(repository, never()).save(any());
     }
 
@@ -142,6 +151,7 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         verify(repository, never()).findById(any());
         verify(repository, never()).findByUsername(any());
         verify(repository, never()).findByEmail(any());
+        verify(passwordEncoder, never()).encode(any());
         verify(repository, never()).save(any());
     }
 
@@ -159,6 +169,7 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         verify(repository, never()).findById(any());
         verify(repository, never()).findByUsername(any());
         verify(repository, never()).findByEmail(any());
+        verify(passwordEncoder, never()).encode(any());
         verify(repository, never()).save(any());
     }
 
@@ -176,6 +187,7 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         verify(repository, never()).findById(any());
         verify(repository, never()).findByUsername(any());
         verify(repository, never()).findByEmail(any());
+        verify(passwordEncoder, never()).encode(any());
         verify(repository, never()).save(any());
     }
 
@@ -193,6 +205,7 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         verify(repository, never()).findById(any());
         verify(repository, never()).findByUsername(any());
         verify(repository, never()).findByEmail(any());
+        verify(passwordEncoder, never()).encode(any());
         verify(repository, never()).save(any());
     }
 
@@ -210,6 +223,7 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         verify(repository, never()).findById(any());
         verify(repository, never()).findByUsername(any());
         verify(repository, never()).findByEmail(any());
+        verify(passwordEncoder, never()).encode(any());
         verify(repository, never()).save(any());
     }
 
@@ -227,6 +241,7 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         verify(repository, never()).findById(any());
         verify(repository, never()).findByUsername(any());
         verify(repository, never()).findByEmail(any());
+        verify(passwordEncoder, never()).encode(any());
         verify(repository, never()).save(any());
     }
 }

@@ -7,6 +7,7 @@ import org.rbernalop.apiauthentication.user.domain.value_object.*;
 import org.rbernalop.shared.domain.Service;
 import org.rbernalop.shared.domain.bus.command.CommandHandler;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Service
 @AllArgsConstructor
@@ -14,6 +15,7 @@ import org.rbernalop.shared.domain.bus.query.QueryBus;
 public class CreateUserCommandHandler implements CommandHandler<CreateUserCommand> {
     private final UserRepository userRepository;
     private final QueryBus queryBus;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void handle(CreateUserCommand command) {
@@ -29,7 +31,7 @@ public class CreateUserCommandHandler implements CommandHandler<CreateUserComman
         UserPassword password = new UserPassword(command.getPassword());
         UserBirthDate birthDate = new UserBirthDate(command.getBirthDate());
 
-        UserCreator userCreator = new UserCreator(queryBus, userRepository);
+        UserCreator userCreator = new UserCreator(queryBus, userRepository, passwordEncoder);
         userCreator.create(id, name, surname, username, email, password, birthDate);
     }
 }

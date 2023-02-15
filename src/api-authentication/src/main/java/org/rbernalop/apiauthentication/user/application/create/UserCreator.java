@@ -7,14 +7,18 @@ import org.rbernalop.apiauthentication.user.domain.service.DomainUserSearcher;
 import org.rbernalop.apiauthentication.user.domain.value_object.*;
 import org.rbernalop.shared.application.UseCase;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class UserCreator extends UseCase {
 
     private final UserRepository userRepository;
 
-    public UserCreator(QueryBus queryBus, UserRepository userRepository) {
+    private final PasswordEncoder passwordEncoder;
+
+    public UserCreator(QueryBus queryBus, UserRepository userRepository, PasswordEncoder passwordEncoder) {
         super(queryBus);
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public void create(UserId id, UserName name, UserSurname surname, UserUsername username, UserEmail email,
@@ -33,7 +37,8 @@ public class UserCreator extends UseCase {
             throw new UserAlreadyExistsException("Email already exists");
         }
 
-        User user = new User(id, name, surname, username, email, password, birthDate);
+        UserPasswordEncrypted passwordEncrypted = new UserPasswordEncrypted(passwordEncoder.encode(password.getValue()));
+        User user = new User(id, name, surname, username, email, passwordEncrypted, birthDate);
         userRepository.save(user);
     }
 }
