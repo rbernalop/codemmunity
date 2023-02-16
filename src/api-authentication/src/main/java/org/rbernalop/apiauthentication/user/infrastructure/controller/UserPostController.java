@@ -2,7 +2,7 @@ package org.rbernalop.apiauthentication.user.infrastructure.controller;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.rbernalop.apiauthentication.user.application.create.CreateUserCommand;
+import org.rbernalop.apiauthentication.shared.application.user.create.CreateUserCommand;
 import org.rbernalop.shared.domain.bus.command.CommandBus;
 import org.rbernalop.shared.domain.bus.command.CommandHandlerExecutionError;
 import org.rbernalop.shared.domain.bus.query.QueryBus;

@@ -1,4 +1,4 @@
-package org.rbernalop.apiauthentication.shared.application.userfinder.username;
+package org.rbernalop.apiauthentication.shared.application.user.finder.username;
 
 import lombok.*;
 import org.rbernalop.shared.domain.bus.query.Response;

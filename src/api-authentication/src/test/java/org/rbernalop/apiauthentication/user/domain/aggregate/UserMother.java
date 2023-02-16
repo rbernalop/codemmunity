@@ -1,7 +1,7 @@
 package org.rbernalop.apiauthentication.user.domain.aggregate;
 
-import org.rbernalop.apiauthentication.user.application.create.CreateUserCommand;
-import org.rbernalop.apiauthentication.user.application.create.CreateUserCommandMother;
+import org.rbernalop.apiauthentication.shared.application.user.create.CreateUserCommand;
+import org.rbernalop.apiauthentication.shared.application.user.create.CreateUserCommandMother;
 import org.rbernalop.apiauthentication.user.domain.value_object.*;
 
 public class UserMother {

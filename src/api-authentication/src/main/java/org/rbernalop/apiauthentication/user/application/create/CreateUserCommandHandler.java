@@ -2,6 +2,7 @@ package org.rbernalop.apiauthentication.user.application.create;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.rbernalop.apiauthentication.shared.application.user.create.CreateUserCommand;
 import org.rbernalop.apiauthentication.user.domain.port.UserRepository;
 import org.rbernalop.apiauthentication.user.domain.value_object.*;
 import org.rbernalop.shared.domain.Service;

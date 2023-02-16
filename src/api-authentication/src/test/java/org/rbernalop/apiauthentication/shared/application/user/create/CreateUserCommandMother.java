@@ -1,7 +1,6 @@
-package org.rbernalop.apiauthentication.user.application.create;
+package org.rbernalop.apiauthentication.shared.application.user.create;
 
 import com.github.javafaker.Faker;
-import org.rbernalop.apiauthentication.user.application.create.CreateUserCommand;
 
 import java.time.LocalDate;
 import java.time.ZoneId;

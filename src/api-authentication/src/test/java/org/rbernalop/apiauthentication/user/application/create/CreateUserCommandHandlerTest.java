@@ -3,6 +3,8 @@ package org.rbernalop.apiauthentication.user.application.create;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.rbernalop.apiauthentication.shared.application.user.create.CreateUserCommand;
+import org.rbernalop.apiauthentication.shared.application.user.create.CreateUserCommandMother;
 import org.rbernalop.apiauthentication.user.domain.aggregate.User;
 import org.rbernalop.apiauthentication.user.domain.aggregate.UserMother;
 import org.rbernalop.apiauthentication.user.domain.exception.InvalidUserDataException;

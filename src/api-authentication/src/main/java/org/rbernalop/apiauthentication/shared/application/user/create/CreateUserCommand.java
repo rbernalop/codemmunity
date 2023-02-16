@@ -1,4 +1,4 @@
-package org.rbernalop.apiauthentication.user.application.create;
+package org.rbernalop.apiauthentication.shared.application.user.create;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

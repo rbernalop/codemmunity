@@ -1,6 +1,4 @@
-package org.rbernalop.apiauthentication.user.application.finder.username;
-
-import org.rbernalop.apiauthentication.shared.application.userfinder.username.FindUserByUsernameQuery;
+package org.rbernalop.apiauthentication.shared.application.user.finder.username;
 
 public class FindUserByUsernameQueryMother {
     public static FindUserByUsernameQuery fromUsername(String username) {
