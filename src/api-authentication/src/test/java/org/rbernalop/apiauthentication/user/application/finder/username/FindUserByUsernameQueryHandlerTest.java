@@ -33,6 +33,7 @@ class FindUserByUsernameQueryHandlerTest extends UnitTestCase {
         // GIVEN
         User user = UserMother.random();
         String username = user.getUsername();
+        FindUserByUsernameResponse expectedResponse = FindUserByUsernameResponseMother.fromUser(user);
         FindUserByUsernameQuery query = FindUserByUsernameQueryMother.fromUsername(username);
         when(userRepository.findByUsername(new UserUsername(username))).thenReturn(Optional.of(user));
 
@@ -40,10 +41,6 @@ class FindUserByUsernameQueryHandlerTest extends UnitTestCase {
         FindUserByUsernameResponse response = handler.handle(query);
 
         // THEN
-        assert user.getId() != null;
-        assertEquals(user.getId().getId(), response.getId());
-        assertEquals(user.getPassword(), response.getPassword());
-        assertEquals(user.getEmail(), response.getEmail());
-        assertEquals(user.getUsername(), response.getUsername());
+        assertEquals(expectedResponse, response);
     }
 }
