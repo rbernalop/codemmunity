@@ -2,6 +2,7 @@ package org.rbernalop.apiauthentication.securityuser.application.login;
 
 import lombok.extern.slf4j.Slf4j;
 import org.rbernalop.apiauthentication.securityuser.domain.port.TokenGenerator;
+import org.rbernalop.apiauthentication.securityuser.domain.port.UserAuthenticator;
 import org.rbernalop.apiauthentication.shared.application.securityuser.login.LoginQuery;
 import org.rbernalop.apiauthentication.shared.application.securityuser.login.LoginQueryResponse;
 import org.rbernalop.shared.domain.Service;
@@ -15,8 +16,9 @@ public class LoginQueryHandler implements QueryHandler<LoginQuery, LoginQueryRes
     private final UserLoginUseCase userLoginUseCase;
 
     public LoginQueryHandler(TokenGenerator tokenGenerator,
-         QueryBus queryBus) {
-        userLoginUseCase = new UserLoginUseCase(tokenGenerator, queryBus);
+         QueryBus queryBus,
+         UserAuthenticator userAuthenticator) {
+        userLoginUseCase = new UserLoginUseCase(tokenGenerator, queryBus, userAuthenticator);
     }
 
     @Override

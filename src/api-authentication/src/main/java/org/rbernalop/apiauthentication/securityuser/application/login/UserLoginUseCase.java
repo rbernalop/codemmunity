@@ -4,22 +4,27 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.rbernalop.apiauthentication.securityuser.domain.port.TokenGenerator;
+import org.rbernalop.apiauthentication.securityuser.domain.port.UserAuthenticator;
 import org.rbernalop.apiauthentication.shared.application.user.finder.username.FindUserByUsernameQuery;
 import org.rbernalop.apiauthentication.shared.application.user.finder.username.FindUserByUsernameResponse;
 import org.rbernalop.shared.application.UseCase;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
 
 public class UserLoginUseCase extends UseCase {
+    private final UserAuthenticator userAuthenticator;
     private final TokenGenerator tokenGenerator;
 
     public UserLoginUseCase(TokenGenerator tokenGenerator,
-                            QueryBus queryBus) {
+                            QueryBus queryBus,
+                            UserAuthenticator userAuthenticator) {
         super(queryBus);
         this.tokenGenerator = tokenGenerator;
+        this.userAuthenticator = userAuthenticator;
     }
 
     public UserLoginResponse login(String username, String password) {
-        String token = tokenGenerator.generateToken(username, password);
+        this.userAuthenticator.authenticate(username, password);
+        String token = this.tokenGenerator.generateToken(username, null, null);
         FindUserByUsernameResponse user = this.ask(new FindUserByUsernameQuery(username));
         return new UserLoginResponse(
             token,

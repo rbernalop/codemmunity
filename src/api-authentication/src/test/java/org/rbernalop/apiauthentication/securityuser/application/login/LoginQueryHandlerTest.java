@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.rbernalop.apiauthentication.securityuser.domain.port.TokenGenerator;
+import org.rbernalop.apiauthentication.securityuser.domain.port.UserAuthenticator;
 import org.rbernalop.apiauthentication.shared.application.securityuser.login.LoginQuery;
 import org.rbernalop.apiauthentication.shared.application.securityuser.login.LoginQueryMother;
 import org.rbernalop.apiauthentication.shared.application.securityuser.login.LoginQueryResponse;
@@ -26,11 +27,14 @@ class LoginQueryHandlerTest extends UnitTestCase {
     @Mock
     private QueryBus queryBus;
 
+    @Mock
+    private UserAuthenticator userAuthenticator;
+
     private LoginQueryHandler loginQueryHandler;
 
     @BeforeEach
     void setUp() {
-        loginQueryHandler = new LoginQueryHandler(tokenGenerator, queryBus);
+        loginQueryHandler = new LoginQueryHandler(tokenGenerator, queryBus, userAuthenticator);
     }
 
     @Test
@@ -49,7 +53,8 @@ class LoginQueryHandlerTest extends UnitTestCase {
             findUserByUsernameResponse.getUsername(),
             findUserByUsernameResponse.getEmail());
 
-        when(tokenGenerator.generateToken(loginQuery.getUsername(), loginQuery.getPassword())).thenReturn(expectedLoginResponse.getToken());
+        doNothing().when(userAuthenticator).authenticate(loginQuery.getUsername(), loginQuery.getPassword());
+        when(tokenGenerator.generateToken(loginQuery.getUsername(), null, null)).thenReturn(expectedLoginResponse.getToken());
         when(queryBus.ask(findUserByUsernameQuery)).thenReturn(findUserByUsernameResponse);
 
         // WHEN
@@ -57,7 +62,8 @@ class LoginQueryHandlerTest extends UnitTestCase {
 
         // THEN
         assertEquals(expectedLoginResponse, actualLoginResponse);
-        verify(tokenGenerator, times(1)).generateToken(loginQuery.getUsername(), loginQuery.getPassword());
+        verify(userAuthenticator, times(1)).authenticate(loginQuery.getUsername(), loginQuery.getPassword());
+        verify(tokenGenerator, times(1)).generateToken(loginQuery.getUsername(), null, null);
         verify(queryBus, times(1)).ask(findUserByUsernameQuery);
     }
 }
