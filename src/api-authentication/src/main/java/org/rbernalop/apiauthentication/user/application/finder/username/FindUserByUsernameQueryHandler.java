@@ -1,6 +1,8 @@
 package org.rbernalop.apiauthentication.user.application.finder.username;
 
 import lombok.extern.slf4j.Slf4j;
+import org.rbernalop.apiauthentication.shared.application.userfinder.username.FindUserByUsernameQuery;
+import org.rbernalop.apiauthentication.shared.application.userfinder.username.FindUserByUsernameResponse;
 import org.rbernalop.apiauthentication.user.application.finder.UserFinder;
 import org.rbernalop.apiauthentication.user.domain.port.UserRepository;
 import org.rbernalop.apiauthentication.user.domain.value_object.UserUsername;

@@ -1,4 +1,4 @@
-package org.rbernalop.apiauthentication.shared;
+package org.rbernalop.apiauthentication.shared.infrastructure;
 
 import lombok.Builder;
 import lombok.Getter;

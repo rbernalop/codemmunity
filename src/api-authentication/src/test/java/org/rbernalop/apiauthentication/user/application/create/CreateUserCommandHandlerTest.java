@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.rbernalop.apiauthentication.user.domain.aggregate.User;
+import org.rbernalop.apiauthentication.user.domain.aggregate.UserMother;
 import org.rbernalop.apiauthentication.user.domain.exception.InvalidUserDataException;
 import org.rbernalop.apiauthentication.user.domain.exception.UserAlreadyExistsException;
 import org.rbernalop.apiauthentication.user.domain.port.UserRepository;

@@ -3,10 +3,10 @@ package org.rbernalop.apiauthentication.securityuser.application.finder;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.rbernalop.apiauthentication.user.application.create.UserMother;
-import org.rbernalop.apiauthentication.user.application.finder.username.FindUserByUsernameQuery;
+import org.rbernalop.apiauthentication.user.domain.aggregate.UserMother;
+import org.rbernalop.apiauthentication.shared.application.userfinder.username.FindUserByUsernameQuery;
 import org.rbernalop.apiauthentication.user.application.finder.username.FindUserByUsernameQueryMother;
-import org.rbernalop.apiauthentication.user.application.finder.username.FindUserByUsernameResponse;
+import org.rbernalop.apiauthentication.shared.application.userfinder.username.FindUserByUsernameResponse;
 import org.rbernalop.apiauthentication.user.application.finder.username.FindUserByUsernameResponseMother;
 import org.rbernalop.apiauthentication.user.domain.aggregate.User;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
@@ -24,7 +24,7 @@ class SecurityUserFinderTest extends UnitTestCase {
     private SecurityUserFinder securityUserFinder;
 
     @Test
-    void willReturnUser_WhenUserExists() {
+    void should_find_user_and_return_credentials() {
         User user = UserMother.random();
         FindUserByUsernameQuery query = FindUserByUsernameQueryMother.fromUsername(user.getUsername());
         FindUserByUsernameResponse response = FindUserByUsernameResponseMother.fromUser(user);

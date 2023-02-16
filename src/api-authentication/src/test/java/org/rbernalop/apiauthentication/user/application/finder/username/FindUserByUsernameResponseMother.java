@@ -1,5 +1,6 @@
 package org.rbernalop.apiauthentication.user.application.finder.username;
 
+import org.rbernalop.apiauthentication.shared.application.userfinder.username.FindUserByUsernameResponse;
 import org.rbernalop.apiauthentication.user.domain.aggregate.User;
 
 public class FindUserByUsernameResponseMother {

@@ -1,7 +1,7 @@
 package org.rbernalop.apiauthentication.securityuser.application.finder;
 
-import org.rbernalop.apiauthentication.user.application.finder.username.FindUserByUsernameQuery;
-import org.rbernalop.apiauthentication.user.application.finder.username.FindUserByUsernameResponse;
+import org.rbernalop.apiauthentication.shared.application.userfinder.username.FindUserByUsernameQuery;
+import org.rbernalop.apiauthentication.shared.application.userfinder.username.FindUserByUsernameResponse;
 import org.rbernalop.apiauthentication.securityuser.domain.aggregate.SecurityUser;
 import org.rbernalop.shared.application.UseCase;
 import org.rbernalop.shared.domain.Service;

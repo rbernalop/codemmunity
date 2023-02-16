@@ -2,7 +2,7 @@ package org.rbernalop.apiauthentication.user.infrastructure.controller;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import org.rbernalop.apiauthentication.user.application.create.UserMother;
+import org.rbernalop.apiauthentication.user.domain.aggregate.UserMother;
 import org.rbernalop.apiauthentication.user.domain.aggregate.User;
 import org.rbernalop.apiauthentication.user.domain.port.UserRepository;
 import org.rbernalop.apiauthentication.user.domain.value_object.UserId;
