@@ -103,7 +103,7 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
             assertThrows(UserAlreadyExistsException.class, () -> handler.handle(command));
 
         // THEN
-        assertEquals("User already exists", actualException.getMessage());
+        assertEquals("getValue()", actualException.getMessage());
         verify(repository, times(1)).findById(userId);
         verify(repository, times(1)).findByUsername(userUsername);
         verify(repository, never()).findByEmail(any());

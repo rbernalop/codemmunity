@@ -3,7 +3,6 @@ package org.rbernalop.apiauthentication.user.infrastructure.controller;
 import lombok.Getter;
 import lombok.Setter;
 import org.rbernalop.apiauthentication.user.application.create.CreateUserCommand;
-import org.rbernalop.shared.domain.DomainException;
 import org.rbernalop.shared.domain.bus.command.CommandBus;
 import org.rbernalop.shared.domain.bus.command.CommandHandlerExecutionError;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
@@ -12,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 
 @RestController
 @RequestMapping("api/v1")
@@ -26,11 +24,6 @@ public final class UserPostController extends ApiController {
     public void createUser(@RequestBody UserPostRequest request) throws CommandHandlerExecutionError {
         CreateUserCommand command = request.toCommand();
         dispatch(command);
-    }
-
-    @Override
-    public HashMap<Class<? extends DomainException>, HttpStatus> errorMapping() {
-        return null;
     }
 }
 
