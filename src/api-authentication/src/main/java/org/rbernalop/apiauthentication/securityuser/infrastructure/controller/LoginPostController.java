@@ -23,7 +23,7 @@ public class LoginPostController extends ApiController {
     }
 
     @PostMapping("login")
-    public LoginResponse login(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
+    public LoginResponse handle(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
         LoginQueryResponse loginQueryResponse = ask(
             new LoginQuery(loginRequest.getUsername(), loginRequest.getPassword())
         );
