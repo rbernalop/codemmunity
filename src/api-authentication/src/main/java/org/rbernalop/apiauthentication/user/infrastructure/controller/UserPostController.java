@@ -21,7 +21,7 @@ public final class UserPostController extends ApiController {
 
     @PostMapping("user")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createUser(@RequestBody UserPostRequest request) throws CommandHandlerExecutionError {
+    public void handle(@RequestBody UserPostRequest request) throws CommandHandlerExecutionError {
         CreateUserCommand command = request.toCommand();
         dispatch(command);
     }
