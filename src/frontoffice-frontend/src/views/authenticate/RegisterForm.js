@@ -4,9 +4,7 @@ import register from "../../requests/authentication/register";
 import {errorNotification, infoNotification} from "../../utils/notification";
 import {checkAgeIsOver18, checkEmail, checkPasswordsMatch, checkRequiredField} from "../../utils/formValidators";
 
-const RegisterForm = ({setFormTab}) => {
-
-    const [form] = Form.useForm();
+const RegisterForm = ({form, setFormTab}) => {
 
     const handleOk = () => {
         form.validateFields()
@@ -14,7 +12,7 @@ const RegisterForm = ({setFormTab}) => {
                 values.id = generateUUID();
                 values.birthDate = values.birthDate.format('YYYY-MM-DD');
                 values.confirmPassword = undefined;
-                register(values).then(() => {
+                register(values).then(r => {
                     infoNotification('Register', 'You have successfully registered. Now you can log in.', 'topRight')
                     form.resetFields();
                     setFormTab('login');

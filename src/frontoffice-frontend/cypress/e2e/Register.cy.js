@@ -1,29 +1,23 @@
-import {HomePageObject} from "./page-objects/HomePageObject";
-import {RegisterTabObject} from "./page-objects/RegisterTabObject";
-import {randomUser} from "./object-mother/UserMother";
-import {LoginTabObject} from "./page-objects/LoginTabObject";
-import {tabActiveClass} from "./constants/cssClasses";
-
 describe('template spec', () => {
   beforeEach(() => {
-    cy.visit(Cypress.env('FRONTOFFICE_URL'))
+    cy.visit('http://localhost:3000')
   });
-
   it('Should have Welcome message', () => {
-    const homePage = new HomePageObject(cy)
-    const registerTab = new RegisterTabObject(cy)
-    const loginTab = new LoginTabObject(cy)
+    cy.get('h1[class="title"]').should('contain', 'Welcome to the')
+    cy.get('h1[class="title"]').should('contain', 'new programming experience')
 
-    const user = randomUser()
+    cy.get('button[id="register-btn"]').click()
+    cy.get('div[data-node-key="register"]').should('have.class', 'ant-tabs-tab-active')
+    cy.get('input[id="name"]').type('name')
+    cy.get('input[id="surname"]').type('surname')
+    cy.get('input[id="username"]').type('username2')
+    cy.get('input[id="email"]').type('email2@mail.com')
+    cy.get('input[id="password"]').type('password')
+    cy.get('input[id="confirmPassword"]').type('password')
+    cy.get('input[id="birthDate"]').click()
+    cy.get('input[id="birthDate"]').type('2000-01-01')
+    cy.get('button[type="submit"]').click()
 
-    const pageWelcomeMessage = homePage.getPageWelcomeMessage()
-    pageWelcomeMessage.should('contain', 'Welcome to the')
-    pageWelcomeMessage.should('contain', 'new programming experience')
-    homePage.openRegisterTab()
-
-    registerTab.getRegisterTab().should('have.class', tabActiveClass)
-    registerTab.makeRegistration(user.firstName, user.lastName, user.userName, user.email, user.password, user.birthDate)
-
-    loginTab.getLoginTab().should('have.class', tabActiveClass)
+    cy.get('div[data-node-key="login"]').should('have.class', 'ant-tabs-tab-active')
   })
 })

@@ -1,12 +1,12 @@
-import {Modal, Tabs} from "antd";
+import {Form, Modal, Tabs} from "antd";
 import RegisterForm from "./RegisterForm";
-import LoginForm from "./LoginForm";
 
 const Authenticate = ({formTab, setFormTab, showModal, setShowModal}) => {
+    const [form] = Form.useForm();
 
     const tabItems = [
-        {key: 'login', label: 'Login', children: <LoginForm />},
-        {key: 'register', label: 'Register', children: <RegisterForm setFormTab={setFormTab} />}
+        {key: 'login', label: 'Login', children: <></>},
+        {key: 'register', label: 'Register', children: <RegisterForm form={form} setFormTab={setFormTab} />}
     ];
 
 

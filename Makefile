@@ -12,6 +12,3 @@ run: clean
 	        cd ../..; \
 	    fi; \
 	done
-
-test: clean
-	mvn test
