@@ -3,10 +3,13 @@ import {generateUUID} from "../../utils/uuid";
 import register from "../../requests/authentication/register";
 import {errorNotification, infoNotification} from "../../utils/notification";
 import {checkAgeIsOver18, checkEmail, checkPasswordsMatch, checkRequiredField} from "../../utils/formValidators";
+import Captcha from "../../components/Captcha";
+import {useRef} from "react";
 
 const RegisterForm = ({setFormTab}) => {
 
     const [form] = Form.useForm();
+    const captchaRef = useRef();
 
     const handleOk = () => {
         form.validateFields()
@@ -14,6 +17,7 @@ const RegisterForm = ({setFormTab}) => {
                 values.id = generateUUID();
                 values.birthDate = values.birthDate.format('YYYY-MM-DD');
                 values.confirmPassword = undefined;
+                values.captchaToken = captchaRef.current.getValue();
                 register(values).then(() => {
                     infoNotification('Register', 'You have successfully registered. Now you can log in.', 'topRight')
                     form.resetFields();
@@ -63,7 +67,9 @@ const RegisterForm = ({setFormTab}) => {
                 <DatePicker />
             </Form.Item>
 
-            <Form.Item style={{textAlign: 'center'}}>
+            <Captcha />
+
+            <Form.Item style={{textAlign: 'center', marginTop: '20px'}}>
                 <Button type="primary" htmlType="submit" size={'large'}>
                     Register
                 </Button>
