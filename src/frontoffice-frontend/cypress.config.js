@@ -6,4 +6,7 @@ module.exports = defineConfig({
       // implement node event listeners here
     },
   },
+  env: {
+    FRONTOFFICE_URL: "http://localhost:3000",
+  }
 });
