@@ -7,8 +7,10 @@ import org.rbernalop.apiauthentication.shared.application.user.create.CreateUser
 import org.rbernalop.apiauthentication.shared.application.user.create.CreateUserCommandMother;
 import org.rbernalop.apiauthentication.user.domain.aggregate.User;
 import org.rbernalop.apiauthentication.user.domain.aggregate.UserMother;
+import org.rbernalop.apiauthentication.user.domain.exception.InvalidCaptchaException;
 import org.rbernalop.apiauthentication.user.domain.exception.InvalidUserDataException;
 import org.rbernalop.apiauthentication.user.domain.exception.UserAlreadyExistsException;
+import org.rbernalop.apiauthentication.user.domain.port.CaptchaVerifier;
 import org.rbernalop.apiauthentication.user.domain.port.UserRepository;
 import org.rbernalop.apiauthentication.user.domain.value_object.UserEmail;
 import org.rbernalop.apiauthentication.user.domain.value_object.UserId;
@@ -35,11 +37,14 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
     @Mock
     private PasswordEncoder passwordEncoder;
 
+    @Mock
+    private CaptchaVerifier captchaVerifier;
+
     private CreateUserCommandHandler handler;
 
     @BeforeEach
     void setUp() {
-        handler = new CreateUserCommandHandler(repository, queryBus, passwordEncoder);
+        handler = new CreateUserCommandHandler(repository, queryBus, passwordEncoder, captchaVerifier);
     }
 
     @Test
@@ -51,9 +56,11 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         UserUsername userUsername = new UserUsername(user.getUsername());
         UserEmail userEmail = new UserEmail(user.getEmail());
 
+        assert userId != null;
         when(repository.findById(userId)).thenReturn(Optional.empty());
         when(repository.findByUsername(userUsername)).thenReturn(Optional.empty());
         when(repository.findByEmail(userEmail)).thenReturn(Optional.empty());
+        when(captchaVerifier.verifyCaptcha(command.getCaptchaToken())).thenReturn(true);
         when(passwordEncoder.encode(user.getPassword())).thenReturn(user.getPassword());
         when(repository.save(user)).thenReturn(user);
 
@@ -64,6 +71,7 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         verify(repository, times(1)).findById(userId);
         verify(repository, times(1)).findByUsername(userUsername);
         verify(repository, times(1)).findByEmail(userEmail);
+        verify(captchaVerifier, times(1)).verifyCaptcha(command.getCaptchaToken());
         verify(passwordEncoder, times(1)).encode(user.getPassword());
         verify(repository, times(1)).save(user);
     }
@@ -75,6 +83,7 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         User user = UserMother.fromCommand(command);
         UserId userId = user.getId();
 
+        assert userId != null;
         when(repository.findById(userId)).thenReturn(Optional.of(user));
 
         // WHEN
@@ -86,6 +95,7 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         verify(repository, times(1)).findById(userId);
         verify(repository, never()).findByUsername(any());
         verify(repository, never()).findByEmail(any());
+        verify(captchaVerifier, never()).verifyCaptcha(any());
         verify(passwordEncoder, never()).encode(any());
         verify(repository, never()).save(any());
     }
@@ -111,6 +121,7 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         verify(repository, times(1)).findById(userId);
         verify(repository, times(1)).findByUsername(userUsername);
         verify(repository, never()).findByEmail(any());
+        verify(captchaVerifier, never()).verifyCaptcha(any());
         verify(passwordEncoder, never()).encode(any());
         verify(repository, never()).save(any());
     }
@@ -124,6 +135,7 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         UserUsername userUsername = new UserUsername(user.getUsername());
         UserEmail userEmail = new UserEmail(user.getEmail());
 
+        assert userId != null;
         when(repository.findById(userId)).thenReturn(Optional.empty());
         when(repository.findByUsername(userUsername)).thenReturn(Optional.empty());
         when(repository.findByEmail(userEmail)).thenReturn(Optional.of(user));
@@ -137,6 +149,7 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         verify(repository, times(1)).findById(userId);
         verify(repository, times(1)).findByUsername(userUsername);
         verify(repository, times(1)).findByEmail(userEmail);
+        verify(captchaVerifier, never()).verifyCaptcha(any());
         verify(passwordEncoder, never()).encode(any());
         verify(repository, never()).save(any());
     }
@@ -155,6 +168,7 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         verify(repository, never()).findById(any());
         verify(repository, never()).findByUsername(any());
         verify(repository, never()).findByEmail(any());
+        verify(captchaVerifier, never()).verifyCaptcha(any());
         verify(passwordEncoder, never()).encode(any());
         verify(repository, never()).save(any());
     }
@@ -173,6 +187,7 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         verify(repository, never()).findById(any());
         verify(repository, never()).findByUsername(any());
         verify(repository, never()).findByEmail(any());
+        verify(captchaVerifier, never()).verifyCaptcha(any());
         verify(passwordEncoder, never()).encode(any());
         verify(repository, never()).save(any());
     }
@@ -191,6 +206,7 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         verify(repository, never()).findById(any());
         verify(repository, never()).findByUsername(any());
         verify(repository, never()).findByEmail(any());
+        verify(captchaVerifier, never()).verifyCaptcha(any());
         verify(passwordEncoder, never()).encode(any());
         verify(repository, never()).save(any());
     }
@@ -209,6 +225,7 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         verify(repository, never()).findById(any());
         verify(repository, never()).findByUsername(any());
         verify(repository, never()).findByEmail(any());
+        verify(captchaVerifier, never()).verifyCaptcha(any());
         verify(passwordEncoder, never()).encode(any());
         verify(repository, never()).save(any());
     }
@@ -227,6 +244,7 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         verify(repository, never()).findById(any());
         verify(repository, never()).findByUsername(any());
         verify(repository, never()).findByEmail(any());
+        verify(captchaVerifier, never()).verifyCaptcha(any());
         verify(passwordEncoder, never()).encode(any());
         verify(repository, never()).save(any());
     }
@@ -245,6 +263,30 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
         verify(repository, never()).findById(any());
         verify(repository, never()).findByUsername(any());
         verify(repository, never()).findByEmail(any());
+        verify(captchaVerifier, never()).verifyCaptcha(any());
+        verify(passwordEncoder, never()).encode(any());
+        verify(repository, never()).save(any());
+    }
+
+    @Test
+        void should_throw_InvalidCaptchaException_when_captcha_is_invalid() {
+        // GIVEN
+        CreateUserCommand command = CreateUserCommandMother.random();
+        when(repository.findById(any())).thenReturn(Optional.empty());
+        when(repository.findByUsername(any())).thenReturn(Optional.empty());
+        when(repository.findByEmail(any())).thenReturn(Optional.empty());
+        when(captchaVerifier.verifyCaptcha(any())).thenThrow(new InvalidCaptchaException("Captcha verification failed"));
+
+        // WHEN
+        InvalidCaptchaException actualException =
+                assertThrows(InvalidCaptchaException.class, () -> handler.handle(command));
+
+        // THEN
+        assertEquals("Captcha verification failed", actualException.getMessage());
+        verify(repository, times(1)).findById(any());
+        verify(repository, times(1)).findByUsername(any());
+        verify(repository, times(1)).findByEmail(any());
+        verify(captchaVerifier, times(1)).verifyCaptcha(any());
         verify(passwordEncoder, never()).encode(any());
         verify(repository, never()).save(any());
     }

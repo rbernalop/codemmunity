@@ -17,7 +17,8 @@ public class CreateUserCommandMother {
                 faker.name().username(),
                 faker.internet().emailAddress(),
                 faker.internet().password(),
-                faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+                faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+                faker.lorem().characters(10)
         );
     }
 

@@ -20,4 +20,5 @@ public class CreateUserCommand implements Command {
     private String email;
     private String password;
     private LocalDate birthDate;
+    private String captchaToken;
 }
