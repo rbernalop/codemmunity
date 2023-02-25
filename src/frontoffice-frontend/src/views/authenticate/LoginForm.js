@@ -3,11 +3,14 @@ import {checkRequiredField} from "../../utils/formValidators";
 import login from "../../requests/authentication/login";
 import {errorNotification} from "../../utils/notification";
 
-const LoginForm = ({form}) => {
+const LoginForm = () => {
+
+    const [form] = Form.useForm();
 
     const handleOk = () => {
         form.validateFields()
             .then(values => {
+                console.log(values)
                 login(values).then(r => {
                     localStorage.setItem('token', r.headers.authorization);
                     localStorage.setItem('id', r.data.id);
@@ -17,23 +20,25 @@ const LoginForm = ({form}) => {
                 }).catch(e =>
                     errorNotification("Error while log in", e.response.data.message, "topRight")
                 );
-            }).catch(() => {});
+            }).catch(() =>
+                errorNotification("Error while log in", "Please fill all the fields", "topRight")
+        );
     };
 
     return (
         <Form form={form} onFinish={handleOk}>
             <Form.Item label="Username" name="username"
                 rules={[checkRequiredField('Please input your username!')]}>
-                <Input />
+                <Input id="username-login"/>
             </Form.Item>
 
             <Form.Item label="Password" name="password"
                 rules={[checkRequiredField('Please input your password!')]}>
-                <Input.Password />
+                <Input.Password id="password-login"/>
             </Form.Item>
 
             <Form.Item style={{textAlign: 'center'}}>
-                <Button type="primary" htmlType="submit" size={'large'}>
+                <Button type="primary" htmlType="submit" size={'large'} id="login-submit">
                     Login
                 </Button>
             </Form.Item>

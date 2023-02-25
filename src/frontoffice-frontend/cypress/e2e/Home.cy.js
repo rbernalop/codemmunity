@@ -1,9 +1,14 @@
+import {HomePageObject} from "./page-objects/HomePageObject";
+
 describe('template spec', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000')
+    cy.visit(Cypress.env('FRONTOFFICE_URL'))
   });
   it('Should have Welcome message', () => {
-    cy.get('h1[class="title"]').should('contain', 'Welcome to the')
-    cy.get('h1[class="title"]').should('contain', 'new programming experience')
+    const homePage = new HomePageObject(cy)
+
+    const pageWelcomeMessage = homePage.getPageWelcomeMessage()
+    pageWelcomeMessage.should('contain', 'Welcome to the')
+    pageWelcomeMessage.should('contain', 'new programming experience')
   })
 })

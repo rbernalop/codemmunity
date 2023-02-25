@@ -18,13 +18,13 @@ const Header = () => {
                 {
                     logedIn ?
                     <Col>
-                        <span style={{ color: 'white', marginRight: '10px' }}>
+                        <span style={{ color: 'white', marginRight: '10px' }} id="welcome-msg">
                             Welcome, {localStorage.getItem('username')}
                         </span>
                         <Button type="primary" onClick={() => {
                             localStorage.clear();
                             window.location.reload();
-                        }}>Logout</Button>
+                        }} id="logout-btn">Logout</Button>
                     </Col>
                         :
                     <Col>
