@@ -16,6 +16,7 @@ public class UserPostRequestMother {
         request.setEmail(faker.internet().emailAddress());
         request.setPassword(faker.internet().password());
         request.setBirthDate(faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        request.setCaptchaToken(faker.internet().password());
         return request;
     }
 
