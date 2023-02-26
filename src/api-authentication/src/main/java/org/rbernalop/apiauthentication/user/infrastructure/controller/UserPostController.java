@@ -37,6 +37,7 @@ class UserPostRequest {
     private String email;
     private String password;
     private LocalDate birthDate;
+    private String captchaToken;
 
     CreateUserCommand toCommand() {
         return new CreateUserCommand(
@@ -46,7 +47,8 @@ class UserPostRequest {
                 username,
                 email,
                 password,
-                birthDate
+                birthDate,
+                captchaToken
         );
     }
 }

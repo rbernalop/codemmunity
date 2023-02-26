@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.rbernalop.apiauthentication.securityuser.domain.exception.InvalidCredentialsException;
+import org.rbernalop.apiauthentication.user.domain.exception.InvalidCaptchaException;
 import org.rbernalop.apiauthentication.user.domain.exception.InvalidUserDataException;
 import org.rbernalop.apiauthentication.user.domain.exception.UserAlreadyExistsException;
 import org.rbernalop.apiauthentication.user.domain.exception.UserNotFoundException;
@@ -29,7 +30,7 @@ public class ApiAuthenticationExceptionHandler extends ResponseEntityExceptionHa
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler({InvalidUserDataException.class, InvalidIdException.class})
+    @ExceptionHandler({InvalidUserDataException.class, InvalidIdException.class, InvalidCaptchaException.class})
     public CustomError handleBadRequestExceptions(Exception ex) {
         return generateError(ex.getCause().getMessage(), HttpStatus.BAD_REQUEST);
     }

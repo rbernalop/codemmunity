@@ -1,7 +1,9 @@
 package org.rbernalop.apiauthentication.user.application.create;
 
 import org.rbernalop.apiauthentication.user.domain.aggregate.User;
+import org.rbernalop.apiauthentication.user.domain.exception.InvalidCaptchaException;
 import org.rbernalop.apiauthentication.user.domain.exception.UserAlreadyExistsException;
+import org.rbernalop.apiauthentication.user.domain.port.CaptchaVerifier;
 import org.rbernalop.apiauthentication.user.domain.port.UserRepository;
 import org.rbernalop.apiauthentication.user.domain.service.DomainUserSearcher;
 import org.rbernalop.apiauthentication.user.domain.value_object.*;
@@ -14,15 +16,18 @@ public class UserCreator extends UseCase {
     private final UserRepository userRepository;
 
     private final PasswordEncoder passwordEncoder;
+    private final CaptchaVerifier captchaVerifier;
 
-    public UserCreator(QueryBus queryBus, UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserCreator(QueryBus queryBus, UserRepository userRepository, PasswordEncoder passwordEncoder,
+                       CaptchaVerifier captchaVerifier) {
         super(queryBus);
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.captchaVerifier = captchaVerifier;
     }
 
     public void create(UserId id, UserName name, UserSurname surname, UserUsername username, UserEmail email,
-                       UserPassword password, UserBirthDate birthDate) {
+                       UserPassword password, UserBirthDate birthDate, String captchaToken) {
         DomainUserSearcher domainUserSearcher = new DomainUserSearcher(userRepository);
 
         if (domainUserSearcher.findById(id) != null) {
@@ -35,6 +40,10 @@ public class UserCreator extends UseCase {
 
         if (domainUserSearcher.findByEmail(email) != null) {
             throw new UserAlreadyExistsException("Email already exists");
+        }
+
+        if (!captchaVerifier.verifyCaptcha(captchaToken)) {
+            throw new InvalidCaptchaException("Captcha verification failed");
         }
 
         UserPasswordEncrypted passwordEncrypted = new UserPasswordEncrypted(passwordEncoder.encode(password.getValue()));

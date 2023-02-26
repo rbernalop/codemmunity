@@ -21,3 +21,5 @@ application:
     jwt:
         key: ${JWT_KEY:cSK8+%tbKMqT!bsj/@?6vu;AZY#mFCWeY_NbKk0%@*umud1O23#a0n_&S_XIkeE}
         expiration: ${JWT_EXPIRATION:86400000}
+    google:
+        secret: ${GOOGLE_CLIENT_SECRET}

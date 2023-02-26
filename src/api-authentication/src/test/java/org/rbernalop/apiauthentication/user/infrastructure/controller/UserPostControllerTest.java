@@ -6,18 +6,26 @@ import org.rbernalop.apiauthentication.user.domain.aggregate.UserMother;
 import org.rbernalop.apiauthentication.user.domain.aggregate.User;
 import org.rbernalop.apiauthentication.user.domain.port.UserRepository;
 import org.rbernalop.apiauthentication.user.domain.value_object.UserId;
+import org.rbernalop.apiauthentication.user.infrastructure.feign.GoogleCaptchaAPIClient;
+import org.rbernalop.apiauthentication.user.infrastructure.feign.GoogleCaptchaResponse;
 import org.rbernalop.shared.infrastructure.testing.IntegrationTestCase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 class UserPostControllerTest extends IntegrationTestCase {
 
     public static final String USER_POST_ENDPOINT = "/api/v1/user";
     @Autowired
     private UserRepository userRepository;
+
+    @MockBean
+    private GoogleCaptchaAPIClient googleCaptchaAPIClient;
 
     @AfterEach
     void tearDown() {
@@ -29,6 +37,9 @@ class UserPostControllerTest extends IntegrationTestCase {
         // GIVEN
         UserPostRequest request = UserPostRequestMother.random();
         UserId id = new UserId(request.getId());
+        GoogleCaptchaResponse googleCaptchaResponse = new GoogleCaptchaResponse();
+        googleCaptchaResponse.setSuccess(true);
+        when(googleCaptchaAPIClient.verifyCaptcha("example", request.getCaptchaToken())).thenReturn(googleCaptchaResponse);
 
         // WHEN
         assertDoesNotThrow(() -> assertRequestWithBody(
@@ -38,6 +49,7 @@ class UserPostControllerTest extends IntegrationTestCase {
             HttpStatus.CREATED));
 
         // THEN
+        verify(googleCaptchaAPIClient, times(1)).verifyCaptcha("example", request.getCaptchaToken());
         assertTrue(userRepository.findById(id).isPresent());
     }
 
@@ -54,6 +66,7 @@ class UserPostControllerTest extends IntegrationTestCase {
             HttpStatus.BAD_REQUEST));
 
         // THEN
+        verify(googleCaptchaAPIClient, never()).verifyCaptcha(any(), any());
         assertTrue(userRepository.findAll().isEmpty());
     }
 
@@ -73,6 +86,7 @@ class UserPostControllerTest extends IntegrationTestCase {
             HttpStatus.CONFLICT));
 
         // THEN
+        verify(googleCaptchaAPIClient, never()).verifyCaptcha(any(), any());
         assertTrue(userRepository.findById(id).isPresent());
         assertEquals(1, userRepository.findAll().size());
     }

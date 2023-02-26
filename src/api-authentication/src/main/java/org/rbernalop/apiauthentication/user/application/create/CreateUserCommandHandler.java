@@ -3,6 +3,7 @@ package org.rbernalop.apiauthentication.user.application.create;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.rbernalop.apiauthentication.shared.application.user.create.CreateUserCommand;
+import org.rbernalop.apiauthentication.user.domain.port.CaptchaVerifier;
 import org.rbernalop.apiauthentication.user.domain.port.UserRepository;
 import org.rbernalop.apiauthentication.user.domain.value_object.*;
 import org.rbernalop.shared.domain.Service;
@@ -17,6 +18,7 @@ public class CreateUserCommandHandler implements CommandHandler<CreateUserComman
     private final UserRepository userRepository;
     private final QueryBus queryBus;
     private final PasswordEncoder passwordEncoder;
+    private final CaptchaVerifier captchaVerifier;
 
     @Override
     public void handle(CreateUserCommand command) {
@@ -32,7 +34,7 @@ public class CreateUserCommandHandler implements CommandHandler<CreateUserComman
         UserPassword password = new UserPassword(command.getPassword());
         UserBirthDate birthDate = new UserBirthDate(command.getBirthDate());
 
-        UserCreator userCreator = new UserCreator(queryBus, userRepository, passwordEncoder);
-        userCreator.create(id, name, surname, username, email, password, birthDate);
+        UserCreator userCreator = new UserCreator(queryBus, userRepository, passwordEncoder, captchaVerifier);
+        userCreator.create(id, name, surname, username, email, password, birthDate, command.getCaptchaToken());
     }
 }
