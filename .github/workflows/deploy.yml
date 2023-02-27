@@ -29,7 +29,7 @@ jobs:
                   restore-keys: |
                       ${{ runner.os }}-maven-
             - name: Install shared dependencies
-              run: cd ./src/shared && mvn clean install -DskipTests && cd ../..
+              run: mvn clean install -DskipTests
             # UPLOAD TO DOCKERHUB
             - name: Docker Login
               if: success()
@@ -50,7 +50,7 @@ jobs:
                 for modified_context in $MODIFIED_CONTEXTS; do
                     echo "Building $modified_context"
                     cd src/"$modified_context" || exit
-                    mvn clean verify -P build-docker-image -DskipTests -Ddocker.username="${{ secrets.DOCKER_USERNAME }}"
+                    mvn clean verify -P push-docker-image -DskipTests -Ddocker.username="${{ secrets.DOCKER_USERNAME }}"
                     cd ../../
                 done
             # MESSAGES
