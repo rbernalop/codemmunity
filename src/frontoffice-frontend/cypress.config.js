@@ -8,5 +8,6 @@ module.exports = defineConfig({
   },
   env: {
     FRONTOFFICE_URL: "http://localhost:3000",
-  }
+  },
+  chromeWebSecurity: false,
 });
