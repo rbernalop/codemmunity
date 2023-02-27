@@ -4,7 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import lombok.AllArgsConstructor;
 import org.rbernalop.apiauthentication.securityuser.domain.port.TokenGenerator;
-import org.rbernalop.apiauthentication.securityuser.infrastructure.configuration.JwtConfiguration;
+import org.rbernalop.shared.infrastructure.configuration.JwtConfiguration;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Date;
