@@ -1,4 +1,4 @@
-package org.rbernalop.apiauthentication.securityuser.domain.aggregate;
+package org.rbernalop.shared.domain;
 
 
 import lombok.AllArgsConstructor;
@@ -12,6 +12,10 @@ public class SecurityUser implements UserDetails {
 
     private String username;
     private String password;
+
+    public SecurityUser(String username) {
+        this.username = username;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

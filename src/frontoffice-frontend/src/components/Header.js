@@ -28,7 +28,7 @@ const Header = () => {
                     </Col>
                         :
                     <Col>
-                        <Button type="primary" style={{ marginRight: '10px' }} onClick={() => {
+                        <Button id="login-btn" type="primary" style={{ marginRight: '10px' }} onClick={() => {
                             setFormTab('login');
                             setShowAuthModal(true)
                         }}>Login</Button>

@@ -16,6 +16,10 @@ export class HomePageObject {
         cy.get('button[id="register-btn"]').click()
     }
 
+    openLoginTab() {
+        cy.get('button[id="login-btn"]').click()
+    }
+
     logout() {
         cy.get('button[id="logout-btn"]').click()
     }

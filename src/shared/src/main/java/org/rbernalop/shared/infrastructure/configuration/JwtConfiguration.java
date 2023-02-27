@@ -1,4 +1,4 @@
-package org.rbernalop.apiauthentication.securityuser.infrastructure.configuration;
+package org.rbernalop.shared.infrastructure.configuration;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -20,7 +20,7 @@ describe('template spec', () => {
     const pageWelcomeMessage = homePage.getPageWelcomeMessage()
     pageWelcomeMessage.should('contain', 'Welcome to the')
     pageWelcomeMessage.should('contain', 'new programming experience')
-    homePage.openRegisterTab()
+    homePage.openLoginTab()
 
     loginTab.getLoginTab().should('have.class', tabActiveClass)
     loginTab.makeLogin(user.userName, user.password)
