@@ -1,0 +1,19 @@
+spring:
+    application:
+        name: api-script
+    datasource:
+        url: ${AUTHENTICATION_DB_URL:jdbc:postgresql://localhost:5432/scriptdb}
+        username: ${AUTHENTICATION_DB_USERNAME:postgres}
+        password: ${AUTHENTICATION_DB_PASSWORD:postgres}
+        driver-class-name: ${AUTHENTICATION_DB_DRIVER_CLASS_NAME:org.postgresql.Driver}
+    jpa:
+        hibernate:
+            ddl-auto: update
+server:
+    port: 8081
+eureka:
+    client:
+        service-url:
+            defaultZone: http://${EUREKA_SERVER_ADDRESS:localhost}:8761/eureka
+        fetch-registry: true
+        register-with-eureka: true

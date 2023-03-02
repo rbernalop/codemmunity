@@ -13,6 +13,7 @@
         <module>src/frontoffice-frontend</module>
         <module>src/shared</module>
         <module>src/api-authentication</module>
+        <module>src/api-script</module>
     </modules>
 
     <properties>
