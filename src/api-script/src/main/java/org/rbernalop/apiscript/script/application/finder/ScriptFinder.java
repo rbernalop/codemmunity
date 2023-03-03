@@ -6,7 +6,8 @@ import org.rbernalop.apiscript.script.domain.valueobject.UserId;
 import org.rbernalop.apiscript.shared.application.script.find.FindScriptsByUserIdResponse;
 import org.rbernalop.shared.application.UseCase;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
-import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 public class ScriptFinder extends UseCase {
     private final DomainScriptFinder domainScriptFinder;
@@ -17,7 +18,7 @@ public class ScriptFinder extends UseCase {
     }
 
     public FindScriptsByUserIdResponse findScriptsByUserId(UserId userId) {
-        Page<Script> scripts = domainScriptFinder.findScriptsByUserId(userId);
-        return new FindScriptsByUserIdResponse(scripts.getContent());
+        List<Script> scripts = domainScriptFinder.findScriptsByUserId(userId);
+        return new FindScriptsByUserIdResponse(scripts);
     }
 }
