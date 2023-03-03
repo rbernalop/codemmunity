@@ -21,7 +21,7 @@ public class UserFinder extends UseCase {
         User user = domainUserFinder.findByUsername(username);
         assert user.getId() != null;
         return new FindUserByUsernameResponse(
-            user.getId().getId(),
+            user.getId().getValue(),
             user.getUsername(),
             user.getEmail(),
             user.getPassword()

@@ -31,7 +31,7 @@ public class UserCreator extends UseCase {
         DomainUserSearcher domainUserSearcher = new DomainUserSearcher(userRepository);
 
         if (domainUserSearcher.findById(id) != null) {
-            throw new UserAlreadyExistsException("User with id " + id.getId() + " already exists");
+            throw new UserAlreadyExistsException("User with id " + id.getValue() + " already exists");
         }
 
         if (domainUserSearcher.findByUsername(username) != null) {
