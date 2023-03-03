@@ -49,7 +49,7 @@ class LoginPostControllerTest extends IntegrationTestCase {
         assertNotNull(result.getResponse().getHeader("Authorization"));
         LoginResponse response = objectMapper.readValue(result.getResponse().getContentAsString(), LoginResponse.class);
         assert user.getId() != null;
-        assertEquals(user.getId().getId(), response.getId());
+        assertEquals(user.getId().getValue(), response.getId());
         assertEquals(user.getUsername(), response.getUsername());
         assertEquals(user.getEmail(), response.getEmail());
     }
