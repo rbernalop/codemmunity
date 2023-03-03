@@ -2,6 +2,7 @@ package org.rbernalop.apiscript.script.application.finder;
 
 import org.rbernalop.apiscript.script.domain.aggregate.Script;
 import org.rbernalop.apiscript.script.domain.service.DomainScriptFinder;
+import org.rbernalop.apiscript.script.domain.valueobject.PaginationRequest;
 import org.rbernalop.apiscript.script.domain.valueobject.UserId;
 import org.rbernalop.apiscript.shared.application.script.find.FindScriptsByUserIdResponse;
 import org.rbernalop.shared.application.UseCase;
@@ -17,8 +18,8 @@ public class ScriptFinder extends UseCase {
         this.domainScriptFinder = domainScriptFinder;
     }
 
-    public FindScriptsByUserIdResponse findScriptsByUserId(UserId userId) {
-        List<Script> scripts = domainScriptFinder.findScriptsByUserId(userId);
+    public FindScriptsByUserIdResponse findScriptsByUserId(UserId userId, PaginationRequest paginationRequest) {
+        List<Script> scripts = domainScriptFinder.findScriptsByUserId(userId, paginationRequest);
         return new FindScriptsByUserIdResponse(scripts);
     }
 }

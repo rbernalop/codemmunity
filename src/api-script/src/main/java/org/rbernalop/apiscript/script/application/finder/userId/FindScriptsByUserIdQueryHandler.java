@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.rbernalop.apiscript.script.application.finder.ScriptFinder;
 import org.rbernalop.apiscript.script.domain.repository.ScriptRepository;
 import org.rbernalop.apiscript.script.domain.service.DomainScriptFinder;
+import org.rbernalop.apiscript.script.domain.valueobject.PaginationRequest;
 import org.rbernalop.apiscript.script.domain.valueobject.UserId;
 import org.rbernalop.apiscript.shared.application.script.find.FindScriptsByUserIdQuery;
 import org.rbernalop.apiscript.shared.application.script.find.FindScriptsByUserIdResponse;
@@ -25,6 +26,7 @@ public class FindScriptsByUserIdQueryHandler implements QueryHandler<FindScripts
     public FindScriptsByUserIdResponse handle(FindScriptsByUserIdQuery query) {
         log.info("Finding scripts by user id: {}", query.getUserId());
         UserId userId = new UserId(query.getUserId());
-        return scriptFinder.findScriptsByUserId(userId);
+        PaginationRequest paginationRequest = new PaginationRequest(query.getPage(), query.getSize());
+        return scriptFinder.findScriptsByUserId(userId, paginationRequest);
     }
 }
