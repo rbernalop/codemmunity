@@ -38,11 +38,11 @@ public class Script {
     }
 
     public String getId() {
-        return id.getId();
+        return id.getValue();
     }
 
     public String getOwnerId() {
-        return ownerId.getUserId();
+        return ownerId.getValue();
     }
 
     public String getName() {
@@ -54,6 +54,6 @@ public class Script {
     }
 
     public String getLanguageId() {
-        return languageId.getLanguageId();
+        return languageId.getValue();
     }
 }

@@ -9,7 +9,16 @@ import org.rbernalop.shared.domain.valueobject.Identifier;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class ScriptId extends Identifier {
-    public ScriptId(String value) {
-        super(value);
+
+    private String id;
+
+    public ScriptId(String id) {
+        super(id);
+        this.id = id;
+    }
+
+    @Override
+    public String getValue() {
+        return id;
     }
 }
