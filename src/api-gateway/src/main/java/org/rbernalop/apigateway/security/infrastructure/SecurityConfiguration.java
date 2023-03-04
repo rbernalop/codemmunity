@@ -30,6 +30,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.POST, "/api/v1/user").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/v1/login").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/v1/script").denyAll()
                 .and()
                 .authorizeHttpRequests()
                 .anyRequest().permitAll().and()
