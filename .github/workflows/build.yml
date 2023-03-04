@@ -15,7 +15,7 @@ jobs:
                 env:
                     POSTGRES_USER: postgres
                     POSTGRES_PASSWORD: postgres
-                    POSTGRES_DB: authenticationtestdb
+                    POSTGRES_DB: testdb
                 ports:
                     - 5432:5432
 
@@ -36,6 +36,17 @@ jobs:
             - name: Run tests
               id: runTests
               run: mvn clean test
+              env:
+                    AUTHENTICATION_DB_URL: jdbc:postgresql://localhost:5432/testdb
+                    AUTHENTICATION_DB_USERNAME: postgres
+                    AUTHENTICATION_DB_PASSWORD: postgres
+                    AUTHENTICATION_DB_DRIVER_CLASS_NAME: org.postgresql.Driver
+                    AUTHENTICATION_DB_DDL_AUTO: create-drop
+                    SCRIPT_DB_URL: jdbc:postgresql://localhost:5432/testdb
+                    SCRIPT_DB_USERNAME: postgres
+                    SCRIPT_DB_PASSWORD: postgres
+                    SCRIPT_DB_DRIVER_CLASS_NAME: org.postgresql.Driver
+                    SCRIPT_DB_DDL_AUTO: create-drop
             # MESSAGE
             -   name: Send OK Discord Message
                 uses: rjstone/discord-webhook-notify@v1
