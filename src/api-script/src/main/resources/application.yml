@@ -2,13 +2,13 @@ spring:
     application:
         name: api-script
     datasource:
-        url: ${AUTHENTICATION_DB_URL:jdbc:postgresql://localhost:5432/scriptdb}
-        username: ${AUTHENTICATION_DB_USERNAME:postgres}
-        password: ${AUTHENTICATION_DB_PASSWORD:postgres}
-        driver-class-name: ${AUTHENTICATION_DB_DRIVER_CLASS_NAME:org.postgresql.Driver}
+        url: ${SCRIPT_DB_URL:jdbc:postgresql://localhost:5432/scriptdb}
+        username: ${SCRIPT_DB_USERNAME:postgres}
+        password: ${SCRIPT_DB_PASSWORD:postgres}
+        driver-class-name: ${SCRIPT_DB_DRIVER_CLASS_NAME:org.postgresql.Driver}
     jpa:
         hibernate:
-            ddl-auto: update
+            ddl-auto: ${SCRIPT_DB_DDL_AUTO:update}
 server:
     port: 8081
 eureka:
