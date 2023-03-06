@@ -10,12 +10,9 @@ import java.util.UUID;
 @NoArgsConstructor
 @MappedSuperclass
 public abstract class Identifier implements Serializable {
-    protected String id;
 
     public Identifier(String id) {
         ensureValidUuid(id);
-
-        this.id = id;
     }
 
     private void ensureValidUuid(String value) throws InvalidIdException {
@@ -26,8 +23,6 @@ public abstract class Identifier implements Serializable {
         }
     }
 
-    public String getId() {
-        return id;
-    }
+    public abstract String getValue();
 }
 

@@ -1,4 +1,4 @@
-package org.rbernalop.apiauthentication.user.domain.value_object;
+package org.rbernalop.apiscript.script.domain.valueobject;
 
 import jakarta.persistence.Embeddable;
 import lombok.EqualsAndHashCode;
@@ -8,13 +8,13 @@ import org.rbernalop.shared.domain.valueobject.Identifier;
 @Embeddable
 @NoArgsConstructor
 @EqualsAndHashCode
-public class UserId extends Identifier {
+public class ScriptId extends Identifier {
 
     private String id;
 
-    public UserId(String value) {
-        super(value);
-        this.id = value;
+    public ScriptId(String id) {
+        super(id);
+        this.id = id;
     }
 
     @Override
