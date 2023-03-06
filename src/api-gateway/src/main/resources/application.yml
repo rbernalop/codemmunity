@@ -12,6 +12,8 @@ spring:
                   uri: lb://api-script
                   predicates:
                     - Path=/api/v1/script
+                  filters:
+                    - AuthorizedFilter
     main:
         allow-bean-definition-overriding: true
 server:
