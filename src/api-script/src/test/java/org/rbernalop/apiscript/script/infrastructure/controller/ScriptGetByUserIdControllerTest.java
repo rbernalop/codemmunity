@@ -38,10 +38,9 @@ class ScriptGetByUserIdControllerTest extends IntegrationTestCase {
 
         // WHEN
         MvcResult result =
-            assertDoesNotThrow(() -> assertRequestWithBody(
+            assertDoesNotThrow(() -> assertRequest(
                 HttpMethod.GET,
-                SCRIPT_GET_BY_USER_ID_ENDPOINT,
-                request,
+                SCRIPT_GET_BY_USER_ID_ENDPOINT + "?page=" + request.getPage() + "&size=" + request.getSize() + "&userId=" + request.getOwnerId(),
                 HttpStatus.OK));
 
         // THEN
@@ -56,10 +55,9 @@ class ScriptGetByUserIdControllerTest extends IntegrationTestCase {
         ScriptsGetByUserIdRequest request = ScriptsGetByUserIdRequestMother.randomForUserId("invalid");
 
         // WHEN
-        assertDoesNotThrow(() -> assertRequestWithBody(
+        assertDoesNotThrow(() -> assertRequest(
             HttpMethod.GET,
-            SCRIPT_GET_BY_USER_ID_ENDPOINT,
-            request,
+            SCRIPT_GET_BY_USER_ID_ENDPOINT + "?page=" + request.getPage() + "&size=" + request.getSize() + "&userId=" + request.getOwnerId(),
             HttpStatus.BAD_REQUEST));
 
         // THEN
@@ -71,10 +69,9 @@ class ScriptGetByUserIdControllerTest extends IntegrationTestCase {
         ScriptsGetByUserIdRequest request = ScriptsGetByUserIdRequestMother.withNegativePage();
 
         // WHEN
-        assertDoesNotThrow(() -> assertRequestWithBody(
+        assertDoesNotThrow(() -> assertRequest(
             HttpMethod.GET,
-            SCRIPT_GET_BY_USER_ID_ENDPOINT,
-            request,
+            SCRIPT_GET_BY_USER_ID_ENDPOINT + "?page=" + request.getPage() + "&size=" + request.getSize() + "&userId=" + request.getOwnerId(),
             HttpStatus.BAD_REQUEST));
 
         // THEN
