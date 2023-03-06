@@ -11,7 +11,7 @@ const PageSections = () => {
     const navigator = useNavigate();
     const sections = [
         {title: "Compiler", description: "Programming sandbox for learning and testing with your friends.",
-            link: "/compiler", Icon: CodeOutlined},
+            link: "/script", Icon: CodeOutlined},
         {title: "Challenges", description: "Try programming challenges to improve your programming skills.",
             link: "/challenges", Icon: UserOutlined},
         {title: "Tournaments", description: "Join our tournaments and compete against other programmers to see who's the best.",
