@@ -4,6 +4,7 @@ import React from "react";
 import PageSection from "./PageSection";
 import {useNavigate} from "react-router-dom";
 import './styles/page-sections.css';
+import {CHALLENGES_PAGE, SCRIPTS_PAGE, TOURNAMENTS_PAGE} from "../../constants/routes";
 
 const sectionsRowStyle = { marginLeft: '200px', marginRight: '200px', borderRadius: '100%' };
 
@@ -11,11 +12,11 @@ const PageSections = () => {
     const navigator = useNavigate();
     const sections = [
         {title: "Compiler", description: "Programming sandbox for learning and testing with your friends.",
-            link: "/script", Icon: CodeOutlined},
+            link: SCRIPTS_PAGE.route, Icon: CodeOutlined},
         {title: "Challenges", description: "Try programming challenges to improve your programming skills.",
-            link: "/challenges", Icon: UserOutlined},
+            link: CHALLENGES_PAGE.route, Icon: UserOutlined},
         {title: "Tournaments", description: "Join our tournaments and compete against other programmers to see who's the best.",
-            link: "/tournaments", Icon: TrophyOutlined}
+            link: TOURNAMENTS_PAGE.route, Icon: TrophyOutlined}
     ];
 
     return (
