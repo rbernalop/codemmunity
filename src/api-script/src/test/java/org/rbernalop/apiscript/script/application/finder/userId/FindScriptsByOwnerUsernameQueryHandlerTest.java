@@ -10,7 +10,6 @@ import org.rbernalop.apiscript.script.domain.valueobject.OwnerUsername;
 import org.rbernalop.apiscript.shared.application.script.find.FindScriptsByUserIdQuery;
 import org.rbernalop.apiscript.shared.application.script.find.FindScriptsByUserIdQueryMother;
 import org.rbernalop.apiscript.shared.domain.exception.NegativeException;
-import org.rbernalop.shared.domain.InvalidIdException;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.infrastructure.testing.UnitTestCase;
 import org.springframework.data.domain.PageRequest;
@@ -52,16 +51,6 @@ class FindScriptsByOwnerUsernameQueryHandlerTest extends UnitTestCase {
         assertEquals(script.getShareKey(), response.getScriptsResponses().get(0).getShareKey());
 
         verify(scriptRepository, times(1)).findByOwnerUsername(new OwnerUsername(userId), PageRequest.of(query.getPage(), query.getSize()));
-    }
-
-    @Test
-    void should_throw_InvalidIdException_when_user_id_is_not_uuid() {
-        FindScriptsByUserIdQuery query = FindScriptsByUserIdQueryMother.randomFromUserId("invalid");
-
-        InvalidIdException exception = assertThrows(InvalidIdException.class, () -> handler.handle(query));
-
-        assertEquals("Invalid id format '" + query.getOwnerUsername() + "'", exception.getMessage());
-        verify(scriptRepository, never()).findByOwnerUsername(any(), any());
     }
 
     @Test

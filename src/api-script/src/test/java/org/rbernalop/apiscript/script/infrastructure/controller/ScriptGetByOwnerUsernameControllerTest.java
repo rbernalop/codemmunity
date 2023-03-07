@@ -40,27 +40,13 @@ class ScriptGetByOwnerUsernameControllerTest extends IntegrationTestCase {
         MvcResult result =
             assertDoesNotThrow(() -> assertRequest(
                 HttpMethod.GET,
-                SCRIPT_GET_BY_USER_ID_ENDPOINT + "?page=" + request.getPage() + "&size=" + request.getSize() + "&userId=" + request.getOwnerId(),
+                SCRIPT_GET_BY_USER_ID_ENDPOINT + "?page=" + request.getPage() + "&size=" + request.getSize() + "&user=" + request.getOwnerId(),
                 HttpStatus.OK));
 
         // THEN
         ScriptsGetByUserIdResponse response = objectMapper.readValue(result.getResponse().getContentAsString(), ScriptsGetByUserIdResponse.class);
         assertEquals(1, response.getScriptsResponses().size());
         assertEquals(script.getId(), response.getScriptsResponses().get(0).getId());
-    }
-
-    @Test
-    void should_return_bad_request_when_id_is_invalid() {
-        // GIVEN
-        ScriptsGetByUserIdRequest request = ScriptsGetByUserIdRequestMother.randomForUserId("invalid");
-
-        // WHEN
-        assertDoesNotThrow(() -> assertRequest(
-            HttpMethod.GET,
-            SCRIPT_GET_BY_USER_ID_ENDPOINT + "?page=" + request.getPage() + "&size=" + request.getSize() + "&userId=" + request.getOwnerId(),
-            HttpStatus.BAD_REQUEST));
-
-        // THEN
     }
 
     @Test
@@ -71,7 +57,7 @@ class ScriptGetByOwnerUsernameControllerTest extends IntegrationTestCase {
         // WHEN
         assertDoesNotThrow(() -> assertRequest(
             HttpMethod.GET,
-            SCRIPT_GET_BY_USER_ID_ENDPOINT + "?page=" + request.getPage() + "&size=" + request.getSize() + "&userId=" + request.getOwnerId(),
+            SCRIPT_GET_BY_USER_ID_ENDPOINT + "?page=" + request.getPage() + "&size=" + request.getSize() + "&user=" + request.getOwnerId(),
             HttpStatus.BAD_REQUEST));
 
         // THEN
