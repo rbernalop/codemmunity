@@ -18,7 +18,7 @@ public class Script {
     private ScriptId id;
 
     @Embedded
-    private UserId ownerId;
+    private OwnerUsername ownerUsername;
 
     @Embedded
     private ScriptName name;
@@ -29,9 +29,9 @@ public class Script {
     @Embedded
     private ScriptLanguageId languageId;
 
-    public Script(ScriptId id, UserId ownerId, ScriptName name, ShareKey shareKey, ScriptLanguageId languageId) {
+    public Script(ScriptId id, OwnerUsername ownerUsername, ScriptName name, ShareKey shareKey, ScriptLanguageId languageId) {
         this.id = id;
-        this.ownerId = ownerId;
+        this.ownerUsername = ownerUsername;
         this.name = name;
         this.shareKey = shareKey;
         this.languageId = languageId;
@@ -41,8 +41,8 @@ public class Script {
         return id.getValue();
     }
 
-    public String getOwnerId() {
-        return ownerId.getValue();
+    public String getOwnerName() {
+        return ownerUsername.getValue();
     }
 
     public String getName() {

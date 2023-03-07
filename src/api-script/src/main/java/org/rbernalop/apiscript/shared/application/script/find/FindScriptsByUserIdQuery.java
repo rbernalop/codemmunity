@@ -11,7 +11,7 @@ import org.rbernalop.shared.domain.bus.query.Query;
 @Setter
 @ToString
 public class FindScriptsByUserIdQuery implements Query {
-    private String userId;
+    private String ownerUsername;
     private int page;
     private int size;
 }

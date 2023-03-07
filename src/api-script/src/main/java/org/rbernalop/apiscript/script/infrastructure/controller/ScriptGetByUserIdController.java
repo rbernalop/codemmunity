@@ -22,9 +22,9 @@ public class ScriptGetByUserIdController extends ApiController {
     }
 
     @GetMapping("script")
-    public ScriptsGetByUserIdResponse handle(@RequestParam("userId") String userId,
+    public ScriptsGetByUserIdResponse handle(@RequestParam("user") String userName,
             @RequestParam("page") int page, @RequestParam("size") int size) {
-        FindScriptsByUserIdQuery query = new FindScriptsByUserIdQuery(userId, page, size);
+        FindScriptsByUserIdQuery query = new FindScriptsByUserIdQuery(userName, page, size);
         FindScriptsByUserIdResponse findScriptsByUserIdResponse = ask(query);
         return new ScriptsGetByUserIdResponse(findScriptsByUserIdResponse.scriptsResponses);
     }

@@ -6,11 +6,10 @@ import org.mockito.Mock;
 import org.rbernalop.apiscript.script.domain.aggregate.Script;
 import org.rbernalop.apiscript.script.domain.aggregate.ScriptMother;
 import org.rbernalop.apiscript.script.domain.repository.ScriptRepository;
-import org.rbernalop.apiscript.script.domain.valueobject.UserId;
+import org.rbernalop.apiscript.script.domain.valueobject.OwnerUsername;
 import org.rbernalop.apiscript.shared.application.script.find.FindScriptsByUserIdQuery;
 import org.rbernalop.apiscript.shared.application.script.find.FindScriptsByUserIdQueryMother;
 import org.rbernalop.apiscript.shared.domain.exception.NegativeException;
-import org.rbernalop.shared.domain.InvalidIdException;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.infrastructure.testing.UnitTestCase;
 import org.springframework.data.domain.PageRequest;
@@ -20,7 +19,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class FindScriptsByUserIdQueryHandlerTest extends UnitTestCase {
+class FindScriptsByOwnerUsernameQueryHandlerTest extends UnitTestCase {
 
     @Mock
     private ScriptRepository scriptRepository;
@@ -37,31 +36,21 @@ class FindScriptsByUserIdQueryHandlerTest extends UnitTestCase {
     @Test
     void should_find_scripts_by_user_id() {
         Script script = ScriptMother.random();
-        String userId = script.getOwnerId();
+        String userId = script.getOwnerName();
 
         FindScriptsByUserIdQuery query = FindScriptsByUserIdQueryMother.randomFromUserId(userId);
 
-        when(scriptRepository.findByOwnerId(new UserId(userId), PageRequest.of(query.getPage(), query.getSize()))).thenReturn(List.of(script));
+        when(scriptRepository.findByOwnerUsername(new OwnerUsername(userId), PageRequest.of(query.getPage(), query.getSize()))).thenReturn(List.of(script));
 
         var response = handler.handle(query);
 
         assertEquals(script.getId(), response.getScriptsResponses().get(0).getId());
         assertEquals(script.getName(), response.getScriptsResponses().get(0).getName());
-        assertEquals(script.getOwnerId(), response.getScriptsResponses().get(0).getOwnerId());
+        assertEquals(script.getOwnerName(), response.getScriptsResponses().get(0).getOwnerId());
         assertEquals(script.getLanguageId(), response.getScriptsResponses().get(0).getLanguageId());
         assertEquals(script.getShareKey(), response.getScriptsResponses().get(0).getShareKey());
 
-        verify(scriptRepository, times(1)).findByOwnerId(new UserId(userId), PageRequest.of(query.getPage(), query.getSize()));
-    }
-
-    @Test
-    void should_throw_InvalidIdException_when_user_id_is_not_uuid() {
-        FindScriptsByUserIdQuery query = FindScriptsByUserIdQueryMother.randomFromUserId("invalid");
-
-        InvalidIdException exception = assertThrows(InvalidIdException.class, () -> handler.handle(query));
-
-        assertEquals("Invalid id format '" + query.getUserId() + "'", exception.getMessage());
-        verify(scriptRepository, never()).findByOwnerId(any(), any());
+        verify(scriptRepository, times(1)).findByOwnerUsername(new OwnerUsername(userId), PageRequest.of(query.getPage(), query.getSize()));
     }
 
     @Test
@@ -71,7 +60,7 @@ class FindScriptsByUserIdQueryHandlerTest extends UnitTestCase {
         NegativeException exception = assertThrows(NegativeException.class, () -> handler.handle(query));
 
         assertEquals("Page must be greater than 0", exception.getMessage());
-        verify(scriptRepository, never()).findByOwnerId(any(), any());
+        verify(scriptRepository, never()).findByOwnerUsername(any(), any());
     }
 
     @Test
@@ -81,6 +70,6 @@ class FindScriptsByUserIdQueryHandlerTest extends UnitTestCase {
         NegativeException exception = assertThrows(NegativeException.class, () -> handler.handle(query));
 
         assertEquals("Size must be greater than 0", exception.getMessage());
-        verify(scriptRepository, never()).findByOwnerId(any(), any());
+        verify(scriptRepository, never()).findByOwnerUsername(any(), any());
     }
 }

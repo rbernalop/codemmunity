@@ -17,7 +17,7 @@ import java.io.UnsupportedEncodingException;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ScriptGetByUserIdControllerTest extends IntegrationTestCase {
+class ScriptGetByOwnerUsernameControllerTest extends IntegrationTestCase {
 
     public static final String SCRIPT_GET_BY_USER_ID_ENDPOINT = "/api/v1/script";
 
@@ -34,33 +34,19 @@ class ScriptGetByUserIdControllerTest extends IntegrationTestCase {
         // GIVEN
         Script script = ScriptMother.random();
         scriptRepository.save(script);
-        ScriptsGetByUserIdRequest request = ScriptsGetByUserIdRequestMother.randomForUserId(script.getOwnerId());
+        ScriptsGetByUserIdRequest request = ScriptsGetByUserIdRequestMother.randomForUserId(script.getOwnerName());
 
         // WHEN
         MvcResult result =
             assertDoesNotThrow(() -> assertRequest(
                 HttpMethod.GET,
-                SCRIPT_GET_BY_USER_ID_ENDPOINT + "?page=" + request.getPage() + "&size=" + request.getSize() + "&userId=" + request.getOwnerId(),
+                SCRIPT_GET_BY_USER_ID_ENDPOINT + "?page=" + request.getPage() + "&size=" + request.getSize() + "&user=" + request.getOwnerId(),
                 HttpStatus.OK));
 
         // THEN
         ScriptsGetByUserIdResponse response = objectMapper.readValue(result.getResponse().getContentAsString(), ScriptsGetByUserIdResponse.class);
         assertEquals(1, response.getScriptsResponses().size());
         assertEquals(script.getId(), response.getScriptsResponses().get(0).getId());
-    }
-
-    @Test
-    void should_return_bad_request_when_id_is_invalid() {
-        // GIVEN
-        ScriptsGetByUserIdRequest request = ScriptsGetByUserIdRequestMother.randomForUserId("invalid");
-
-        // WHEN
-        assertDoesNotThrow(() -> assertRequest(
-            HttpMethod.GET,
-            SCRIPT_GET_BY_USER_ID_ENDPOINT + "?page=" + request.getPage() + "&size=" + request.getSize() + "&userId=" + request.getOwnerId(),
-            HttpStatus.BAD_REQUEST));
-
-        // THEN
     }
 
     @Test
@@ -71,7 +57,7 @@ class ScriptGetByUserIdControllerTest extends IntegrationTestCase {
         // WHEN
         assertDoesNotThrow(() -> assertRequest(
             HttpMethod.GET,
-            SCRIPT_GET_BY_USER_ID_ENDPOINT + "?page=" + request.getPage() + "&size=" + request.getSize() + "&userId=" + request.getOwnerId(),
+            SCRIPT_GET_BY_USER_ID_ENDPOINT + "?page=" + request.getPage() + "&size=" + request.getSize() + "&user=" + request.getOwnerId(),
             HttpStatus.BAD_REQUEST));
 
         // THEN
