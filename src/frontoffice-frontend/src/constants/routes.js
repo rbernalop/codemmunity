@@ -1,7 +1,7 @@
 
 export const HOME_PAGE = {route: "/"}
 
-export const SCRIPTS_PAGE = {route: "/script/:section"}
+export const SCRIPTS_PAGE = {route: "/script"}
 
 export const SCRIPT_PAGE = {route: "/script/:id"}
 

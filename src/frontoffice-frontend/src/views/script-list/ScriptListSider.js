@@ -3,10 +3,10 @@ import {Button, Menu} from "antd";
 import {MY_SCRIPTS_SECTION} from "../../constants/scriptsSections";
 import {SCRIPTS_PAGE} from "../../constants/routes";
 
-const ScriptListSider =  ({selectedKey, retrieveScripts}) => {
+const ScriptListSider =  ({selectedKey}) => {
     const sections = [MY_SCRIPTS_SECTION];
     const selectKey = ({key}) => {
-        window.location.href = SCRIPTS_PAGE.route.replace(":section", key)
+        window.location.href = SCRIPTS_PAGE.route + "?section=" + key;
     }
 
     const createAndOpenScript = () => {

@@ -6,15 +6,18 @@ import {MY_SCRIPTS_SECTION} from "../../constants/scriptsSections";
 import NotFound from "../not-found";
 import findUserScripts from "../../requests/scripts/findUserScripts";
 import {errorNotification} from "../../utils/notification";
+import {useSearchParams} from "react-router-dom";
 
 const ScriptList = () => {
     const [scripts, setSripts] = useState([])
-
-    const [section, setSection] = useState(window.location.href.split("/").pop())
+    const [searchParams] = useSearchParams();
+    const [section, setSection] = useState(
+        searchParams.get("section")
+    )
 
     const retrieveScripts = (page, size) => {
         findUserScripts(page, size).then(r =>
-            console.log(r)
+            setSripts(r.data.scriptsResponses)
         ).catch(e =>
             errorNotification("Error retrieving scripts", e.response.data.message || "Try again later",
             "topRight")
@@ -28,7 +31,7 @@ const ScriptList = () => {
     return (
         <Row>
             <Col span={2}>
-                <ScriptListSider selectedKey={section} setSelectedKey={setSection} retrieveScripts={retrieveScripts} />
+                <ScriptListSider selectedKey={section} setSelectedKey={setSection}  />
             </Col>
 
             {section === MY_SCRIPTS_SECTION.key &&
