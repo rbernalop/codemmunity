@@ -7,9 +7,12 @@ import NotFound from "../not-found";
 import findUserScripts from "../../requests/scripts/findUserScripts";
 import {errorNotification} from "../../utils/notification";
 import {useSearchParams} from "react-router-dom";
+import Authenticate from "../authenticate";
 
 const ScriptList = () => {
     const [scripts, setSripts] = useState([])
+    const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem("token") !== null)
+    const [formTab, setFormTab] = useState("login")
     const [searchParams] = useSearchParams();
     const [section, setSection] = useState(
         searchParams.get("section")
@@ -20,13 +23,22 @@ const ScriptList = () => {
             setSripts(r.data.scriptsResponses)
         ).catch(e =>
             errorNotification("Error retrieving scripts", e.response.data.message || "Try again later",
-            "topRight")
+                "topRight")
         )
     }
 
     useEffect(() => {
-        retrieveScripts(0, 102)
-    }, [])
+        if(isAuthenticated)
+            retrieveScripts(0, 102)
+    }, [isAuthenticated])
+
+
+    if(!isAuthenticated) {
+        return(
+            <Authenticate showModal={!isAuthenticated} setShowModal={setIsAuthenticated} formTab={formTab} setFormTab={setFormTab} />
+        )
+    }
+
 
     return (
         <Row>

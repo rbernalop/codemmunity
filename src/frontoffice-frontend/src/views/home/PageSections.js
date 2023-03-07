@@ -12,7 +12,8 @@ const sectionsRowStyle = { marginLeft: '200px', marginRight: '200px', borderRadi
 const PageSections = () => {
     const navigator = useNavigate();
     const sections = [
-        {title: "Compiler", description: "Programming sandbox for learning and testing with your friends.",
+        {title: "Compiler", description: "Create an script to use the programming sandbox for learning " +
+                " and testing with your friends.",
             link: SCRIPTS_PAGE.route + "?section=" + MY_SCRIPTS_SECTION.key, Icon: CodeOutlined},
         {title: "Challenges", description: "Try programming challenges to improve your programming skills.",
             link: CHALLENGES_PAGE.route, Icon: UserOutlined},
@@ -25,7 +26,7 @@ const PageSections = () => {
             {
                 sections.map((section, index) => (
                     <Col key={index} span={24 / sections.length} style={{display: 'flex'}}>
-                        <Card className={'page-section'} onClick={() => navigator(section.link)}>
+                        <Card className={'page-section'} onClick={() => navigator(section.link)} id={'page-section-' + section.title.toLowerCase()}>
                             <PageSection {...section} />
                         </Card>
                     </Col>
