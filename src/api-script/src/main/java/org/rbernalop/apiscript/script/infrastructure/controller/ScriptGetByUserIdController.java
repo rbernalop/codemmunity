@@ -3,7 +3,6 @@ package org.rbernalop.apiscript.script.infrastructure.controller;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.rbernalop.apiscript.shared.application.script.find.FindScriptsByUserIdQuery;
 import org.rbernalop.apiscript.shared.application.script.find.FindScriptsByUserIdResponse;
 import org.rbernalop.apiscript.shared.application.script.find.ScriptResponse;
@@ -23,21 +22,12 @@ public class ScriptGetByUserIdController extends ApiController {
     }
 
     @GetMapping("script")
-    public ScriptsGetByUserIdResponse handle(@RequestBody ScriptsGetByUserIdRequest request) {
-        FindScriptsByUserIdQuery query = new FindScriptsByUserIdQuery(request.getUserId(), request.getPage(), request.getSize());
+    public ScriptsGetByUserIdResponse handle(@RequestParam("user") String userName,
+            @RequestParam("page") int page, @RequestParam("size") int size) {
+        FindScriptsByUserIdQuery query = new FindScriptsByUserIdQuery(userName, page, size);
         FindScriptsByUserIdResponse findScriptsByUserIdResponse = ask(query);
         return new ScriptsGetByUserIdResponse(findScriptsByUserIdResponse.scriptsResponses);
     }
-}
-
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-class ScriptsGetByUserIdRequest {
-    private int page;
-    private int size;
-    private String userId;
 }
 
 

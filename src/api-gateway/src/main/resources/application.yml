@@ -7,8 +7,13 @@ spring:
                 - id: api-authentication
                   uri: lb://api-authentication
                   predicates:
-                    - Path=/api/v1/user/**
-                    - Path=/api/v1/login
+                    - Path=/api/v1/login,/api/v1/user
+                - id: api-script
+                  uri: lb://api-script
+                  predicates:
+                    - Path=/api/v1/script
+                  filters:
+                    - AuthorizedFilter
     main:
         allow-bean-definition-overriding: true
 server:
