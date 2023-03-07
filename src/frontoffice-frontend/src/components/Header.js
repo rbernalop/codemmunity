@@ -12,7 +12,7 @@ const Header = () => {
             <Row justify="space-between">
                 <Col>
                     <Link to="/">
-                        <img src="logo.png" alt="Logo" style={{ height: '20px', margin: '20px 0px' }} />
+                        <img src="/logo.png" alt="Logo" style={{ height: '20px', margin: '20px 0px' }} />
                     </Link>
                 </Col>
                 {
