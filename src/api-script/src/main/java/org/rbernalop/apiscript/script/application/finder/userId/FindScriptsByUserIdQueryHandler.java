@@ -5,7 +5,7 @@ import org.rbernalop.apiscript.script.application.finder.ScriptFinder;
 import org.rbernalop.apiscript.script.domain.repository.ScriptRepository;
 import org.rbernalop.apiscript.script.domain.service.DomainScriptFinder;
 import org.rbernalop.apiscript.script.domain.valueobject.PaginationRequest;
-import org.rbernalop.apiscript.script.domain.valueobject.UserId;
+import org.rbernalop.apiscript.script.domain.valueobject.OwnerUsername;
 import org.rbernalop.apiscript.shared.application.script.find.FindScriptsByUserIdQuery;
 import org.rbernalop.apiscript.shared.application.script.find.FindScriptsByUserIdResponse;
 import org.rbernalop.shared.domain.Service;
@@ -24,9 +24,9 @@ public class FindScriptsByUserIdQueryHandler implements QueryHandler<FindScripts
 
     @Override
     public FindScriptsByUserIdResponse handle(FindScriptsByUserIdQuery query) {
-        log.info("Finding scripts by user id: {}", query.getUserId());
-        UserId userId = new UserId(query.getUserId());
+        log.info("Finding scripts by user id: {}", query.getOwnerUsername());
+        OwnerUsername ownerUsername = new OwnerUsername(query.getOwnerUsername());
         PaginationRequest paginationRequest = new PaginationRequest(query.getPage(), query.getSize());
-        return scriptFinder.findScriptsByUserId(userId, paginationRequest);
+        return scriptFinder.findScriptsByUserId(ownerUsername, paginationRequest);
     }
 }

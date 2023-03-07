@@ -17,7 +17,7 @@ import java.io.UnsupportedEncodingException;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ScriptGetByUserIdControllerTest extends IntegrationTestCase {
+class ScriptGetByOwnerUsernameControllerTest extends IntegrationTestCase {
 
     public static final String SCRIPT_GET_BY_USER_ID_ENDPOINT = "/api/v1/script";
 
@@ -34,7 +34,7 @@ class ScriptGetByUserIdControllerTest extends IntegrationTestCase {
         // GIVEN
         Script script = ScriptMother.random();
         scriptRepository.save(script);
-        ScriptsGetByUserIdRequest request = ScriptsGetByUserIdRequestMother.randomForUserId(script.getOwnerId());
+        ScriptsGetByUserIdRequest request = ScriptsGetByUserIdRequestMother.randomForUserId(script.getOwnerName());
 
         // WHEN
         MvcResult result =

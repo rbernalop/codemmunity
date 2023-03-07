@@ -13,7 +13,7 @@ public class ScriptResponse {
 
     public ScriptResponse(Script script) {
         this.id = script.getId();
-        this.ownerId = script.getOwnerId();
+        this.ownerId = script.getOwnerName();
         this.name = script.getName();
         this.shareKey = script.getShareKey();
         this.languageId = script.getLanguageId();
