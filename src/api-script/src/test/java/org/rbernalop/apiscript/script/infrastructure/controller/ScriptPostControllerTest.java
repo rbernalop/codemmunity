@@ -4,7 +4,6 @@ import com.github.javafaker.Faker;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.rbernalop.apiscript.script.domain.aggregate.Script;
-import org.rbernalop.apiscript.script.domain.aggregate.ScriptMother;
 import org.rbernalop.apiscript.script.domain.repository.ScriptRepository;
 import org.rbernalop.shared.infrastructure.testing.IntegrationTestCase;
 import org.springframework.beans.factory.annotation.Autowired;
