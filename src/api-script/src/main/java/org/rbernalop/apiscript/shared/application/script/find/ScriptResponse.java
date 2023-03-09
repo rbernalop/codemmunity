@@ -5,14 +5,15 @@ import org.rbernalop.apiscript.script.domain.aggregate.Script;
 
 @Getter
 public class ScriptResponse {
-    public String id;
-    public String ownerId;
-    private String name;
-    private String shareKey;
-    private String languageId;
+    public final String id;
+    public final String ownerId;
+    private final String name;
+    private final String shareKey;
+    private final String languageId;
 
     public ScriptResponse(Script script) {
-        this.id = script.getId();
+        assert script.getId() != null;
+        this.id = script.getId().getValue();
         this.ownerId = script.getOwnerName();
         this.name = script.getName();
         this.shareKey = script.getShareKey();

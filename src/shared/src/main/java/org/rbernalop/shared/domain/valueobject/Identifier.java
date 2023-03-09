@@ -18,7 +18,7 @@ public abstract class Identifier implements Serializable {
     private void ensureValidUuid(String value) throws InvalidIdException {
         try {
             UUID.fromString(value);
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             throw new InvalidIdException("Invalid id format '" + value + "'");
         }
     }

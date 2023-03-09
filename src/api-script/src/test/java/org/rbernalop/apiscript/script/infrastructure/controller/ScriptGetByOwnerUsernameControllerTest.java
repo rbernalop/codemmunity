@@ -14,8 +14,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import java.io.UnsupportedEncodingException;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ScriptGetByOwnerUsernameControllerTest extends IntegrationTestCase {
 
@@ -46,7 +45,8 @@ class ScriptGetByOwnerUsernameControllerTest extends IntegrationTestCase {
         // THEN
         ScriptsGetByUserIdResponse response = objectMapper.readValue(result.getResponse().getContentAsString(), ScriptsGetByUserIdResponse.class);
         assertEquals(1, response.getScriptsResponses().size());
-        assertEquals(script.getId(), response.getScriptsResponses().get(0).getId());
+        assertNotNull(script.getId());
+        assertEquals(script.getId().getValue(), response.getScriptsResponses().get(0).getId());
     }
 
     @Test

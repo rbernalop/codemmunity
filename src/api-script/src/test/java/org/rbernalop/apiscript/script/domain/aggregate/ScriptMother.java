@@ -1,7 +1,7 @@
 package org.rbernalop.apiscript.script.domain.aggregate;
 
 import com.github.javafaker.Faker;
-import org.rbernalop.apiscript.script.domain.valueobject.*;
+import org.rbernalop.apiscript.script.domain.value_object.*;
 
 public class ScriptMother {
     private final static Faker faker = new Faker();
