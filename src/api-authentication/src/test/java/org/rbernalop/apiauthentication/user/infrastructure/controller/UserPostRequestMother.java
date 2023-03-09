@@ -29,7 +29,7 @@ public class UserPostRequestMother {
     public static UserPostRequest fromUser(User user) {
         UserPostRequest request = new UserPostRequest();
         assert user.getId() != null;
-        request.setId(user.getId().getId());
+        request.setId(user.getId().getValue());
         request.setName(user.getName());
         request.setSurname(user.getSurname());
         request.setUsername(user.getUsername());

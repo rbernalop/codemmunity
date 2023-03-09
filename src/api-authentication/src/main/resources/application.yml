@@ -8,7 +8,7 @@ spring:
         driver-class-name: ${AUTHENTICATION_DB_DRIVER_CLASS_NAME:org.postgresql.Driver}
     jpa:
         hibernate:
-            ddl-auto: update
+            ddl-auto: ${AUTHENTICATION_DB_DDL_AUTO:update}
 server:
     port: 8080
 eureka:

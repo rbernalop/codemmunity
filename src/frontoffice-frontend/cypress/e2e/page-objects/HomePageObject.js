@@ -20,6 +20,10 @@ export class HomePageObject {
         cy.get('button[id="login-btn"]').click()
     }
 
+    goToUserScriptsPage() {
+        cy.get('div[id="page-section-compiler"]').click()
+    }
+
     logout() {
         cy.get('button[id="logout-btn"]').click()
     }

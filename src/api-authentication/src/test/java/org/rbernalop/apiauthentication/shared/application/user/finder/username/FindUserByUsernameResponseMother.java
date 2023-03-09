@@ -8,7 +8,7 @@ public class FindUserByUsernameResponseMother {
 
     public static FindUserByUsernameResponse fromUser(User user) {
         assert user.getId() != null;
-        return new FindUserByUsernameResponse(user.getId().getId(),
+        return new FindUserByUsernameResponse(user.getId().getValue(),
             user.getUsername(),
             user.getEmail(),
             user.getPassword());
