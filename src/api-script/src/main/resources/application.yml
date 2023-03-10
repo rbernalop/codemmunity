@@ -19,3 +19,5 @@ eureka:
         register-with-eureka: true
     instance:
         prefer-ip-address: true
+        ip-address: ${SCRIPT_ADDRESS:localhost}
+        instance-id: ${SCRIPT_ADDRESS:localhost}:8081
