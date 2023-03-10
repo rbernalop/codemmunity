@@ -19,6 +19,8 @@ eureka:
         register-with-eureka: true
     instance:
         prefer-ip-address: true
+        ip-address: ${AUTHENTICATION_ADDRESS:localhost}
+        instance-id: ${AUTHENTICATION_ADDRESS:localhost}:8080
 application:
     jwt:
         key: ${JWT_KEY:cSK8+%tbKMqT!bsj/@?6vu;AZY#mFCWeY_NbKk0%@*umud1O23#a0n_&S_XIkeE}

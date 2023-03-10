@@ -26,6 +26,8 @@ eureka:
         register-with-eureka: true
     instance:
         prefer-ip-address: true
+        ip-address: ${GATEWAY_ADDRESS:localhost}
+        instance-id: ${GATEWAY_ADDRESS:localhost}:8084
 
 application:
     jwt:
