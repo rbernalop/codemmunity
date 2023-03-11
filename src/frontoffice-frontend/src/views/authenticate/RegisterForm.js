@@ -24,12 +24,12 @@ const RegisterForm = ({setFormTab}) => {
                     form.resetFields();
                     setFormTab('login');
                 }).catch(e =>
-                    errorNotification("Error while registering", e.response.data.message, "topRight")
+                    errorNotification("Error while registering", e.response.data.message || "Try again later", "topRight")
                 );
 
             }).catch(e => {
                 console.log(e);
-                errorNotification("Error while registering", e, "topRight")
+                errorNotification("Error while registering", e || "Try again later", "topRight")
             }
             );
     };
