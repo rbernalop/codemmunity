@@ -1,8 +1,8 @@
 package org.rbernalop.apiscript.script.domain.repository;
 
 import org.rbernalop.apiscript.script.domain.aggregate.Script;
-import org.rbernalop.apiscript.script.domain.valueobject.ScriptId;
-import org.rbernalop.apiscript.script.domain.valueobject.OwnerUsername;
+import org.rbernalop.apiscript.script.domain.value_object.ScriptId;
+import org.rbernalop.apiscript.script.domain.value_object.OwnerUsername;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

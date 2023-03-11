@@ -7,13 +7,14 @@ import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.rbernalop.apiscript.script.domain.valueobject.*;
+import org.rbernalop.apiscript.script.domain.value_object.*;
+import org.rbernalop.shared.domain.AggregateRoot;
 
 @Entity
 @Table(name = "scripts")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EqualsAndHashCode(callSuper = false)
-public class Script {
+public class Script extends AggregateRoot {
     @EmbeddedId
     private ScriptId id;
 
@@ -37,8 +38,12 @@ public class Script {
         this.languageId = languageId;
     }
 
-    public String getId() {
-        return id.getValue();
+    public static Script create(ScriptId id, ShareKey key, ScriptLanguageId languageId, OwnerUsername ownerUserName) {
+        return new Script(id, ownerUserName, new ScriptName("Untitled script"), key, languageId);
+    }
+
+    public ScriptId getId() {
+        return id;
     }
 
     public String getOwnerName() {

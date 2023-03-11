@@ -3,6 +3,7 @@ package org.rbernalop.apiscript.shared.infrastructure;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.rbernalop.apiscript.script.domain.exception.InvalidScriptDataException;
 import org.rbernalop.apiscript.shared.domain.exception.NegativeException;
 import org.rbernalop.shared.domain.InvalidIdException;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,7 @@ public class ApiScriptExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler({InvalidIdException.class, NegativeException.class})
+    @ExceptionHandler({InvalidIdException.class, NegativeException.class, InvalidScriptDataException.class})
     public CustomError handleBadRequestExceptions(Exception ex) {
         return generateError(ex.getCause().getMessage(), HttpStatus.BAD_REQUEST);
     }

@@ -1,4 +1,4 @@
-package org.rbernalop.apiscript.script.domain.valueobject;
+package org.rbernalop.apiscript.script.domain.value_object;
 
 import jakarta.persistence.Embeddable;
 import lombok.EqualsAndHashCode;
