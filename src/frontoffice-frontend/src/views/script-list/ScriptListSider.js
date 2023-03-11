@@ -6,7 +6,7 @@ import {generateUUID} from "../../utils/uuid";
 import {createScript} from "../../requests/scripts/createScript";
 import {errorNotification} from "../../utils/notification";
 
-const ScriptCreator = ({languages}) =>   {
+const ScriptCreator = ({languages, addScript}) =>   {
 
     const dropdownLanguages = languages.map(language => {
         return {
@@ -26,6 +26,7 @@ const ScriptCreator = ({languages}) =>   {
         const script = {id, key, languageId};
         createScript(script).then(() => {
             window.open(SCRIPTS_PAGE.route + "/" + id, '_blank').focus();
+            addScript({...script, name: "Untitled script"});
         }).catch(e =>
             errorNotification("Error retrieving scripts", e.response.data.message || "Try again later",
                 "topRight")
@@ -41,7 +42,7 @@ const ScriptCreator = ({languages}) =>   {
     )
 }
 
-const ScriptListSider =  ({selectedKey}) => {
+const ScriptListSider =  ({selectedKey, addScript}) => {
     const sections = [MY_SCRIPTS_SECTION];
 
     const languages = [
@@ -56,11 +57,7 @@ const ScriptListSider =  ({selectedKey}) => {
 
     return (
         <>
-            {/*<Button type="default" shape="round" icon={<PlusOutlined />} size="large" style={{marginLeft: "10px"}}
-                    onClick={createAndOpenScript}>
-                New
-            </Button>*/}
-            <ScriptCreator languages={languages} />
+            <ScriptCreator languages={languages} addScript={addScript} />
             <Menu mode="inline" items={sections} selectedKeys={[selectedKey]} onClick={selectKey} />
         </>
     )
