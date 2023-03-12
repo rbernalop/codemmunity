@@ -27,6 +27,16 @@ const ScriptList = () => {
         )
     }
 
+    const renameScript = (scriptId, name) => {
+        const newScripts = scripts.map(s => {
+            if(s.id === scriptId)
+                s.name = name
+            return s
+        })
+        newScripts.sort((a, b) => a.name.localeCompare(b.name))
+        setSripts(newScripts)
+    }
+
     useEffect(() => {
         if(isAuthenticated)
             retrieveScripts(0, 102)
@@ -39,7 +49,6 @@ const ScriptList = () => {
         )
     }
 
-
     return (
         <Row>
             <Col span={2}>
@@ -51,7 +60,7 @@ const ScriptList = () => {
             {section === MY_SCRIPTS_SECTION.key &&
                 <Col span={22}>
                     <div style={{margin: "0px 10px"}}>
-                        <ScriptCardList scripts={scripts}/>
+                        <ScriptCardList scripts={scripts} setScriptName={renameScript} />
                     </div>
                 </Col>
             }

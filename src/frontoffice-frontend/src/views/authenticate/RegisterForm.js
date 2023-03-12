@@ -23,7 +23,7 @@ const RegisterForm = ({setFormTab}) => {
                     form.resetFields();
                     setFormTab('login');
                 }).catch(e =>
-                    errorNotification("Error while registering", e.response.data.message, "topRight")
+                    errorNotification("Error while registering", e.response.data.message || "Try again later", "topRight")
                 );
 
             }).catch(e => {

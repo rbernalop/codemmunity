@@ -61,4 +61,8 @@ public class Script extends AggregateRoot {
     public String getLanguageId() {
         return languageId.getValue();
     }
+
+    public void rename(ScriptName nextName) {
+        this.name = nextName;
+    }
 }
