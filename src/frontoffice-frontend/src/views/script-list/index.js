@@ -52,7 +52,9 @@ const ScriptList = () => {
     return (
         <Row>
             <Col span={2}>
-                <ScriptListSider selectedKey={section} setSelectedKey={setSection}  />
+                <ScriptListSider selectedKey={section} setSelectedKey={setSection} addScript={(script) => {
+                    setSripts([...scripts, script])
+                }} />
             </Col>
 
             {section === MY_SCRIPTS_SECTION.key &&

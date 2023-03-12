@@ -10,7 +10,6 @@ const LoginForm = () => {
     const handleOk = () => {
         form.validateFields()
             .then(values => {
-                console.log(values)
                 login(values).then(r => {
                     localStorage.setItem('token', r.headers.authorization);
                     localStorage.setItem('id', r.data.id);

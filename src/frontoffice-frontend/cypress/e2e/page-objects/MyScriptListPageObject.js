@@ -28,4 +28,9 @@ export class MyScriptListPageObject {
     getScriptByText(bubblesortEnPython) {
         return this.getScripList().contains(bubblesortEnPython)
     }
+
+    createScript() {
+        cy.get('button[id="create-script-btn"]').click()
+        cy.get('li').contains('Python').click()
+    }
 }

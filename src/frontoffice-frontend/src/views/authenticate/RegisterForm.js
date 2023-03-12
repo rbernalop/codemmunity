@@ -17,7 +17,6 @@ const RegisterForm = ({setFormTab}) => {
                 values.id = generateUUID();
                 values.birthDate = values.birthDate.format('YYYY-MM-DD');
                 values.confirmPassword = undefined;
-                console.log(captchaRef.current)
                 values.captchaToken = captchaRef.current.getValue();
                 register(values).then(() => {
                     infoNotification('Register', 'You have successfully registered. Now you can log in.', 'topRight')
@@ -28,8 +27,7 @@ const RegisterForm = ({setFormTab}) => {
                 );
 
             }).catch(e => {
-                console.log(e);
-                errorNotification("Error while registering", e || "Try again later", "topRight")
+                errorNotification("Error while registering", e, "topRight")
             }
             );
     };
