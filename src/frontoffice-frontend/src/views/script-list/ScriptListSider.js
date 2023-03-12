@@ -35,7 +35,7 @@ const ScriptCreator = ({languages, addScript}) =>   {
 
     return (
         <Dropdown menu={{items: dropdownLanguages}} placement={"bottomRight"} arrow={{pointAtCenter: true}}>
-            <Button type="default" shape="round" icon={<PlusOutlined />} size="large" style={{marginLeft: "10px"}}>
+            <Button id="create-script-btn" type="default" shape="round" icon={<PlusOutlined />} size="large" style={{marginLeft: "10px"}}>
                 New
             </Button>
         </Dropdown>
