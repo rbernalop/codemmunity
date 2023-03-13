@@ -11,7 +11,7 @@ spring:
                 - id: api-script
                   uri: lb://api-script
                   predicates:
-                    - Path=/api/v1/script
+                    - Path=/api/v1/script/**
                   filters:
                     - AuthorizedFilter
     main:

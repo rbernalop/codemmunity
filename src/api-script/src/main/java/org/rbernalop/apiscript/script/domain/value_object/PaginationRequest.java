@@ -1,4 +1,4 @@
-package org.rbernalop.apiscript.script.domain.valueobject;
+package org.rbernalop.apiscript.script.domain.value_object;
 
 import org.rbernalop.apiscript.shared.domain.exception.NegativeException;
 

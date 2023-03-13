@@ -10,7 +10,6 @@ const LoginForm = () => {
     const handleOk = () => {
         form.validateFields()
             .then(values => {
-                console.log(values)
                 login(values).then(r => {
                     localStorage.setItem('token', r.headers.authorization);
                     localStorage.setItem('id', r.data.id);
@@ -18,7 +17,7 @@ const LoginForm = () => {
                     localStorage.setItem('email', r.data.email);
                     window.location.reload();
                 }).catch(e =>
-                    errorNotification("Error while log in", e.response.data.message, "topRight")
+                    errorNotification("Error while log in", e.response.data.message || "Try again later", "topRight")
                 );
             }).catch(() =>
                 errorNotification("Error while log in", "Please fill all the fields", "topRight")

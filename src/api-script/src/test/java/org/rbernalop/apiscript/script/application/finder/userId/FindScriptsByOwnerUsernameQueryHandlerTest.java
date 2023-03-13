@@ -6,7 +6,7 @@ import org.mockito.Mock;
 import org.rbernalop.apiscript.script.domain.aggregate.Script;
 import org.rbernalop.apiscript.script.domain.aggregate.ScriptMother;
 import org.rbernalop.apiscript.script.domain.repository.ScriptRepository;
-import org.rbernalop.apiscript.script.domain.valueobject.OwnerUsername;
+import org.rbernalop.apiscript.script.domain.value_object.OwnerUsername;
 import org.rbernalop.apiscript.shared.application.script.find.FindScriptsByUserIdQuery;
 import org.rbernalop.apiscript.shared.application.script.find.FindScriptsByUserIdQueryMother;
 import org.rbernalop.apiscript.shared.domain.exception.NegativeException;
@@ -44,7 +44,8 @@ class FindScriptsByOwnerUsernameQueryHandlerTest extends UnitTestCase {
 
         var response = handler.handle(query);
 
-        assertEquals(script.getId(), response.getScriptsResponses().get(0).getId());
+        assertNotNull(script.getId());
+        assertEquals(script.getId().getValue(), response.getScriptsResponses().get(0).getId());
         assertEquals(script.getName(), response.getScriptsResponses().get(0).getName());
         assertEquals(script.getOwnerName(), response.getScriptsResponses().get(0).getOwnerId());
         assertEquals(script.getLanguageId(), response.getScriptsResponses().get(0).getLanguageId());
