@@ -25,4 +25,24 @@ public class ScriptMother {
             new ScriptLanguageId(script.getLanguageId())
         );
     }
+
+    public static Script randomWithId(String id) {
+        return new Script(
+            new ScriptId(id),
+            new OwnerUsername(faker.name().username()),
+            new ScriptName(faker.lorem().sentence()),
+            new ShareKey(faker.internet().uuid()),
+            new ScriptLanguageId(faker.internet().uuid())
+        );
+    }
+
+    public static Script fromScriptAndNewShareKey(Script script, String shareKey) {
+        return new Script(
+            script.getId(),
+            new OwnerUsername(script.getOwnerName()),
+            new ScriptName(script.getName()),
+            new ShareKey(shareKey),
+            new ScriptLanguageId(script.getLanguageId())
+        );
+    }
 }

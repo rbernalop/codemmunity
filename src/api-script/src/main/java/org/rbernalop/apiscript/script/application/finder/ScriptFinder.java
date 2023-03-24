@@ -4,7 +4,9 @@ import org.rbernalop.apiscript.script.domain.aggregate.Script;
 import org.rbernalop.apiscript.script.domain.service.DomainScriptFinder;
 import org.rbernalop.apiscript.script.domain.value_object.PaginationRequest;
 import org.rbernalop.apiscript.script.domain.value_object.OwnerUsername;
-import org.rbernalop.apiscript.shared.application.script.find.FindScriptsByUserIdResponse;
+import org.rbernalop.apiscript.script.domain.value_object.ScriptId;
+import org.rbernalop.apiscript.shared.application.script.find.by_id.FindScriptsByIdResponse;
+import org.rbernalop.apiscript.shared.application.script.find.by_userid.FindScriptsByUserIdResponse;
 import org.rbernalop.shared.application.UseCase;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
 
@@ -21,5 +23,10 @@ public class ScriptFinder extends UseCase {
     public FindScriptsByUserIdResponse findScriptsByUserId(OwnerUsername ownerUsername, PaginationRequest paginationRequest) {
         List<Script> scripts = domainScriptFinder.findScriptsByOwnerUsername(ownerUsername, paginationRequest);
         return new FindScriptsByUserIdResponse(scripts);
+    }
+
+    public FindScriptsByIdResponse findScriptById(ScriptId scriptId) {
+        Script script = domainScriptFinder.findScriptById(scriptId);
+        return new FindScriptsByIdResponse(script);
     }
 }

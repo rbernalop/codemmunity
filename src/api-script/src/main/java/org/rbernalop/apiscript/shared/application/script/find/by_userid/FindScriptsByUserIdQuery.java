@@ -1,4 +1,4 @@
-package org.rbernalop.apiscript.shared.application.script.find;
+package org.rbernalop.apiscript.shared.application.script.find.by_userid;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
