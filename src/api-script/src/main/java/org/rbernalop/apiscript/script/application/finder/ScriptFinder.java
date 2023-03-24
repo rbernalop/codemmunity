@@ -4,7 +4,7 @@ import org.rbernalop.apiscript.script.domain.aggregate.Script;
 import org.rbernalop.apiscript.script.domain.service.DomainScriptFinder;
 import org.rbernalop.apiscript.script.domain.value_object.PaginationRequest;
 import org.rbernalop.apiscript.script.domain.value_object.OwnerUsername;
-import org.rbernalop.apiscript.shared.application.script.find.FindScriptsByUserIdResponse;
+import org.rbernalop.apiscript.shared.application.script.find.by_userid.FindScriptsByUserIdResponse;
 import org.rbernalop.shared.application.UseCase;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
 

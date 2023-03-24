@@ -1,6 +1,7 @@
 package org.rbernalop.apiscript.shared.application.script.find;
 
 import com.github.javafaker.Faker;
+import org.rbernalop.apiscript.shared.application.script.find.by_userid.FindScriptsByUserIdQuery;
 
 public class FindScriptsByUserIdQueryMother {
 
