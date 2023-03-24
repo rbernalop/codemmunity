@@ -65,4 +65,8 @@ public class Script extends AggregateRoot {
     public void rename(ScriptName nextName) {
         this.name = nextName;
     }
+
+    public void renewShareKey(ShareKey shareKey) {
+        this.shareKey = shareKey;
+    }
 }

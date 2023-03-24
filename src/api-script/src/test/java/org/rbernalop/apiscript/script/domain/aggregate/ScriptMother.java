@@ -35,4 +35,14 @@ public class ScriptMother {
             new ScriptLanguageId(faker.internet().uuid())
         );
     }
+
+    public static Script fromScriptAndNewShareKey(Script script, String shareKey) {
+        return new Script(
+            script.getId(),
+            new OwnerUsername(script.getOwnerName()),
+            new ScriptName(script.getName()),
+            new ShareKey(shareKey),
+            new ScriptLanguageId(script.getLanguageId())
+        );
+    }
 }

@@ -6,6 +6,7 @@ import org.rbernalop.apiscript.script.domain.service.DomainScriptFinder;
 import org.rbernalop.apiscript.script.domain.value_object.OwnerUsername;
 import org.rbernalop.apiscript.script.domain.value_object.ScriptId;
 import org.rbernalop.apiscript.script.domain.value_object.ScriptName;
+import org.rbernalop.apiscript.script.domain.value_object.ShareKey;
 import org.rbernalop.shared.application.UseCase;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.domain.exception.NotAllowedOperationException;
@@ -32,6 +33,12 @@ public class ScriptModifier extends UseCase {
         }
 
         script.rename(nextName);
+        scriptRepository.save(script);
+    }
+
+    public void regenerateShareKey(ScriptId id, ShareKey shareKey) {
+        Script script = domainScriptFinder.findScriptById(id);
+        script.renewShareKey(shareKey);
         scriptRepository.save(script);
     }
 }
