@@ -1,12 +1,14 @@
 import CodeEditor from "../../components/CodeEditor";
 import {useParams} from "react-router-dom";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import CodeEditorOptions from "../../components/CodeEditorOptions";
 import {Layout} from "antd";
 import {Content} from "antd/es/layout/layout";
 import Sider from "antd/es/layout/Sider";
 import CodeRunBox from "../../components/CodeRunBox";
 import EditScriptTitle from "./EditScriptTitle";
+import findScriptById from "../../requests/scripts/findScriptById";
+import {errorNotification} from "../../utils/notification";
 
 const languages = [
     {
@@ -42,7 +44,8 @@ public class HelloWorld {
 
 const ScriptPage = () => {
     const { id } = useParams()
-    const [language, setLanguage] = useState(languages[1]);
+    const [language, setLanguage] = useState(languages[0]);
+    const [title, setTitle] = useState('');
     const [output, setOutput] = useState(''); // Estado para almacenar la salida
 
     const changeLanguage = (languageKey) => {
@@ -50,9 +53,19 @@ const ScriptPage = () => {
         setLanguage(language);
     }
 
+    useEffect(() => {
+        findScriptById(id).then((response) => {
+            setTitle(response.data.name);
+            setLanguage(languages.find(language => language.id === response.data.languageId));
+        }).catch(e =>
+            errorNotification("Error retrieving script", e.response.data.message || "Try again later",
+                "topRight")
+        );
+    }, []);
+
     return (
         <>
-            <EditScriptTitle id={id} />
+            <EditScriptTitle id={id} title={title} setTitle={setTitle} />
             <Layout>
                 <Sider width={"fit-content"}>
                     <CodeEditorOptions language={language.key} setLanguage={changeLanguage} languages={languages} />

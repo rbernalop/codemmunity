@@ -3,8 +3,7 @@ import {Input} from "antd";
 import {renameScript} from "../../requests/scripts/renameScript";
 import {errorNotification} from "../../utils/notification";
 
-const EditScriptTitle = ({id}) => {
-    const [title, setTitle] = useState('Título del documento');
+const EditScriptTitle = ({id, title, setTitle}) => {
     const [editing, setEditing] = useState(false);
 
     const rename = async (scriptId, newName) => {
