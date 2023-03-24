@@ -1,11 +1,12 @@
 import CodeEditor from "../../components/CodeEditor";
-import {useParams} from "react-router";
+import {useParams} from "react-router-dom";
 import {useState} from "react";
 import CodeEditorOptions from "../../components/CodeEditorOptions";
 import {Layout} from "antd";
 import {Content} from "antd/es/layout/layout";
 import Sider from "antd/es/layout/Sider";
 import CodeRunBox from "../../components/CodeRunBox";
+import EditScriptTitle from "./EditScriptTitle";
 
 const languages = [
     {
@@ -40,7 +41,7 @@ public class HelloWorld {
 
 
 const ScriptPage = () => {
-    const {id} = useParams()
+    const { id } = useParams()
     const [language, setLanguage] = useState(languages[1]);
     const [output, setOutput] = useState(''); // Estado para almacenar la salida
 
@@ -50,18 +51,21 @@ const ScriptPage = () => {
     }
 
     return (
-        <Layout>
-            <Sider width={"fit-content"}>
-                <CodeEditorOptions language={language.key} setLanguage={changeLanguage} languages={languages} />
-            </Sider>
-            <Content style={{ padding: '24px 24px', height: '100vh' }}>
-                <CodeEditor roomId={id} language={language.key} code={language.sample} />
-            </Content>
-            <Sider width={"fit-content"} style={{padding: '24px 24px', backgroundColor: '#F5F5F5', height: '100vh'}}>
-                <CodeRunBox outputResult={output} runCode={() => {setOutput('Hola mundo')}} />
-            </Sider>
+        <>
+            <EditScriptTitle id={id} />
+            <Layout>
+                <Sider width={"fit-content"}>
+                    <CodeEditorOptions language={language.key} setLanguage={changeLanguage} languages={languages} />
+                </Sider>
+                <Content style={{ padding: '24px 24px', height: '100vh' }}>
+                    <CodeEditor roomId={id} language={language.key} code={language.sample} />
+                </Content>
+                <Sider width={"fit-content"} style={{padding: '24px 24px', backgroundColor: '#F5F5F5', height: '100vh'}}>
+                    <CodeRunBox outputResult={output} runCode={() => {setOutput('Hola mundo')}} />
+                </Sider>
 
-        </Layout>
+            </Layout>
+        </>
     );
 }
 
