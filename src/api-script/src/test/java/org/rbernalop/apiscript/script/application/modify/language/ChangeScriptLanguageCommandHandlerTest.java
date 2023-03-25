@@ -1,6 +1,5 @@
 package org.rbernalop.apiscript.script.application.modify.language;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -27,11 +26,6 @@ class ChangeScriptLanguageCommandHandlerTest extends UnitTestCase {
 
     @InjectMocks
     private ChangeScriptLanguageCommandHandler changeScriptLanguageCommandHandler;
-
-    @AfterEach
-    void tearDown() {
-        scriptRepository.deleteAll();
-    }
 
     @Test
     void should_change_script_language() {
