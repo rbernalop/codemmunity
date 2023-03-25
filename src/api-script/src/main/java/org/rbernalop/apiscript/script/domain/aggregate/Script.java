@@ -69,4 +69,12 @@ public class Script extends AggregateRoot {
     public void renewShareKey(ShareKey shareKey) {
         this.shareKey = shareKey;
     }
+
+    public void changeLanguage(ScriptLanguageId languageId) {
+        this.languageId = languageId;
+    }
+
+    public boolean alreadyHasLanguage(ScriptLanguageId languageId) {
+        return this.languageId.equals(languageId);
+    }
 }
