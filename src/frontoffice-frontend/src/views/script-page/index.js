@@ -1,6 +1,6 @@
 import CodeEditor from "../../components/CodeEditor";
 import {useParams} from "react-router-dom";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import CodeEditorOptions from "../../components/CodeEditorOptions";
 import {Layout} from "antd";
 import {Content} from "antd/es/layout/layout";
