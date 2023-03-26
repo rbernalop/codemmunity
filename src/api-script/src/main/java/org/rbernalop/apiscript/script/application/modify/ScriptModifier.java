@@ -7,6 +7,7 @@ import org.rbernalop.apiscript.script.domain.value_object.*;
 import org.rbernalop.shared.application.UseCase;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.domain.exception.NotAllowedOperationException;
+import org.rbernalop.shared.domain.valueobject.LanguageId;
 
 import java.util.Objects;
 
@@ -39,7 +40,7 @@ public class ScriptModifier extends UseCase {
         scriptRepository.save(script);
     }
 
-    public void changeScriptLanguage(ScriptId id, ScriptLanguageId languageId) {
+    public void changeScriptLanguage(ScriptId id, LanguageId languageId) {
         Script script = domainScriptFinder.findScriptById(id);
         if(!script.alreadyHasLanguage(languageId)) {
             script.changeLanguage(languageId);
