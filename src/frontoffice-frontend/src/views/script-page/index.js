@@ -1,6 +1,6 @@
 import CodeEditor from "../../components/CodeEditor";
 import {useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import CodeEditorOptions from "../../components/CodeEditorOptions";
 import {Layout} from "antd";
 import {Content} from "antd/es/layout/layout";
@@ -9,6 +9,7 @@ import CodeRunBox from "../../components/CodeRunBox";
 import EditScriptTitle from "./EditScriptTitle";
 import findScriptById from "../../requests/scripts/findScriptById";
 import {errorNotification} from "../../utils/notification";
+import {changeScriptLanguage} from "../../requests/scripts/changeScriptLanguage";
 
 const languages = [
     {
@@ -50,7 +51,11 @@ const ScriptPage = () => {
 
     const changeLanguage = (languageKey) => {
         const language = languages.find(language => language.key === languageKey);
-        setLanguage(language);
+        changeScriptLanguage(id, language.id).then(() => {
+            setLanguage(language);
+        }).catch(e =>
+            errorNotification("Error changing language", e.response.data.message || "Try again later", "topRight")
+        );
     }
 
     useEffect(() => {
@@ -76,7 +81,6 @@ const ScriptPage = () => {
                 <Sider width={"fit-content"} style={{padding: '24px 24px', backgroundColor: '#F5F5F5', height: '100vh'}}>
                     <CodeRunBox outputResult={output} runCode={() => {setOutput('Hola mundo')}} />
                 </Sider>
-
             </Layout>
         </>
     );
