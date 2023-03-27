@@ -1,0 +1,9 @@
+spring:
+    datasource:
+        url: ${EXECUTION_DB_URL:jdbc:postgresql://localhost:5432/executiontestdb}
+        username: ${EXECUTION_DB_USERNAME:postgres}
+        password: ${EXECUTION_DB_PASSWORD:postgres}
+        driver-class-name: ${EXECUTION_DB_DRIVER_CLASS_NAME:org.postgresql.Driver}
+    jpa:
+        hibernate:
+            ddl-auto: update

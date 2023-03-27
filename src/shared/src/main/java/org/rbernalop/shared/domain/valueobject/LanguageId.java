@@ -1,15 +1,16 @@
-package org.rbernalop.apiscript.script.domain.value_object;
+package org.rbernalop.shared.domain.valueobject;
 
+import jakarta.persistence.Embeddable;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.rbernalop.shared.domain.valueobject.Identifier;
 
+@Embeddable
 @NoArgsConstructor
 @EqualsAndHashCode
-public class ScriptLanguageId extends Identifier {
+public class LanguageId extends Identifier {
     private String languageId;
 
-    public ScriptLanguageId(String languageId) {
+    public LanguageId(String languageId) {
         super(languageId);
         this.languageId = languageId;
     }
