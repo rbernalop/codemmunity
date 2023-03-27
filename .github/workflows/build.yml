@@ -47,6 +47,11 @@ jobs:
                     SCRIPT_DB_PASSWORD: postgres
                     SCRIPT_DB_DRIVER_CLASS_NAME: org.postgresql.Driver
                     SCRIPT_DB_DDL_AUTO: create-drop
+                    EXECUTION_DB_URL: jdbc:postgresql://localhost:5432/testdb
+                    EXECUTION_DB_USERNAME: postgres
+                    EXECUTION_DB_PASSWORD: postgres
+                    EXECUTION_DB_DRIVER_CLASS_NAME: org.postgresql.Driver
+                    EXECUTION_DB_DDL_AUTO: create-drop
             # MESSAGE
             -   name: Send OK Discord Message
                 uses: rjstone/discord-webhook-notify@v1
