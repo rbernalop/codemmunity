@@ -52,7 +52,7 @@ public class Script extends AggregateRoot {
     }
 
     public String getName() {
-        return name.getName();
+        return name.getValue();
     }
 
     public String getShareKey() {

@@ -1,0 +1,23 @@
+spring:
+    application:
+        name: api-execution
+    datasource:
+        url: ${EXECUTION_DB_URL:jdbc:postgresql://localhost:5432/executiondb}
+        username: ${EXECUTION_DB_USERNAME:postgres}
+        password: ${EXECUTION_DB_PASSWORD:postgres}
+        driver-class-name: ${EXECUTION_DB_DRIVER_CLASS_NAME:org.postgresql.Driver}
+    jpa:
+        hibernate:
+            ddl-auto: ${EXECUTION_DB_DDL_AUTO:update}
+server:
+    port: 8082
+eureka:
+    client:
+        service-url:
+            defaultZone: http://${EUREKA_SERVER_ADDRESS:localhost}:8761/eureka
+        fetch-registry: true
+        register-with-eureka: true
+    instance:
+        prefer-ip-address: true
+        ip-address: ${EXECUTION_ADDRESS:localhost}
+        instance-id: ${EXECUTION_ADDRESS:localhost}:8081
