@@ -23,4 +23,13 @@ public class LanguageMother {
     public static List<Language> randomList() {
         return List.of(random());
     }
+
+    public static Language mockLanguage() {
+        return new Language(
+            new LanguageId(faker.internet().uuid()),
+            new LanguageName("mock"),
+            new LanguageCompileCommand(faker.lorem().word()),
+            new LanguageRunCommand(faker.lorem().word())
+        );
+    }
 }
