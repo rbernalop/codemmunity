@@ -8,7 +8,7 @@ env:
 
 jobs:
     checkTests:
-        runs-on: windows-latest
+        runs-on: ubuntu-latest
         services:
             applicationdb:
                 image: postgres:alpine
