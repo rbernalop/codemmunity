@@ -26,4 +26,11 @@ public class LanguageMother {
             new LanguageName("mock")
         );
     }
+
+    public static Language fromName(String name) {
+        return new Language(
+            new LanguageId(faker.internet().uuid()),
+            new LanguageName(name)
+        );
+    }
 }

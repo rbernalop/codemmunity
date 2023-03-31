@@ -21,6 +21,7 @@ public class FindAllLanguagesQueryHandler implements QueryHandler<FindAllLanguag
 
     @Override
     public FindAllLanguagesResponse handle(FindAllLanguagesQuery query) {
+        log.info("Finding all languages");
         return languageFinder.findAll();
     }
 }
