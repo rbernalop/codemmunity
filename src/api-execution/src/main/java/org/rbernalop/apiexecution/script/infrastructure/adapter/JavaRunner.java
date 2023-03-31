@@ -1,29 +1,34 @@
 package org.rbernalop.apiexecution.script.infrastructure.adapter;
 
-import com.github.javafaker.Faker;
 import org.rbernalop.apiexecution.script.domain.value_object.RunResult;
 import org.rbernalop.apiexecution.script.domain.port.ScriptRunner;
-import org.rbernalop.apiexecution.script.infrastructure.util.CommandLineRunner;
+import org.rbernalop.apiexecution.script.infrastructure.util.ShellRunner;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 
 public class JavaRunner implements ScriptRunner {
     @Override
     public RunResult run(String code) {
         RunResult runResult = new RunResult();
-        String fileName = Faker.instance().name().firstName();
 
-        String createFileCommand = "touch " + fileName + ".java && echo \"" + code + "\" > " + fileName + ".java";
-        CommandLineRunner.executeCommand(createFileCommand);
+        File file = new File("Main.java");
+        try {
+            file.createNewFile();
+            Files.writeString(file.toPath(), code);
+            String compilationCommand = "javac Main.java";
+            String compilationResult = ShellRunner.executeCommand(compilationCommand);
+            runResult.setCompilationResult(compilationResult);
 
-        String compilationCommand = "javac " + fileName + ".java";
-        String compilationResult = CommandLineRunner.executeCommand(compilationCommand);
-        runResult.setCompilationResult(compilationResult);
+            String executionCommand = "java Main";
+            String executionResult = ShellRunner.executeCommand(executionCommand);
+            runResult.setExecutionResult(executionResult);
 
-        String executionCommand = "java " + fileName;
-        String executionResult = CommandLineRunner.executeCommand(executionCommand);
-        runResult.setExecutionResult(executionResult);
-
-        String cleanCommand = "rm " + fileName + ".java && rm " + fileName + ".class";
-        CommandLineRunner.executeCommand(cleanCommand);
+            file.delete();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         return runResult;
     }

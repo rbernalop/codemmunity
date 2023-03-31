@@ -1,5 +1,6 @@
 package org.rbernalop.apiexecution.script.infrastructure.controller;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.rbernalop.apiexecution.shared.application.script.run.ScriptRunQuery;
@@ -27,6 +28,7 @@ public class ScriptPostRunController extends ApiController {
     }
 }
 
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 class ScriptPostRunRequest {
