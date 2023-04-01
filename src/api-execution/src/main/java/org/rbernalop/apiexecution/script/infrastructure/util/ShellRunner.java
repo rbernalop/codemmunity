@@ -6,7 +6,7 @@ import org.springframework.data.util.Pair;
 public class ShellRunner {
     public static Pair<String, Boolean> executeCommand(String command) {
         String output = "";
-        Boolean success = false;
+        boolean success = false;
         try {
             Process process = Runtime.getRuntime().exec(command);
             process.waitFor();
