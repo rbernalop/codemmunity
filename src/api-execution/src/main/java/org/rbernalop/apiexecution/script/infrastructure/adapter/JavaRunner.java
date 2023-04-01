@@ -1,8 +1,12 @@
 package org.rbernalop.apiexecution.script.infrastructure.adapter;
 
+import org.rbernalop.apiexecution.script.domain.exception.CompilationException;
+import org.rbernalop.apiexecution.script.domain.exception.ExecutionException;
+import org.rbernalop.apiexecution.script.domain.exception.FileException;
 import org.rbernalop.apiexecution.script.domain.value_object.RunResult;
 import org.rbernalop.apiexecution.script.domain.port.ScriptRunner;
 import org.rbernalop.apiexecution.script.infrastructure.util.ShellRunner;
+import org.springframework.data.util.Pair;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,18 +22,28 @@ public class JavaRunner implements ScriptRunner {
             file.createNewFile();
             Files.writeString(file.toPath(), code);
             String compilationCommand = "javac Main.java";
-            String compilationResult = ShellRunner.executeCommand(compilationCommand).getFirst();
+            Pair<String, Boolean> result = ShellRunner.executeCommand(compilationCommand);
+            String compilationResult = result.getFirst();
+            boolean compilationSuccess = result.getSecond();
+            if(!compilationSuccess) {
+                throw new CompilationException(compilationResult);
+            }
             runResult.setCompilationResult(compilationResult);
 
             String executionCommand = "java Main";
-            String executionResult = ShellRunner.executeCommand(executionCommand).getFirst();
+            result = ShellRunner.executeCommand(executionCommand);
+            String executionResult = result.getFirst();
+            boolean executionSuccess = result.getSecond();
+            if(!executionSuccess) {
+                throw new ExecutionException(executionResult);
+            }
             runResult.setExecutionResult(executionResult);
 
             file.delete();
             File classFile = new File("Main.class");
             classFile.delete();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new FileException(e.getMessage());
         }
 
         return runResult;

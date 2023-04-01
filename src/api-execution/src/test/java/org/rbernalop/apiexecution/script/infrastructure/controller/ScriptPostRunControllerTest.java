@@ -92,4 +92,42 @@ class ScriptPostRunControllerTest extends IntegrationTestCase {
         assertNotNull(response.getCompilationOutput());
         assertEquals(expectedOutput, response.getExecutionOutput());
     }
+
+    @Test
+    void should_return_bad_request_when_compilation_fails() throws Exception {
+        // GIVEN
+        Language javaLanguage = LanguageMother.fromName("Java");
+        languageRepository.save(javaLanguage);
+        assertNotNull(javaLanguage.getId());
+        ScriptPostRunRequest request = ScriptPostRunRequestMother.javaCodeWithSyntaxError(javaLanguage.getId().getValue());
+
+        // WHEN
+        assertRequestWithBody(
+            HttpMethod.POST,
+            SCRIPT_RUN_ENDPOINT,
+            request,
+            HttpStatus.BAD_REQUEST
+        );
+
+        // THEN
+    }
+
+    @Test
+    void should_return_bad_request_when_execution_fails() throws Exception {
+        // GIVEN
+        Language javaLanguage = LanguageMother.fromName("Java");
+        languageRepository.save(javaLanguage);
+        assertNotNull(javaLanguage.getId());
+        ScriptPostRunRequest request = ScriptPostRunRequestMother.javaCodeWithRuntimeError(javaLanguage.getId().getValue());
+
+        // WHEN
+        assertRequestWithBody(
+            HttpMethod.POST,
+            SCRIPT_RUN_ENDPOINT,
+            request,
+            HttpStatus.BAD_REQUEST
+        );
+
+        // THEN
+    }
 }

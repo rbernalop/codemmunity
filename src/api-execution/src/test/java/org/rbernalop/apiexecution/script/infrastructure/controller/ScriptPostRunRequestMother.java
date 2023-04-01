@@ -28,4 +28,28 @@ public class ScriptPostRunRequestMother {
             value
         );
     }
+
+    public static ScriptPostRunRequest javaCodeWithSyntaxError(String value) {
+        return new ScriptPostRunRequest(
+        """
+                public class Main {
+                    public static void main(String[] args) {
+                        System.out.println("Hello world")
+                    }
+                }""",
+            value
+        );
+    }
+
+    public static ScriptPostRunRequest javaCodeWithRuntimeError(String value) {
+        return new ScriptPostRunRequest(
+        """
+                public class Main {
+                    public static void main(String[] args) {
+                        System.out.println(1/0);
+                    }
+                }""",
+            value
+        );
+    }
 }
