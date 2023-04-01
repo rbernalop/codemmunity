@@ -10,7 +10,9 @@ public class ScriptPostRunRequestMother {
 
     public static ScriptPostRunRequest nodeJsCode(String value) {
         return new ScriptPostRunRequest(
-            "console.log('Hello world')",
+            """
+                console.log('Hello world')
+            """,
             value
         );
     }

@@ -31,6 +31,7 @@ class ScriptPostRunControllerTest extends IntegrationTestCase {
         languageRepository.save(pythonLanguage);
         assertNotNull(pythonLanguage.getId());
         ScriptPostRunRequest request = ScriptPostRunRequestMother.pythonCode(pythonLanguage.getId().getValue());
+        String expectedOutput = (System.getProperty("os.name").toLowerCase().contains("windows")) ? "Hello world\r\n" : "Hello world\n";
 
         // WHEN
         MvcResult mvcResult = assertRequestWithBody(
@@ -43,7 +44,7 @@ class ScriptPostRunControllerTest extends IntegrationTestCase {
         // THEN
         ScriptPostRunResponse response = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), ScriptPostRunResponse.class);
         assertNull(response.getCompilationOutput());
-        assertEquals("Hello world\r\n", response.getExecutionOutput());
+        assertEquals(expectedOutput, response.getExecutionOutput());
     }
 
     @Test
@@ -53,6 +54,7 @@ class ScriptPostRunControllerTest extends IntegrationTestCase {
         languageRepository.save(nodejsLanguage);
         assertNotNull(nodejsLanguage.getId());
         ScriptPostRunRequest request = ScriptPostRunRequestMother.nodeJsCode(nodejsLanguage.getId().getValue());
+        String expectedOutput = "Hello world\n";
 
         // WHEN
         MvcResult mvcResult = assertRequestWithBody(
@@ -65,7 +67,7 @@ class ScriptPostRunControllerTest extends IntegrationTestCase {
         // THEN
         ScriptPostRunResponse response = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), ScriptPostRunResponse.class);
         assertNull(response.getCompilationOutput());
-        assertEquals("Hello world\n", response.getExecutionOutput());
+        assertEquals(expectedOutput, response.getExecutionOutput());
     }
 
     @Test
@@ -75,6 +77,7 @@ class ScriptPostRunControllerTest extends IntegrationTestCase {
         languageRepository.save(javaLanguage);
         assertNotNull(javaLanguage.getId());
         ScriptPostRunRequest request = ScriptPostRunRequestMother.javaCode(javaLanguage.getId().getValue());
+        String expectedOutput = (System.getProperty("os.name").toLowerCase().contains("windows")) ? "Hello world\r\n" : "Hello world\n";
 
         // WHEN
         MvcResult mvcResult = assertRequestWithBody(
@@ -87,6 +90,6 @@ class ScriptPostRunControllerTest extends IntegrationTestCase {
         // THEN
         ScriptPostRunResponse response = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), ScriptPostRunResponse.class);
         assertNotNull(response.getCompilationOutput());
-        assertEquals("Hello world\r\n", response.getExecutionOutput());
+        assertEquals(expectedOutput, response.getExecutionOutput());
     }
 }

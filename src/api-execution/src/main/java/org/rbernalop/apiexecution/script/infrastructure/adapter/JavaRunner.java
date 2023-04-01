@@ -18,14 +18,16 @@ public class JavaRunner implements ScriptRunner {
             file.createNewFile();
             Files.writeString(file.toPath(), code);
             String compilationCommand = "javac Main.java";
-            String compilationResult = ShellRunner.executeCommand(compilationCommand);
+            String compilationResult = ShellRunner.executeCommand(compilationCommand).getFirst();
             runResult.setCompilationResult(compilationResult);
 
             String executionCommand = "java Main";
-            String executionResult = ShellRunner.executeCommand(executionCommand);
+            String executionResult = ShellRunner.executeCommand(executionCommand).getFirst();
             runResult.setExecutionResult(executionResult);
 
             file.delete();
+            File classFile = new File("Main.class");
+            classFile.delete();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
