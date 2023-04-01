@@ -7,9 +7,7 @@ import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.rbernalop.apiexecution.language.domain.value_object.LanguageCompileCommand;
 import org.rbernalop.apiexecution.language.domain.value_object.LanguageName;
-import org.rbernalop.apiexecution.language.domain.value_object.LanguageRunCommand;
 import org.rbernalop.shared.domain.AggregateRoot;
 import org.rbernalop.shared.domain.valueobject.Identifier;
 import org.rbernalop.shared.domain.valueobject.LanguageId;
@@ -25,17 +23,9 @@ public class Language extends AggregateRoot {
     @Embedded
     private LanguageName name;
 
-    @Embedded
-    private LanguageCompileCommand compileCommand;
-
-    @Embedded
-    private LanguageRunCommand runCommand;
-
-    public Language(LanguageId id, LanguageName name, LanguageCompileCommand compileCommand, LanguageRunCommand runCommand) {
+    public Language(LanguageId id, LanguageName name) {
         this.id = id;
         this.name = name;
-        this.compileCommand = compileCommand;
-        this.runCommand = runCommand;
     }
 
     @Override
@@ -45,13 +35,5 @@ public class Language extends AggregateRoot {
 
     public String getName() {
         return name.getValue();
-    }
-
-    public String getCompileCommand() {
-        return compileCommand.getValue();
-    }
-
-    public String getRunCommand() {
-        return runCommand.getValue();
     }
 }
