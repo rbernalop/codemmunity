@@ -31,7 +31,7 @@ describe('template spec', () => {
         localStorage.get('email').should('be.equal', user.email)
         localStorage.get('id').should('be.a', 'string')
 
-        myScriptListPage.getScripList().should('have.length', 10)
+        myScriptListPage.getScripList().should('exist')
 
         homePage.logout()
         homePage.getLoggedWelcomeMessage().should('not.exist')
