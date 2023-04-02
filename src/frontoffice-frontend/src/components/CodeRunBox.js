@@ -6,6 +6,7 @@ const CodeRunBox = ({ runCode, compilationResult, executionResult, isRunning }) 
     return (
         <>
             <Button type="primary"
+                    id="run-script-btn"
                     onClick={runCode}
                     style={{display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: 'auto', padding: 10, borderRadius: 5, marginTop: 10}}
                     loading={isRunning}
@@ -23,7 +24,7 @@ const CodeRunBox = ({ runCode, compilationResult, executionResult, isRunning }) 
 
                 <div>Execution Output:</div>
                 <br/>
-                <pre>{executionResult}</pre>
+                <pre id="execution-result">{executionResult}</pre>
             </div>
         </>
     )
