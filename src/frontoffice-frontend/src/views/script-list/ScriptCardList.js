@@ -11,6 +11,7 @@ const ScriptCardList = ({ scripts, setScriptName }) => {
                 <List.Item>
                     <ScriptCardMenu script={item} setScriptName={setScriptName}>
                         <Card
+                            id={item.id}
                             hoverable
                             onDoubleClick={() =>
                                 window.open(SCRIPT_PAGE.route.replace(":id", item.id), '_blank').focus()}>

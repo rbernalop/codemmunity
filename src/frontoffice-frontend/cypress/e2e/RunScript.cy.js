@@ -4,15 +4,17 @@ import {registeredUser} from "./object-mother/UserMother";
 import {tabActiveClass} from "./constants/cssClasses";
 import {LoginTabObject} from "./page-objects/LoginTabObject";
 import {MyScriptListPageObject} from "./page-objects/MyScriptListPageObject";
+import {ScriptPageObject} from "./page-objects/ScriptPageObject";
 
 describe('template spec', () => {
     beforeEach(() => {
         cy.visit(Cypress.env('FRONTOFFICE_URL'))
     });
-    it('Should rename a script when user is authenticated', () => {
+    it('Should Run Script when user is authenticated', () => {
         const homePage = new HomePageObject(cy)
         const loginTab = new LoginTabObject(cy)
         const myScriptListPage = new MyScriptListPageObject(cy)
+        const scriptPage = new ScriptPageObject(cy)
         const localStorage = new LocalStorage(cy, Cypress.env('FRONTOFFICE_URL'))
 
         const user = registeredUser()
@@ -31,17 +33,18 @@ describe('template spec', () => {
         localStorage.get('email').should('be.equal', user.email)
         localStorage.get('id').should('be.a', 'string')
 
-        myScriptListPage.getScripList().should('have.length', 10)
+        myScriptListPage.getScripList().then($scriptList => {
+            myScriptListPage.createScript()
+            myScriptListPage.getScripList().should('have.length', $scriptList.length + 1)
 
-        let fistScript = myScriptListPage.getScriptByPosition(0)
-        fistScript.should('contain', 'Hola Mundo en Python')
-        myScriptListPage.renameScript(fistScript, 'Bubblesort en Python')
-        let renamedScript = myScriptListPage.getScriptByText('Bubblesort en Python')
-        renamedScript.should('contain', 'Bubblesort en Python')
-        myScriptListPage.renameScript(renamedScript, 'Hola Mundo en Python')
+            cy.visit(Cypress.env('FRONTOFFICE_URL') + '/script/d9b385e7-1831-425a-8222-83fdc086b03d')
+            scriptPage.getExecutionResult().should('be.empty')
+            scriptPage.runScript()
+            scriptPage.getExecutionResult().should('not.be.empty')
 
-        homePage.logout()
-        homePage.getLoggedWelcomeMessage().should('not.exist')
-        localStorage.isEmpty().should('be.true')
+            homePage.logout()
+            homePage.getLoggedWelcomeMessage().should('not.exist')
+            localStorage.isEmpty().should('be.true')
+        })
     })
 })

@@ -31,12 +31,13 @@ describe('template spec', () => {
         localStorage.get('email').should('be.equal', user.email)
         localStorage.get('id').should('be.a', 'string')
 
-        myScriptListPage.getScripList().should('have.length', 10)
-        myScriptListPage.createScript()
-        myScriptListPage.getScripList().should('have.length', 11)
+        myScriptListPage.getScripList().then($scriptList => {
+            myScriptListPage.createScript()
+            myScriptListPage.getScripList().should('have.length', $scriptList.length + 1)
 
-       homePage.logout()
-       homePage.getLoggedWelcomeMessage().should('not.exist')
-       localStorage.isEmpty().should('be.true')
+            homePage.logout()
+            homePage.getLoggedWelcomeMessage().should('not.exist')
+            localStorage.isEmpty().should('be.true')
+        })
     })
 })

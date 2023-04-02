@@ -12,6 +12,7 @@ const CodeEditor = ({
         // roomId,
         language,
         code,
+        setCode,
     }) => {
 
     const editorRef = useRef(null);
@@ -38,6 +39,13 @@ const CodeEditor = ({
         }
         init();
     }, [language]);
+
+    // WHEN CODE CHANGES
+    useEffect(() => {
+        editorRef.current.on('change', () => {
+            setCode(editorRef.current.getValue());
+        });
+    }, [setCode]);
 
     return <textarea id="realtimeEditor" />;
 };
