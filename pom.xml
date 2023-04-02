@@ -14,6 +14,7 @@
         <module>src/shared</module>
         <module>src/api-authentication</module>
         <module>src/api-script</module>
+        <module>src/api-execution</module>
     </modules>
 
     <properties>

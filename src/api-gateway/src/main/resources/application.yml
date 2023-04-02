@@ -8,6 +8,12 @@ spring:
                   uri: lb://api-authentication
                   predicates:
                     - Path=/api/v1/login,/api/v1/user
+                - id: api-execution
+                  uri: lb://api-execution
+                  predicates:
+                      - Path=/api/v1/script/run/**,/api/v1/language/**
+                  filters:
+                      - AuthorizedFilter
                 - id: api-script
                   uri: lb://api-script
                   predicates:

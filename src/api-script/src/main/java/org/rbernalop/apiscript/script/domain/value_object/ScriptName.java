@@ -16,7 +16,7 @@ public class ScriptName {
         this.name = name;
     }
 
-    public String getName() {
+    public String getValue() {
         return name;
     }
 }

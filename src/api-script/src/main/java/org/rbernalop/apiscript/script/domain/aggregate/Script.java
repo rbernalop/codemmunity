@@ -9,6 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.rbernalop.apiscript.script.domain.value_object.*;
 import org.rbernalop.shared.domain.AggregateRoot;
+import org.rbernalop.shared.domain.valueobject.LanguageId;
 
 @Entity
 @Table(name = "scripts")
@@ -28,9 +29,9 @@ public class Script extends AggregateRoot {
     private ShareKey shareKey;
 
     @Embedded
-    private ScriptLanguageId languageId;
+    private LanguageId languageId;
 
-    public Script(ScriptId id, OwnerUsername ownerUsername, ScriptName name, ShareKey shareKey, ScriptLanguageId languageId) {
+    public Script(ScriptId id, OwnerUsername ownerUsername, ScriptName name, ShareKey shareKey, LanguageId languageId) {
         this.id = id;
         this.ownerUsername = ownerUsername;
         this.name = name;
@@ -38,7 +39,7 @@ public class Script extends AggregateRoot {
         this.languageId = languageId;
     }
 
-    public static Script create(ScriptId id, ShareKey key, ScriptLanguageId languageId, OwnerUsername ownerUserName) {
+    public static Script create(ScriptId id, ShareKey key, LanguageId languageId, OwnerUsername ownerUserName) {
         return new Script(id, ownerUserName, new ScriptName("Untitled script"), key, languageId);
     }
 
@@ -51,7 +52,7 @@ public class Script extends AggregateRoot {
     }
 
     public String getName() {
-        return name.getName();
+        return name.getValue();
     }
 
     public String getShareKey() {
@@ -64,5 +65,17 @@ public class Script extends AggregateRoot {
 
     public void rename(ScriptName nextName) {
         this.name = nextName;
+    }
+
+    public void renewShareKey(ShareKey shareKey) {
+        this.shareKey = shareKey;
+    }
+
+    public void changeLanguage(LanguageId languageId) {
+        this.languageId = languageId;
+    }
+
+    public boolean alreadyHasLanguage(LanguageId languageId) {
+        return this.languageId.equals(languageId);
     }
 }
