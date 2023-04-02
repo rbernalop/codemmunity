@@ -10,6 +10,8 @@ import EditScriptTitle from "./EditScriptTitle";
 import findScriptById from "../../requests/scripts/findScriptById";
 import {errorNotification} from "../../utils/notification";
 import {changeScriptLanguage} from "../../requests/scripts/changeScriptLanguage";
+import {runScript} from "../../requests/scripts/runScript";
+import Authenticate from "../authenticate";
 
 const languages = [
     {
@@ -33,7 +35,7 @@ print("Hello World")
         key: "text/x-java",
         icon: <i className="devicon-java-plain" style={{fontSize: 22}}></i>,
         sample: `// Simple Hello World in Java
-public class HelloWorld {
+public class Main {
     public static void main(String[] args) {
         System.out.println("Hello World");
     }
@@ -45,9 +47,14 @@ public class HelloWorld {
 
 const ScriptPage = () => {
     const { id } = useParams()
+    const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem("token") !== null)
+    const [formTab, setFormTab] = useState("login")
     const [language, setLanguage] = useState(languages[0]);
     const [title, setTitle] = useState('');
-    const [output, setOutput] = useState(''); // Estado para almacenar la salida
+    const [compilationOutput, setCompilationOutput] = useState(''); // Estado para almacenar la salida
+    const [executionOutput, setExecutionOutput] = useState(''); // Estado para almacenar la salida
+    const [code, setCode] = useState(language.sample);
+    const [isRunning, setIsRunning] = useState(false);
 
     const changeLanguage = (languageKey) => {
         const language = languages.find(language => language.key === languageKey);
@@ -58,7 +65,35 @@ const ScriptPage = () => {
         );
     }
 
+    const runCode = () => {
+        if (!isAuthenticated) {
+            return;
+        }
+        setIsRunning(true);
+        runScript(code, language.id).then((response) => {
+            setIsRunning(false);
+            setCompilationOutput('');
+            setExecutionOutput(response.data.executionOutput);
+        }).catch(e => {
+            setIsRunning(false);
+            if (e.response.data.compilationError) {
+                setCompilationOutput(e.response.data.compilationError)
+                setExecutionOutput('');
+            } else if (e.response.data.executionError) {
+                setExecutionOutput(e.response.data.executionError)
+                setCompilationOutput('');
+            } else {
+                errorNotification("Error running code", e.response.data.message || "Try again later", "topRight")
+                setCompilationOutput('');
+                setExecutionOutput('');
+            }
+        });
+    };
+
     useEffect(() => {
+        if (!isAuthenticated) {
+            return;
+        }
         findScriptById(id).then((response) => {
             setTitle(response.data.name);
             setLanguage(languages.find(language => language.id === response.data.languageId));
@@ -68,6 +103,12 @@ const ScriptPage = () => {
         );
     }, []);
 
+    if(!isAuthenticated) {
+        return(
+            <Authenticate showModal={!isAuthenticated} setShowModal={setIsAuthenticated} formTab={formTab} setFormTab={setFormTab} />
+        )
+    }
+
     return (
         <>
             <EditScriptTitle id={id} title={title} setTitle={setTitle} />
@@ -76,10 +117,15 @@ const ScriptPage = () => {
                     <CodeEditorOptions language={language.key} setLanguage={changeLanguage} languages={languages} />
                 </Sider>
                 <Content style={{ padding: '24px 24px', height: '100vh' }}>
-                    <CodeEditor roomId={id} language={language.key} code={language.sample} />
+                    <CodeEditor roomId={id} language={language.key} code={language.sample} setCode={setCode} />
                 </Content>
                 <Sider width={"fit-content"} style={{padding: '24px 24px', backgroundColor: '#F5F5F5', height: '100vh'}}>
-                    <CodeRunBox outputResult={output} runCode={() => {setOutput('Hola mundo')}} />
+                    <CodeRunBox
+                        executionResult={executionOutput}
+                        compilationResult={compilationOutput}
+                        runCode={() => {runCode()}}
+                        isRunning={isRunning}
+                    />
                 </Sider>
             </Layout>
         </>
