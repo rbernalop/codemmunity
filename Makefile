@@ -14,7 +14,7 @@ run: clean
 	done
 
 seed: clean
-	mvn package -P seed-database
+	mvn package -P seed-database -DskipTests
 
 test: clean
 	mvn test
