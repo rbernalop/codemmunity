@@ -11,7 +11,7 @@ run: clean
 			mvn spring-boot:run & \
 			cd ../.. \
 		fi \
-	done
+	done \
 
 seed: clean
 	mvn package -P seed-database
