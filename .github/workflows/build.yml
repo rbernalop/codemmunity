@@ -69,3 +69,27 @@ jobs:
                     details: |
                         **Tests ❌**
                     webhookUrl: ${{secrets.DISCORD_URL}}
+    acceptanceTests:
+        runs-on: ubuntu-latest
+        steps:
+            # SETUP
+            - uses: actions/checkout@v3
+            - uses: actions/setup-java@v3
+              with:
+                  java-version: ${{ env.JAVA_VERSION }}
+                  distribution: ${{ env.JAVA_DISTRIBUTION }}
+            - uses: actions/cache@v1
+              with:
+                  path: ~/.m2/repository
+                  key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+                  restore-keys: |
+                      ${{ runner.os }}-maven-
+            # PREPARE ENVIRONMENT
+            - name: Deploy databases
+              run: sh ./.deploy/deploy_databases.sh
+            - name: Start application
+              run: make run
+            - name: Wait for application to start
+              run: sleep 60
+            - name: Run seeders
+              run: make seed
