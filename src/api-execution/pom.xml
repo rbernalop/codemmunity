@@ -82,5 +82,21 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <id>seed-database</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>sql-maven-plugin</artifactId>
+                        <configuration>
+                            <url>jdbc:postgresql://localhost:5432/executiondb</url>
+                            <username>postgres</username>
+                            <password>postgres</password>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 </project>
