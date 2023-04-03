@@ -15,11 +15,11 @@ run: clean
         done
     else
         for dir in src/*; do
-          if [ -d "$dir" ]; then
-            cd "$dir"
-            mvn spring-boot:run &
-            cd ../..
-          fi
+            if [ -d "$dir" ]; then
+                cd "$dir"
+                mvn spring-boot:run &
+                cd ../..
+            fi
         done
     endif
 
