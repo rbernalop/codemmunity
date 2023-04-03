@@ -96,5 +96,7 @@ jobs:
                   done
             - name: Wait for application to start
               run: sleep 120
+            - name: Show processes
+              run: ps -ef
             - name: Run seeders
               run: make seed
