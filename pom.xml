@@ -15,6 +15,7 @@
         <module>src/api-authentication</module>
         <module>src/api-script</module>
         <module>src/api-execution</module>
+        <module>src/service-synchronization</module>
     </modules>
 
     <properties>
