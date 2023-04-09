@@ -52,6 +52,11 @@ jobs:
                     EXECUTION_DB_PASSWORD: postgres
                     EXECUTION_DB_DRIVER_CLASS_NAME: org.postgresql.Driver
                     EXECUTION_DB_DDL_AUTO: create-drop
+                    SYNCHRONIZATION_DB_URL: jdbc:postgresql://localhost:5432/testdb
+                    SYNCHRONIZATION_DB_USERNAME: postgres
+                    SYNCHRONIZATION_DB_PASSWORD: postgres
+                    SYNCHRONIZATION_DB_DRIVER_CLASS_NAME: org.postgresql.Driver
+                    SYNCHRONIZATION_DB_DDL_AUTO: create-drop
             # MESSAGE
             -   name: Send OK Discord Message
                 uses: rjstone/discord-webhook-notify@v1
