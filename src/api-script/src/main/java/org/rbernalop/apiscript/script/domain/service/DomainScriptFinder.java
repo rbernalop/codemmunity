@@ -5,7 +5,7 @@ import org.rbernalop.apiscript.script.domain.aggregate.Script;
 import org.rbernalop.apiscript.script.domain.repository.ScriptRepository;
 import org.rbernalop.apiscript.script.domain.value_object.PaginationRequest;
 import org.rbernalop.apiscript.script.domain.value_object.OwnerUsername;
-import org.rbernalop.apiscript.script.domain.value_object.ScriptId;
+import org.rbernalop.shared.domain.valueobject.ScriptId;
 import org.rbernalop.shared.domain.exception.EntityNotFoundException;
 import org.springframework.data.domain.PageRequest;
 

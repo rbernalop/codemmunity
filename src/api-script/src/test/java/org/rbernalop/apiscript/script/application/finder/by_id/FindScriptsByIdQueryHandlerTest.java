@@ -6,7 +6,7 @@ import org.mockito.Mock;
 import org.rbernalop.apiscript.script.domain.aggregate.Script;
 import org.rbernalop.apiscript.script.domain.aggregate.ScriptMother;
 import org.rbernalop.apiscript.script.domain.repository.ScriptRepository;
-import org.rbernalop.apiscript.script.domain.value_object.ScriptId;
+import org.rbernalop.shared.domain.valueobject.ScriptId;
 import org.rbernalop.apiscript.shared.application.script.find.by_id.FindScriptsByIdQuery;
 import org.rbernalop.apiscript.shared.application.script.find.by_id.FindScriptsByIdQueryMother;
 import org.rbernalop.apiscript.shared.application.script.find.by_id.FindScriptsByIdResponse;

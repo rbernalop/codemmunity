@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.rbernalop.apiauthentication.securityuser.domain.exception.InvalidCredentialsException;
 import org.rbernalop.apiauthentication.user.domain.exception.InvalidCaptchaException;
-import org.rbernalop.apiauthentication.user.domain.exception.InvalidUserDataException;
+import org.rbernalop.shared.domain.exception.InvalidUserDataException;
 import org.rbernalop.apiauthentication.user.domain.exception.UserAlreadyExistsException;
 import org.rbernalop.apiauthentication.user.domain.exception.UserNotFoundException;
 import org.rbernalop.shared.domain.InvalidIdException;

@@ -20,4 +20,4 @@ eureka:
     instance:
         prefer-ip-address: true
         ip-address: ${EXECUTION_ADDRESS:localhost}
-        instance-id: ${EXECUTION_ADDRESS:localhost}:8081
+        instance-id: ${EXECUTION_ADDRESS:localhost}:8082

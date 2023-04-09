@@ -7,7 +7,7 @@ import org.rbernalop.apiscript.script.domain.aggregate.Script;
 import org.rbernalop.apiscript.script.domain.aggregate.ScriptMother;
 import org.rbernalop.apiscript.script.domain.exception.InvalidScriptDataException;
 import org.rbernalop.apiscript.script.domain.repository.ScriptRepository;
-import org.rbernalop.apiscript.script.domain.value_object.ScriptId;
+import org.rbernalop.shared.domain.valueobject.ScriptId;
 import org.rbernalop.apiscript.shared.application.script.modify.RenameScriptCommand;
 import org.rbernalop.apiscript.shared.application.script.modify.RenameScriptCommandMother;
 import org.rbernalop.shared.domain.bus.query.QueryBus;

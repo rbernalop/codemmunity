@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.rbernalop.apiscript.script.domain.value_object.*;
 import org.rbernalop.shared.domain.AggregateRoot;
 import org.rbernalop.shared.domain.valueobject.LanguageId;
+import org.rbernalop.shared.domain.valueobject.ScriptId;
 
 @Entity
 @Table(name = "scripts")

@@ -3,6 +3,7 @@ package org.rbernalop.apiscript.script.domain.aggregate;
 import com.github.javafaker.Faker;
 import org.rbernalop.apiscript.script.domain.value_object.*;
 import org.rbernalop.shared.domain.valueobject.LanguageId;
+import org.rbernalop.shared.domain.valueobject.ScriptId;
 
 public class ScriptMother {
     private final static Faker faker = new Faker();

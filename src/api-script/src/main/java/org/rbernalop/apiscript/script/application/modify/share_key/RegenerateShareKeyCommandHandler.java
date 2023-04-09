@@ -3,7 +3,7 @@ package org.rbernalop.apiscript.script.application.modify.share_key;
 import lombok.extern.slf4j.Slf4j;
 import org.rbernalop.apiscript.script.application.modify.ScriptModifier;
 import org.rbernalop.apiscript.script.domain.repository.ScriptRepository;
-import org.rbernalop.apiscript.script.domain.value_object.ScriptId;
+import org.rbernalop.shared.domain.valueobject.ScriptId;
 import org.rbernalop.apiscript.script.domain.value_object.ShareKey;
 import org.rbernalop.apiscript.shared.application.script.modify.RegenerateShareKeyCommand;
 import org.rbernalop.shared.domain.Service;

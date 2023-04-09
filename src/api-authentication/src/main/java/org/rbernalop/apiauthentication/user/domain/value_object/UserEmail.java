@@ -3,7 +3,7 @@ package org.rbernalop.apiauthentication.user.domain.value_object;
 
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.rbernalop.apiauthentication.user.domain.exception.InvalidUserDataException;
+import org.rbernalop.shared.domain.exception.InvalidUserDataException;
 
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
