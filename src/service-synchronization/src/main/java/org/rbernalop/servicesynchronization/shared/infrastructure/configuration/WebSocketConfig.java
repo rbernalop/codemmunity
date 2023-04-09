@@ -17,6 +17,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         registry.setApplicationDestinationPrefixes("/service/v1");
-        registry.enableSimpleBroker("/script/{id}/joined", "/script/{id}/changed");
+        registry.enableSimpleBroker("/script/{id}/joined", "/script/{id}/changed", "/script/{id}/left");
     }
 }
