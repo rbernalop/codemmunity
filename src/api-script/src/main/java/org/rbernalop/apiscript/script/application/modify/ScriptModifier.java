@@ -8,6 +8,7 @@ import org.rbernalop.shared.application.UseCase;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.domain.exception.NotAllowedOperationException;
 import org.rbernalop.shared.domain.valueobject.LanguageId;
+import org.rbernalop.shared.domain.valueobject.ScriptId;
 
 import java.util.Objects;
 

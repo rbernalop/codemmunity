@@ -3,8 +3,8 @@ package org.rbernalop.apiauthentication.user.domain.port;
 
 import org.rbernalop.apiauthentication.user.domain.aggregate.User;
 import org.rbernalop.apiauthentication.user.domain.value_object.UserEmail;
-import org.rbernalop.apiauthentication.user.domain.value_object.UserId;
-import org.rbernalop.apiauthentication.user.domain.value_object.UserUsername;
+import org.rbernalop.shared.domain.valueobject.UserId;
+import org.rbernalop.shared.domain.valueobject.UserUsername;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

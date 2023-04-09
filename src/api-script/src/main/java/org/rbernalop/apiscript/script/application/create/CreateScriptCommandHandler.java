@@ -3,7 +3,7 @@ package org.rbernalop.apiscript.script.application.create;
 import lombok.extern.slf4j.Slf4j;
 import org.rbernalop.apiscript.script.domain.repository.ScriptRepository;
 import org.rbernalop.apiscript.script.domain.value_object.OwnerUsername;
-import org.rbernalop.apiscript.script.domain.value_object.ScriptId;
+import org.rbernalop.shared.domain.valueobject.ScriptId;
 import org.rbernalop.shared.domain.valueobject.LanguageId;
 import org.rbernalop.apiscript.script.domain.value_object.ShareKey;
 import org.rbernalop.apiscript.shared.application.script.create.CreateScriptCommand;

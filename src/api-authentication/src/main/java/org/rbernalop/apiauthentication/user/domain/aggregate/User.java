@@ -6,6 +6,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.rbernalop.apiauthentication.user.domain.value_object.*;
 import org.rbernalop.shared.domain.AggregateRoot;
+import org.rbernalop.shared.domain.valueobject.UserId;
+import org.rbernalop.shared.domain.valueobject.UserUsername;
 
 import java.time.LocalDate;
 

@@ -8,13 +8,13 @@ import org.rbernalop.apiauthentication.shared.application.user.create.CreateUser
 import org.rbernalop.apiauthentication.user.domain.aggregate.User;
 import org.rbernalop.apiauthentication.user.domain.aggregate.UserMother;
 import org.rbernalop.apiauthentication.user.domain.exception.InvalidCaptchaException;
-import org.rbernalop.apiauthentication.user.domain.exception.InvalidUserDataException;
+import org.rbernalop.shared.domain.exception.InvalidUserDataException;
 import org.rbernalop.apiauthentication.user.domain.exception.UserAlreadyExistsException;
 import org.rbernalop.apiauthentication.user.domain.port.CaptchaVerifier;
 import org.rbernalop.apiauthentication.user.domain.port.UserRepository;
 import org.rbernalop.apiauthentication.user.domain.value_object.UserEmail;
-import org.rbernalop.apiauthentication.user.domain.value_object.UserId;
-import org.rbernalop.apiauthentication.user.domain.value_object.UserUsername;
+import org.rbernalop.shared.domain.valueobject.UserId;
+import org.rbernalop.shared.domain.valueobject.UserUsername;
 import org.rbernalop.shared.domain.InvalidIdException;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.infrastructure.testing.UnitTestCase;

@@ -3,7 +3,7 @@ package org.rbernalop.apiscript.script.application.create;
 import org.rbernalop.apiscript.script.domain.aggregate.Script;
 import org.rbernalop.apiscript.script.domain.repository.ScriptRepository;
 import org.rbernalop.apiscript.script.domain.value_object.OwnerUsername;
-import org.rbernalop.apiscript.script.domain.value_object.ScriptId;
+import org.rbernalop.shared.domain.valueobject.ScriptId;
 import org.rbernalop.shared.domain.valueobject.LanguageId;
 import org.rbernalop.apiscript.script.domain.value_object.ShareKey;
 import org.rbernalop.shared.application.UseCase;

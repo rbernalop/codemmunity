@@ -4,6 +4,8 @@ import com.github.javafaker.Faker;
 import org.rbernalop.apiauthentication.shared.application.user.create.CreateUserCommand;
 import org.rbernalop.apiauthentication.shared.application.user.create.CreateUserCommandMother;
 import org.rbernalop.apiauthentication.user.domain.value_object.*;
+import org.rbernalop.shared.domain.valueobject.UserId;
+import org.rbernalop.shared.domain.valueobject.UserUsername;
 
 import java.time.ZoneId;
 

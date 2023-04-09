@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import org.rbernalop.apiauthentication.user.domain.aggregate.User;
 import org.rbernalop.apiauthentication.user.domain.port.UserRepository;
 import org.rbernalop.apiauthentication.user.domain.value_object.UserEmail;
-import org.rbernalop.apiauthentication.user.domain.value_object.UserId;
-import org.rbernalop.apiauthentication.user.domain.value_object.UserUsername;
+import org.rbernalop.shared.domain.valueobject.UserId;
+import org.rbernalop.shared.domain.valueobject.UserUsername;
 
 @AllArgsConstructor
 public class DomainUserSearcher {

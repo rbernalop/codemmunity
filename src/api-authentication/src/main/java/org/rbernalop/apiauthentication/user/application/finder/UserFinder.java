@@ -4,7 +4,7 @@ import org.rbernalop.apiauthentication.shared.application.user.finder.username.F
 import org.rbernalop.apiauthentication.user.domain.aggregate.User;
 import org.rbernalop.apiauthentication.user.domain.port.UserRepository;
 import org.rbernalop.apiauthentication.user.domain.service.DomainUserFinder;
-import org.rbernalop.apiauthentication.user.domain.value_object.UserUsername;
+import org.rbernalop.shared.domain.valueobject.UserUsername;
 import org.rbernalop.shared.application.UseCase;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
 

@@ -1,9 +1,8 @@
-package org.rbernalop.apiauthentication.user.domain.value_object;
+package org.rbernalop.shared.domain.valueobject;
 
 import jakarta.persistence.Embeddable;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.rbernalop.shared.domain.valueobject.Identifier;
 
 @Embeddable
 @NoArgsConstructor

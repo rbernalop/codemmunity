@@ -1,8 +1,8 @@
-package org.rbernalop.apiauthentication.user.domain.value_object;
+package org.rbernalop.shared.domain.valueobject;
 
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.rbernalop.apiauthentication.user.domain.exception.InvalidUserDataException;
+import org.rbernalop.shared.domain.exception.InvalidUserDataException;
 
 @NoArgsConstructor
 @EqualsAndHashCode

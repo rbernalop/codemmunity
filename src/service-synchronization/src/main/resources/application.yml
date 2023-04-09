@@ -1,0 +1,23 @@
+spring:
+    application:
+        name: service-synchronization
+    datasource:
+        url: ${SYNCHRONIZATION_DB_URL:jdbc:postgresql://localhost:5432/synchronizationdb}
+        username: ${SYNCHRONIZATION_DB_USERNAME:postgres}
+        password: ${SYNCHRONIZATION_DB_PASSWORD:postgres}
+        driver-class-name: ${SYNCHRONIZATION_DB_DRIVER_CLASS_NAME:org.postgresql.Driver}
+    jpa:
+        hibernate:
+            ddl-auto: ${SYNCHRONIZATION_DB_DDL_AUTO:update}
+server:
+    port: 8083
+eureka:
+    client:
+        service-url:
+            defaultZone: http://${EUREKA_SERVER_ADDRESS:localhost}:8761/eureka
+        fetch-registry: true
+        register-with-eureka: true
+    instance:
+        prefer-ip-address: true
+        ip-address: ${SYNCHRONIZATION_ADDRESS:localhost}
+        instance-id: ${SYNCHRONIZATION_ADDRESS:localhost}:8081

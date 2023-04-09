@@ -9,6 +9,8 @@ import org.rbernalop.apiauthentication.user.domain.value_object.*;
 import org.rbernalop.shared.domain.Service;
 import org.rbernalop.shared.domain.bus.command.CommandHandler;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
+import org.rbernalop.shared.domain.valueobject.UserId;
+import org.rbernalop.shared.domain.valueobject.UserUsername;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Service
