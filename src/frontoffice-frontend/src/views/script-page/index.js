@@ -6,12 +6,12 @@ import {Layout} from "antd";
 import {Content} from "antd/es/layout/layout";
 import Sider from "antd/es/layout/Sider";
 import CodeRunBox from "../../components/CodeRunBox";
-import EditScriptTitle from "./EditScriptTitle";
 import findScriptById from "../../requests/scripts/findScriptById";
 import {errorNotification} from "../../utils/notification";
 import {changeScriptLanguage} from "../../requests/scripts/changeScriptLanguage";
 import {runScript} from "../../requests/scripts/runScript";
 import Authenticate from "../authenticate";
+import ScriptHeader from "./ScriptHeader";
 
 const languages = [
     {
@@ -51,6 +51,7 @@ const ScriptPage = () => {
     const [formTab, setFormTab] = useState("login")
     const [language, setLanguage] = useState(languages[0]);
     const [title, setTitle] = useState('');
+    const [shareKey, setShareKey] = useState('');
     const [compilationOutput, setCompilationOutput] = useState(''); // Estado para almacenar la salida
     const [executionOutput, setExecutionOutput] = useState(''); // Estado para almacenar la salida
     const [code, setCode] = useState(language.sample);
@@ -97,6 +98,7 @@ const ScriptPage = () => {
         findScriptById(id).then((response) => {
             setTitle(response.data.name);
             setLanguage(languages.find(language => language.id === response.data.languageId));
+            setShareKey(response.data.shareKey);
         }).catch(e =>
             errorNotification("Error retrieving script", e.response.data.message || "Try again later",
                 "topRight")
@@ -111,7 +113,7 @@ const ScriptPage = () => {
 
     return (
         <>
-            <EditScriptTitle id={id} title={title} setTitle={setTitle} />
+            <ScriptHeader id={id} shareKey={shareKey} setShareKey={setShareKey} title={title} setTitle={setTitle} />
             <Layout>
                 <Sider width={"fit-content"}>
                     <CodeEditorOptions language={language.key} setLanguage={changeLanguage} languages={languages} />
