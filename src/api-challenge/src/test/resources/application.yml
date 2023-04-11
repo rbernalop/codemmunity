@@ -1,0 +1,9 @@
+spring:
+    datasource:
+        url: ${CHALLENGE_DB_URL:jdbc:postgresql://localhost:5432/challengetestdb}
+        username: ${CHALLENGE_DB_USERNAME:postgres}
+        password: ${CHALLENGE_DB_PASSWORD:postgres}
+        driver-class-name: ${CHALLENGE_DB_DRIVER_CLASS_NAME:org.postgresql.Driver}
+    jpa:
+        hibernate:
+            ddl-auto: update
