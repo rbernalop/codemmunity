@@ -16,8 +16,6 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
-import java.util.List;
-
 @Controller
 public class UserJoinSocket extends ApiController {
     private final SimpMessagingTemplate simpMessagingTemplate;
@@ -36,10 +34,10 @@ public class UserJoinSocket extends ApiController {
         FindScriptByIdResponse findScriptByIdResponse = ask(findScriptByIdQuery);
 
         UserJoinSocketResponse userJoinSocketResponse = new UserJoinSocketResponse();
+        userJoinSocketResponse.setScriptId(id);
         userJoinSocketResponse.setUsername(userJoinSocketRequest.getUsername());
         userJoinSocketResponse.setScriptContent(findScriptByIdResponse.getContent());
-        userJoinSocketResponse.setOnlineUsers(findScriptByIdResponse.getOnlineUsers());
-        simpMessagingTemplate.convertAndSend("/script/" + id + "/joined", userJoinSocketResponse);
+        simpMessagingTemplate.convertAndSend("/script/joined", userJoinSocketResponse);
     }
 }
 
@@ -54,7 +52,7 @@ class UserJoinSocketRequest {
 @Getter
 @Setter
 class UserJoinSocketResponse {
+    private String scriptId;
     private String username;
     private String scriptContent;
-    private List<String> onlineUsers;
 }

@@ -29,9 +29,10 @@ public class ScriptChangeSocket extends ApiController {
         dispatch(changeScriptContentCommand);
 
         ScriptChangeSocketResponse scriptChangeSocketResponse = new ScriptChangeSocketResponse();
+        scriptChangeSocketResponse.setScriptId(id);
         scriptChangeSocketResponse.setUsername(scriptChangeSocketRequest.getUsername());
         scriptChangeSocketResponse.setChange(scriptChangeSocketRequest.getChange());
-        simpMessagingTemplate.convertAndSend("/script/" + id + "/changed", scriptChangeSocketResponse);
+        simpMessagingTemplate.convertAndSend("/script/changed", scriptChangeSocketResponse);
     }
 }
 
@@ -48,6 +49,7 @@ class ScriptChangeSocketRequest {
 @Getter
 @Setter
 class ScriptChangeSocketResponse {
+    private String scriptId;
     private String username;
     private Object change;
 }

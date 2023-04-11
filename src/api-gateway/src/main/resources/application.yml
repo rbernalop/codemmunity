@@ -20,6 +20,10 @@ spring:
                     - Path=/api/v1/script/**
                   filters:
                     - AuthorizedFilter
+                - id: service-synchronization
+                  uri: lb://service-synchronization
+                  predicates:
+                    - Path=/service/v1/**
     main:
         allow-bean-definition-overriding: true
 server:

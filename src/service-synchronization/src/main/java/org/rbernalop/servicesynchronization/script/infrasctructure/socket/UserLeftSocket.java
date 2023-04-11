@@ -23,14 +23,15 @@ public class UserLeftSocket extends ApiController {
         this.simpMessagingTemplate = simpMessagingTemplate;
     }
 
-    @MessageMapping("/script/{id}/left")
+    @MessageMapping("/script/{id}/leave")
     public void join(@Payload UserLeftSocketRequest userJoinSocketRequest, @DestinationVariable String id) {
         LeaveUserScriptCommand leaveUserScriptCommand = new LeaveUserScriptCommand(userJoinSocketRequest.getUsername(), id);
         dispatch(leaveUserScriptCommand);
 
         UserLeftSocketResponse userJoinSocketResponse = new UserLeftSocketResponse();
+        userJoinSocketResponse.setScriptId(id);
         userJoinSocketResponse.setUsername(userJoinSocketRequest.getUsername());
-        simpMessagingTemplate.convertAndSend("/script/" + id + "/left", userJoinSocketResponse);
+        simpMessagingTemplate.convertAndSend("/script/left", userJoinSocketResponse);
     }
 }
 
@@ -45,5 +46,6 @@ class UserLeftSocketRequest {
 @Getter
 @Setter
 class UserLeftSocketResponse {
+    private String scriptId;
     private String username;
 }

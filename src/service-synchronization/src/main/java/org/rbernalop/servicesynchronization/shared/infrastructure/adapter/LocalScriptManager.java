@@ -6,6 +6,7 @@ import org.rbernalop.shared.domain.valueobject.ScriptId;
 import org.rbernalop.shared.domain.valueobject.UserUsername;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,7 @@ public class LocalScriptManager implements ScriptManager {
     public void addOnlineUser(ScriptId id, UserUsername username) {
         List<UserUsername> users = onlineUsers.get(id);
         if (users == null) {
-            users = List.of(username);
+            users =  new ArrayList<>(List.of(username));
         } else{
             users.add(username);
         }

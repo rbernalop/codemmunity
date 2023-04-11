@@ -1,7 +1,35 @@
 import { Button } from 'antd';
 import { CaretRightOutlined } from '@ant-design/icons';
+import {runScript} from "../requests/scripts/runScript";
+import {errorNotification} from "../utils/notification";
 
-const CodeRunBox = ({ runCode, compilationResult, executionResult, isRunning }) => {
+const CodeRunBox = ({ isAuthenticated, compilationResult, setCompilationOutput, executionResult, setExecutionOutput,
+                    code, language, isRunning, setIsRunning }) => {
+
+    const runCode = () => {
+        if (!isAuthenticated) {
+            return;
+        }
+        setIsRunning(true);
+        runScript(code, language.id).then((response) => {
+            setIsRunning(false);
+            setCompilationOutput('');
+            setExecutionOutput(response.data.executionOutput);
+        }).catch(e => {
+            setIsRunning(false);
+            if (e.response.data.compilationError) {
+                setCompilationOutput(e.response.data.compilationError)
+                setExecutionOutput('');
+            } else if (e.response.data.executionError) {
+                setExecutionOutput(e.response.data.executionError)
+                setCompilationOutput('');
+            } else {
+                errorNotification("Error running code", e.response.data.message || "Try again later", "topRight")
+                setCompilationOutput('');
+                setExecutionOutput('');
+            }
+        });
+    };
 
     return (
         <>
