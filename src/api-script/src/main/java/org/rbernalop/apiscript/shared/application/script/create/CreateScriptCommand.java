@@ -14,5 +14,5 @@ public class CreateScriptCommand implements Command {
     private String id;
     private String key;
     private String languageId;
-    private String ownerUserName;
+    private String userUsername;
 }

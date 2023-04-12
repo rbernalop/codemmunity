@@ -41,7 +41,7 @@ class CreateScriptCommandHandlerTest extends UnitTestCase {
         // THEN
         ScriptId id = new ScriptId(command.getId());
         ScriptContent content = new ScriptContent("");
-        Script script = new Script(id, content);
+        Script script = Script.create(id, content);
         verify(scriptManager, times(1)).setScriptContent(id, content);
         verify(scriptRepository, times(1)).save(script);
     }

@@ -12,10 +12,10 @@ import java.util.List;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class FindScriptsByUserIdResponse implements Response {
+public class FindScriptsByUsernameResponse implements Response {
     public List<ScriptResponse> scriptsResponses;
 
-    public FindScriptsByUserIdResponse(List<Script> scripts) {
+    public FindScriptsByUsernameResponse(List<Script> scripts) {
         this.scriptsResponses = scripts.stream().map(ScriptResponse::new).toList();
     }
 }

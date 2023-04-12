@@ -5,8 +5,8 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class ScriptsGetByUserIdRequest {
+public class ScriptsGetByUsernameRequest {
     private int page;
     private int size;
-    private String ownerId;
+    private String username;
 }
