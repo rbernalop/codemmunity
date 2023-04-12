@@ -11,6 +11,7 @@ import org.rbernalop.apiscript.script.domain.value_object.*;
 import org.rbernalop.shared.domain.AggregateRoot;
 import org.rbernalop.shared.domain.valueobject.LanguageId;
 import org.rbernalop.shared.domain.valueobject.ScriptId;
+import org.rbernalop.shared.domain.valueobject.UserUsername;
 
 @Entity
 @Table(name = "scripts")
@@ -21,7 +22,7 @@ public class Script extends AggregateRoot {
     private ScriptId id;
 
     @Embedded
-    private OwnerUsername ownerUsername;
+    private UserUsername userUsername;
 
     @Embedded
     private ScriptName name;
@@ -32,10 +33,10 @@ public class Script extends AggregateRoot {
     @Embedded
     private LanguageId languageId;
 
-    public static Script create(ScriptId id, OwnerUsername ownerUserName, ScriptName name, ShareKey key, LanguageId languageId) {
+    public static Script create(ScriptId id, UserUsername userUsername, ScriptName name, ShareKey key, LanguageId languageId) {
         Script script = new Script();
         script.id = id;
-        script.ownerUsername = ownerUserName;
+        script.userUsername = userUsername;
         script.name = name;
         script.shareKey = key;
         script.languageId = languageId;
@@ -47,7 +48,7 @@ public class Script extends AggregateRoot {
     }
 
     public String getOwnerName() {
-        return ownerUsername.getValue();
+        return userUsername.getValue();
     }
 
     public String getName() {

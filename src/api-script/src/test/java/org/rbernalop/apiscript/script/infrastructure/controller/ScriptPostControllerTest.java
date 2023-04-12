@@ -29,19 +29,19 @@ class ScriptPostControllerTest extends IntegrationTestCase {
     void should_create_a_script() {
         // GIVEN
         ScriptPostRequest request = ScriptPostRequestMother.random();
-        String ownerUsername = faker.name().username();
+        String userUsername = faker.name().username();
 
         // WHEN
         assertDoesNotThrow(() -> assertRequestWithBody(
             HttpMethod.POST,
-            SCRIPT_POST_ENDPOINT + "?user=" + ownerUsername,
+            SCRIPT_POST_ENDPOINT + "?user=" + userUsername,
             request,
             HttpStatus.CREATED));
 
         // THEN
         assertEquals(1, repository.count());
         Script actualScript = repository.findAll().get(0);
-        assertEquals(ownerUsername, actualScript.getOwnerName());
+        assertEquals(userUsername, actualScript.getOwnerName());
         assertEquals("Untitled script", actualScript.getName());
         assertNotNull(actualScript.getId());
         assertEquals(request.getId(), actualScript.getId().getValue());
@@ -53,12 +53,12 @@ class ScriptPostControllerTest extends IntegrationTestCase {
     void should_return_bad_request_when_script_id_is_empty() {
         // GIVEN
         ScriptPostRequest request = ScriptPostRequestMother.withEmptyId();
-        String ownerUsername = faker.name().username();
+        String userUserna = faker.name().username();
 
         // WHEN
         assertDoesNotThrow(() -> assertRequestWithBody(
             HttpMethod.POST,
-            SCRIPT_POST_ENDPOINT + "?user=" + ownerUsername,
+            SCRIPT_POST_ENDPOINT + "?user=" + userUserna,
             request,
             HttpStatus.BAD_REQUEST));
     }

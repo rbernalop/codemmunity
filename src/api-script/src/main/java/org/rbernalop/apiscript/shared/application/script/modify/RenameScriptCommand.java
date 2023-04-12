@@ -13,5 +13,5 @@ import org.rbernalop.shared.domain.bus.command.Command;
 public class RenameScriptCommand implements Command {
     private String id;
     private String nextName;
-    private String ownerUserName;
+    private String userUsername;
 }

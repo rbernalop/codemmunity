@@ -1,4 +1,4 @@
-package org.rbernalop.apiscript.script.application.finder.by_userId;
+package org.rbernalop.apiscript.script.application.finder.by_username;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -6,11 +6,11 @@ import org.mockito.Mock;
 import org.rbernalop.apiscript.script.domain.aggregate.Script;
 import org.rbernalop.apiscript.script.domain.aggregate.ScriptMother;
 import org.rbernalop.apiscript.script.domain.repository.ScriptRepository;
-import org.rbernalop.apiscript.script.domain.value_object.OwnerUsername;
-import org.rbernalop.apiscript.shared.application.script.find.by_userid.FindScriptsByUserIdQuery;
+import org.rbernalop.apiscript.shared.application.script.find.by_userid.FindScriptsByUsernameQuery;
 import org.rbernalop.apiscript.shared.application.script.find.by_userid.FindScriptsByUserIdQueryMother;
 import org.rbernalop.apiscript.shared.domain.exception.NegativeException;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
+import org.rbernalop.shared.domain.valueobject.UserUsername;
 import org.rbernalop.shared.infrastructure.testing.UnitTestCase;
 import org.springframework.data.domain.PageRequest;
 
@@ -19,18 +19,18 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class FindScriptsByOwnerUsernameQueryHandlerTest extends UnitTestCase {
+class FindScriptsByuserUsernameQueryHandlerTest extends UnitTestCase {
 
     @Mock
     private ScriptRepository scriptRepository;
     @Mock
     private QueryBus queryBus;
 
-    private FindScriptsByUserIdQueryHandler handler;
+    private FindScriptsByUsernameQueryHandler handler;
 
     @BeforeEach
     protected void setUp() {
-        handler = new FindScriptsByUserIdQueryHandler(queryBus, scriptRepository);
+        handler = new FindScriptsByUsernameQueryHandler(queryBus, scriptRepository);
     }
 
     @Test
@@ -38,9 +38,9 @@ class FindScriptsByOwnerUsernameQueryHandlerTest extends UnitTestCase {
         Script script = ScriptMother.random();
         String userId = script.getOwnerName();
 
-        FindScriptsByUserIdQuery query = FindScriptsByUserIdQueryMother.randomFromUserId(userId);
+        FindScriptsByUsernameQuery query = FindScriptsByUserIdQueryMother.randomFromUserId(userId);
 
-        when(scriptRepository.findByOwnerUsername(new OwnerUsername(userId), PageRequest.of(query.getPage(), query.getSize()))).thenReturn(List.of(script));
+        when(scriptRepository.findByuserUsername(new UserUsername(userId), PageRequest.of(query.getPage(), query.getSize()))).thenReturn(List.of(script));
 
         var response = handler.handle(query);
 
@@ -51,26 +51,26 @@ class FindScriptsByOwnerUsernameQueryHandlerTest extends UnitTestCase {
         assertEquals(script.getLanguageId(), response.getScriptsResponses().get(0).getLanguageId());
         assertEquals(script.getShareKey(), response.getScriptsResponses().get(0).getShareKey());
 
-        verify(scriptRepository, times(1)).findByOwnerUsername(new OwnerUsername(userId), PageRequest.of(query.getPage(), query.getSize()));
+        verify(scriptRepository, times(1)).findByuserUsername(new UserUsername(userId), PageRequest.of(query.getPage(), query.getSize()));
     }
 
     @Test
     void should_throw_NegativeException_when_page_is_negative() {
-        FindScriptsByUserIdQuery query = FindScriptsByUserIdQueryMother.withNegativePage();
+        FindScriptsByUsernameQuery query = FindScriptsByUserIdQueryMother.withNegativePage();
 
         NegativeException exception = assertThrows(NegativeException.class, () -> handler.handle(query));
 
         assertEquals("Page must be greater than 0", exception.getMessage());
-        verify(scriptRepository, never()).findByOwnerUsername(any(), any());
+        verify(scriptRepository, never()).findByuserUsername(any(), any());
     }
 
     @Test
     void should_throw_NegativeException_when_size_is_negative() {
-        FindScriptsByUserIdQuery query = FindScriptsByUserIdQueryMother.withNegativeSize();
+        FindScriptsByUsernameQuery query = FindScriptsByUserIdQueryMother.withNegativeSize();
 
         NegativeException exception = assertThrows(NegativeException.class, () -> handler.handle(query));
 
         assertEquals("Size must be greater than 0", exception.getMessage());
-        verify(scriptRepository, never()).findByOwnerUsername(any(), any());
+        verify(scriptRepository, never()).findByuserUsername(any(), any());
     }
 }
