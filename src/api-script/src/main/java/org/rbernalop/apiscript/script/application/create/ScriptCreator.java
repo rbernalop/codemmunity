@@ -3,6 +3,7 @@ package org.rbernalop.apiscript.script.application.create;
 import org.rbernalop.apiscript.script.domain.aggregate.Script;
 import org.rbernalop.apiscript.script.domain.repository.ScriptRepository;
 import org.rbernalop.apiscript.script.domain.value_object.OwnerUsername;
+import org.rbernalop.apiscript.script.domain.value_object.ScriptName;
 import org.rbernalop.shared.domain.valueobject.ScriptId;
 import org.rbernalop.shared.domain.valueobject.LanguageId;
 import org.rbernalop.apiscript.script.domain.value_object.ShareKey;
@@ -18,8 +19,8 @@ public class ScriptCreator extends UseCase {
         this.scriptRepository = scriptRepository;
     }
 
-    public void create(ScriptId id, ShareKey key, LanguageId languageId, OwnerUsername ownerUserName) {
-        Script script = Script.create(id, key, languageId, ownerUserName);
+    public void create(ScriptId id, ScriptName name, ShareKey key, LanguageId languageId, OwnerUsername ownerUserName) {
+        Script script = Script.create(id, ownerUserName, name, key, languageId);
         scriptRepository.save(script);
     }
 

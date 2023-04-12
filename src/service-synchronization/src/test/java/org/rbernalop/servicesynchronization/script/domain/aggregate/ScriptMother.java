@@ -6,7 +6,7 @@ import org.rbernalop.shared.domain.valueobject.ScriptId;
 
 public class ScriptMother {
     public static Script random() {
-        return new Script(
+        return Script.create(
             new ScriptId(Faker.instance().internet().uuid()),
             new ScriptContent(Faker.instance().lorem().paragraph())
         );

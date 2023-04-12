@@ -9,7 +9,7 @@ public class ScriptMother {
     private final static Faker faker = new Faker();
 
     public static Script random() {
-        return new Script(
+        return Script.create(
             new ScriptId(faker.internet().uuid()),
             new OwnerUsername(faker.name().username()),
             new ScriptName(faker.lorem().sentence()),
@@ -19,7 +19,7 @@ public class ScriptMother {
     }
 
     public static Script fromScriptAndNewName(Script script, String nextName) {
-        return new Script(
+        return Script.create(
             script.getId(),
             new OwnerUsername(script.getOwnerName()),
             new ScriptName(nextName),
@@ -29,7 +29,7 @@ public class ScriptMother {
     }
 
     public static Script randomWithId(String id) {
-        return new Script(
+        return Script.create(
             new ScriptId(id),
             new OwnerUsername(faker.name().username()),
             new ScriptName(faker.lorem().sentence()),
@@ -39,7 +39,7 @@ public class ScriptMother {
     }
 
     public static Script fromScriptAndNewShareKey(Script script, String shareKey) {
-        return new Script(
+        return Script.create(
             script.getId(),
             new OwnerUsername(script.getOwnerName()),
             new ScriptName(script.getName()),

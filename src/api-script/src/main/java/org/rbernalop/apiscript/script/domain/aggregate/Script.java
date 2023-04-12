@@ -32,16 +32,14 @@ public class Script extends AggregateRoot {
     @Embedded
     private LanguageId languageId;
 
-    public Script(ScriptId id, OwnerUsername ownerUsername, ScriptName name, ShareKey shareKey, LanguageId languageId) {
-        this.id = id;
-        this.ownerUsername = ownerUsername;
-        this.name = name;
-        this.shareKey = shareKey;
-        this.languageId = languageId;
-    }
-
-    public static Script create(ScriptId id, ShareKey key, LanguageId languageId, OwnerUsername ownerUserName) {
-        return new Script(id, ownerUserName, new ScriptName("Untitled script"), key, languageId);
+    public static Script create(ScriptId id, OwnerUsername ownerUserName, ScriptName name, ShareKey key, LanguageId languageId) {
+        Script script = new Script();
+        script.id = id;
+        script.ownerUsername = ownerUserName;
+        script.name = name;
+        script.shareKey = key;
+        script.languageId = languageId;
+        return script;
     }
 
     public ScriptId getId() {
