@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 
 @ControllerAdvice
 @RestController
-public class ApiAuthenticationExceptionHandler extends ResponseEntityExceptionHandler {
+public class ApiExecutionExceptionHandler extends ResponseEntityExceptionHandler {
     private CustomError generateError(String message, HttpStatus httpStatus) {
         return CustomError.builder()
                 .message(message)

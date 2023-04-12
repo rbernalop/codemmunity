@@ -16,7 +16,7 @@ import java.io.UnsupportedEncodingException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ScriptGetByOwnerUsernameControllerTest extends IntegrationTestCase {
+class ScriptGetByUsernameControllerTest extends IntegrationTestCase {
 
     public static final String SCRIPT_GET_BY_USER_ID_ENDPOINT = "/api/v1/script";
 
@@ -33,17 +33,17 @@ class ScriptGetByOwnerUsernameControllerTest extends IntegrationTestCase {
         // GIVEN
         Script script = ScriptMother.random();
         scriptRepository.save(script);
-        ScriptsGetByUserIdRequest request = ScriptsGetByUserIdRequestMother.randomForUserId(script.getOwnerName());
+        ScriptsGetByUsernameRequest request = ScriptsGetByUsernameRequestMother.randomForUsername(script.getOwnerName());
 
         // WHEN
         MvcResult result =
             assertDoesNotThrow(() -> assertRequest(
                 HttpMethod.GET,
-                SCRIPT_GET_BY_USER_ID_ENDPOINT + "?page=" + request.getPage() + "&size=" + request.getSize() + "&user=" + request.getOwnerId(),
+                SCRIPT_GET_BY_USER_ID_ENDPOINT + "?page=" + request.getPage() + "&size=" + request.getSize() + "&user=" + request.getUsername(),
                 HttpStatus.OK));
 
         // THEN
-        ScriptsGetByUserIdResponse response = objectMapper.readValue(result.getResponse().getContentAsString(), ScriptsGetByUserIdResponse.class);
+        ScriptsGetByUsernameResponse response = objectMapper.readValue(result.getResponse().getContentAsString(), ScriptsGetByUsernameResponse.class);
         assertEquals(1, response.getScriptsResponses().size());
         assertNotNull(script.getId());
         assertEquals(script.getId().getValue(), response.getScriptsResponses().get(0).getId());
@@ -52,12 +52,12 @@ class ScriptGetByOwnerUsernameControllerTest extends IntegrationTestCase {
     @Test
     void should_return_bad_request_when_page_is_negative() {
         // GIVEN
-        ScriptsGetByUserIdRequest request = ScriptsGetByUserIdRequestMother.withNegativePage();
+        ScriptsGetByUsernameRequest request = ScriptsGetByUsernameRequestMother.withNegativePage();
 
         // WHEN
         assertDoesNotThrow(() -> assertRequest(
             HttpMethod.GET,
-            SCRIPT_GET_BY_USER_ID_ENDPOINT + "?page=" + request.getPage() + "&size=" + request.getSize() + "&user=" + request.getOwnerId(),
+            SCRIPT_GET_BY_USER_ID_ENDPOINT + "?page=" + request.getPage() + "&size=" + request.getSize() + "&user=" + request.getUsername(),
             HttpStatus.BAD_REQUEST));
 
         // THEN

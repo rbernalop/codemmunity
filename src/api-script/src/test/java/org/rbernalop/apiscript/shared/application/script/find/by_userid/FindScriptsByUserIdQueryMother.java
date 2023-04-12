@@ -6,24 +6,24 @@ public class FindScriptsByUserIdQueryMother {
 
     private final static Faker faker = new Faker();
 
-    public static FindScriptsByUserIdQuery randomFromUserId(String userId) {
-        return new FindScriptsByUserIdQuery(
+    public static FindScriptsByUsernameQuery randomFromUserId(String userId) {
+        return new FindScriptsByUsernameQuery(
             userId,
         0,
             faker.number().numberBetween(1, 50)
         );
     }
 
-    public static FindScriptsByUserIdQuery withNegativePage() {
-        return new FindScriptsByUserIdQuery(
+    public static FindScriptsByUsernameQuery withNegativePage() {
+        return new FindScriptsByUsernameQuery(
             faker.internet().uuid(),
             faker.number().numberBetween(-100, -1),
             faker.number().numberBetween(1, 50)
         );
     }
 
-    public static FindScriptsByUserIdQuery withNegativeSize() {
-        return new FindScriptsByUserIdQuery(
+    public static FindScriptsByUsernameQuery withNegativeSize() {
+        return new FindScriptsByUsernameQuery(
             faker.internet().uuid(),
             0,
             faker.number().numberBetween(-100, -1)

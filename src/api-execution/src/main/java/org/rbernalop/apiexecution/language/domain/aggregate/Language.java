@@ -23,9 +23,11 @@ public class Language extends AggregateRoot {
     @Embedded
     private LanguageName name;
 
-    public Language(LanguageId id, LanguageName name) {
-        this.id = id;
-        this.name = name;
+    public static Language create(LanguageId id, LanguageName name) {
+        Language language = new Language();
+        language.id = id;
+        language.name = name;
+        return language;
     }
 
     @Override

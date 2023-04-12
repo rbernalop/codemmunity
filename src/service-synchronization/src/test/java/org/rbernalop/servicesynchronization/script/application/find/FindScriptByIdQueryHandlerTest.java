@@ -61,7 +61,7 @@ class FindScriptByIdQueryHandlerTest extends UnitTestCase {
         FindScriptByIdResponse expectedResponse = FindScriptByIdResponseMother.random();
         ScriptId scriptId = new ScriptId(query.getId());
         ScriptContent scriptContent = new ScriptContent(expectedResponse.getContent());
-        Script script = new Script(scriptId, scriptContent);
+        Script script = Script.create(scriptId, scriptContent);
 
         when(scriptManager.getScriptContent(scriptId)).thenReturn(null);
         when(scriptRepository.findById(scriptId)).thenReturn(Optional.of(script));

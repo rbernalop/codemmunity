@@ -10,8 +10,8 @@ import org.rbernalop.shared.domain.bus.query.Query;
 @Getter
 @Setter
 @ToString
-public class FindScriptsByUserIdQuery implements Query {
-    private String ownerUsername;
+public class FindScriptsByUsernameQuery implements Query {
+    private String userUsername;
     private int page;
     private int size;
 }

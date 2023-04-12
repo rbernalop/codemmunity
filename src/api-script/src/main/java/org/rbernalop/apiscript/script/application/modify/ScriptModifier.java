@@ -9,6 +9,7 @@ import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.domain.exception.NotAllowedOperationException;
 import org.rbernalop.shared.domain.valueobject.LanguageId;
 import org.rbernalop.shared.domain.valueobject.ScriptId;
+import org.rbernalop.shared.domain.valueobject.UserUsername;
 
 import java.util.Objects;
 
@@ -24,10 +25,10 @@ public class ScriptModifier extends UseCase {
         this.domainScriptFinder = new DomainScriptFinder(scriptRepository);
     }
 
-    public void renameScript(ScriptId scriptId, ScriptName nextName, OwnerUsername ownerUsername) {
+    public void renameScript(ScriptId scriptId, ScriptName nextName, UserUsername userUsername) {
         Script script = domainScriptFinder.findScriptById(scriptId);
 
-        if(!Objects.equals(script.getOwnerName(), ownerUsername.getValue())) {
+        if(!Objects.equals(script.getOwnerName(), userUsername.getValue())) {
             throw new NotAllowedOperationException("You can't rename another user's script");
         }
 

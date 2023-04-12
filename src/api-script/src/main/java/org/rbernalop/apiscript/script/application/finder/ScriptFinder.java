@@ -3,12 +3,12 @@ package org.rbernalop.apiscript.script.application.finder;
 import org.rbernalop.apiscript.script.domain.aggregate.Script;
 import org.rbernalop.apiscript.script.domain.service.DomainScriptFinder;
 import org.rbernalop.apiscript.script.domain.value_object.PaginationRequest;
-import org.rbernalop.apiscript.script.domain.value_object.OwnerUsername;
 import org.rbernalop.shared.domain.valueobject.ScriptId;
 import org.rbernalop.apiscript.shared.application.script.find.by_id.FindScriptsByIdResponse;
-import org.rbernalop.apiscript.shared.application.script.find.by_userid.FindScriptsByUserIdResponse;
+import org.rbernalop.apiscript.shared.application.script.find.by_userid.FindScriptsByUsernameResponse;
 import org.rbernalop.shared.application.UseCase;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
+import org.rbernalop.shared.domain.valueobject.UserUsername;
 
 import java.util.List;
 
@@ -20,9 +20,9 @@ public class ScriptFinder extends UseCase {
         this.domainScriptFinder = domainScriptFinder;
     }
 
-    public FindScriptsByUserIdResponse findScriptsByUserId(OwnerUsername ownerUsername, PaginationRequest paginationRequest) {
-        List<Script> scripts = domainScriptFinder.findScriptsByOwnerUsername(ownerUsername, paginationRequest);
-        return new FindScriptsByUserIdResponse(scripts);
+    public FindScriptsByUsernameResponse findScriptsByUserId(UserUsername userUsername, PaginationRequest paginationRequest) {
+        List<Script> scripts = domainScriptFinder.findScriptsByuserUsername(userUsername, paginationRequest);
+        return new FindScriptsByUsernameResponse(scripts);
     }
 
     public FindScriptsByIdResponse findScriptById(ScriptId scriptId) {
