@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.rbernalop.apiscript.script.application.finder.ScriptFinder;
 import org.rbernalop.apiscript.script.domain.repository.ScriptRepository;
 import org.rbernalop.apiscript.script.domain.service.DomainScriptFinder;
-import org.rbernalop.apiscript.script.domain.value_object.PaginationRequest;
+import org.rbernalop.shared.domain.valueobject.PaginationRequest;
 import org.rbernalop.apiscript.shared.application.script.find.by_userid.FindScriptsByUsernameQuery;
 import org.rbernalop.apiscript.shared.application.script.find.by_userid.FindScriptsByUsernameResponse;
 import org.rbernalop.shared.domain.Service;

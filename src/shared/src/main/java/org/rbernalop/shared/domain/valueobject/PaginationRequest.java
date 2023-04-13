@@ -1,6 +1,6 @@
-package org.rbernalop.apiscript.script.domain.value_object;
+package org.rbernalop.shared.domain.valueobject;
 
-import org.rbernalop.apiscript.shared.domain.exception.NegativeException;
+import org.rbernalop.shared.domain.exception.NegativeException;
 
 public record PaginationRequest(int page, int size) {
     public PaginationRequest {
