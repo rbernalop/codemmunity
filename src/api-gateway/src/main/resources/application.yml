@@ -20,6 +20,12 @@ spring:
                     - Path=/api/v1/script/**
                   filters:
                     - AuthorizedFilter
+                - id: api-challenge
+                  uri: lb://api-challenge
+                  predicates:
+                    - Path=/api/v1/challenge/**
+                  filters:
+                    - AuthorizedFilter
     main:
         allow-bean-definition-overriding: true
 server:
