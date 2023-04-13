@@ -20,6 +20,13 @@ public class Category {
     @Embedded
     private CategoryName name;
 
+    public static Category create(CategoryId id, CategoryName name) {
+        Category category = new Category();
+        category.id = id;
+        category.name = name;
+        return category;
+    }
+
     public String getId() {
         return id.getValue();
     }

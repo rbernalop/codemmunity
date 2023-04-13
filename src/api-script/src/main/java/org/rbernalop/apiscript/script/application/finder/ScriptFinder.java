@@ -2,7 +2,7 @@ package org.rbernalop.apiscript.script.application.finder;
 
 import org.rbernalop.apiscript.script.domain.aggregate.Script;
 import org.rbernalop.apiscript.script.domain.service.DomainScriptFinder;
-import org.rbernalop.apiscript.script.domain.value_object.PaginationRequest;
+import org.rbernalop.shared.domain.valueobject.PaginationRequest;
 import org.rbernalop.shared.domain.valueobject.ScriptId;
 import org.rbernalop.apiscript.shared.application.script.find.by_id.FindScriptsByIdResponse;
 import org.rbernalop.apiscript.shared.application.script.find.by_userid.FindScriptsByUsernameResponse;

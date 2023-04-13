@@ -8,7 +8,7 @@ import org.rbernalop.apiscript.script.domain.aggregate.ScriptMother;
 import org.rbernalop.apiscript.script.domain.repository.ScriptRepository;
 import org.rbernalop.apiscript.shared.application.script.find.by_userid.FindScriptsByUsernameQuery;
 import org.rbernalop.apiscript.shared.application.script.find.by_userid.FindScriptsByUserIdQueryMother;
-import org.rbernalop.apiscript.shared.domain.exception.NegativeException;
+import org.rbernalop.shared.domain.exception.NegativeException;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.domain.valueobject.UserUsername;
 import org.rbernalop.shared.infrastructure.testing.UnitTestCase;

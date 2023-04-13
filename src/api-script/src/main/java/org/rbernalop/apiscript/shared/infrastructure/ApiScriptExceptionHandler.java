@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.rbernalop.apiscript.script.domain.exception.InvalidScriptDataException;
-import org.rbernalop.apiscript.shared.domain.exception.NegativeException;
+import org.rbernalop.shared.domain.exception.NegativeException;
 import org.rbernalop.shared.domain.InvalidIdException;
 import org.rbernalop.shared.domain.exception.EntityNotFoundException;
 import org.rbernalop.shared.domain.exception.NotAllowedOperationException;
