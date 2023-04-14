@@ -35,12 +35,14 @@ public class ChallengeGetController extends ApiController {
 @Setter
 class ChallengeGetResponses {
     private List<ChallengeGetResponse> challenges;
+    private long totalChallenges;
 
     public static ChallengeGetResponses from(FindChallengesPaginatedResponse findChallengesPaginatedResponse) {
         ChallengeGetResponses challengeGetResponses = new ChallengeGetResponses();
         challengeGetResponses.setChallenges(
             findChallengesPaginatedResponse.getChallenges().stream().map(ChallengeGetResponse::from).toList()
         );
+        challengeGetResponses.setTotalChallenges(findChallengesPaginatedResponse.getTotalChallenges());
         return challengeGetResponses;
     }
 }

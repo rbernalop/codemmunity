@@ -12,10 +12,12 @@ import java.util.List;
 @Setter
 public class FindChallengesPaginatedResponse implements Response {
     private List<ChallengeResponse> challenges;
+    private long totalChallenges;
 
-    public static FindChallengesPaginatedResponse from(List<Challenge> challenges) {
+    public static FindChallengesPaginatedResponse from(List<Challenge> challenges, long totalChallenges) {
         FindChallengesPaginatedResponse response = new FindChallengesPaginatedResponse();
         response.setChallenges(challenges.stream().map(ChallengeResponse::from).toList());
+        response.setTotalChallenges(totalChallenges);
         return response;
     }
 }

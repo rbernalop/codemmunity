@@ -23,6 +23,6 @@ public class ChallengeFinder {
         List<Challenge> challenges = challengeRepository.findAll(
             PageRequest.of(paginationRequest.page(), paginationRequest.size())
         ).getContent();
-        return FindChallengesPaginatedResponse.from(challenges);
+        return FindChallengesPaginatedResponse.from(challenges, challengeRepository.count());
     }
 }
