@@ -32,10 +32,11 @@ public class LocalScriptManager implements ScriptManager {
         List<UserUsername> users = onlineUsers.get(id);
         if (users == null) {
             users =  new ArrayList<>(List.of(username));
-        } else{
+            onlineUsers.put(id, users);
+        } else if (!users.contains(username)) {
             users.add(username);
+            onlineUsers.put(id, users);
         }
-        onlineUsers.put(id, users);
     }
 
     @Override

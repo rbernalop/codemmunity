@@ -7,12 +7,15 @@ import 'codemirror/mode/python/python';
 import 'codemirror/mode/clike/clike';
 import 'codemirror/addon/edit/closetag';
 import 'codemirror/addon/edit/closebrackets';
+import {sendChange} from "../requests/websocket/script/producer/sendScriptChange";
+import {listenScriptChanges} from "../requests/websocket/script/consumer/scriptChange";
 
 const CodeEditor = ({
-        // roomId,
+        scriptId,
         language,
         setCode,
-        editorRef
+        editorRef,
+        stompClient,
     }) => {
 
     useEffect(() => {
@@ -38,10 +41,20 @@ const CodeEditor = ({
 
     // WHEN CODE CHANGES
     useEffect(() => {
-        editorRef.current.on('change', () => {
+        editorRef.current.on('change', (instance, changes) => {
             setCode(editorRef.current.getValue());
+            if(changes.origin !== "setValue" && changes.origin !== undefined) {
+                sendChange(stompClient, scriptId, localStorage.getItem("username"), changes, instance.getValue());
+            }
         });
-    }, [setCode]);
+    }, [setCode, stompClient]);
+
+    useEffect(() => {
+        listenScriptChanges(stompClient, scriptId, (change, codeChanged) => {
+            editorRef.current.replaceRange(change.text, change.from, change.to, 'setValue');
+            setCode(codeChanged);
+        });
+    }, [stompClient]);
 
     return <textarea id="realtimeEditor" />;
 };

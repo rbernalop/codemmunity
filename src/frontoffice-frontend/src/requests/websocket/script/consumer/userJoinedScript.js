@@ -8,9 +8,9 @@ export const listenUsersJoined = (stompClient, scriptId, usersJoined, setUsersJo
         const username = localStorage.getItem('username');
         if (data.username === username) {
             setScriptContent(data.scriptContent);
-        } else {
-            setUsersJoined([...usersJoined, {name: data.username}]);
         }
+        let usersJoinedWithoutMe = data.onlineUsers.filter(user => localStorage.getItem('username') !== user);
+        setUsersJoined(usersJoinedWithoutMe);
     }
 
     listenEvent(stompClient, event, handler)

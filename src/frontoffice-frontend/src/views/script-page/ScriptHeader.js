@@ -29,11 +29,11 @@ const ScriptHeader = ({ id, shareKey, setShareKey, title, setTitle, scriptUsers 
             <Avatar.Group style={{float: 'right', marginTop: 10, marginRight: 10}}>
                 {
                     scriptUsers.map(user => {
-                        const color = "#" + Math.abs(user.name.hashCode()).toString(16).slice(0,6);
+                        const color = "#" + Math.abs(user.hashCode()).toString(16).slice(0,6);
                         return (
-                            <Tooltip title={user.name} placement="top">
-                                <Avatar key={user.id} style={{backgroundColor: color, verticalAlign: 'middle'}}>
-                                    {user.name[0].toUpperCase()}
+                            <Tooltip key={user} title={user} placement="top">
+                                <Avatar key={user} style={{backgroundColor: color, verticalAlign: 'middle'}}>
+                                    {user[0].toUpperCase()}
                                 </Avatar>
                             </Tooltip>
                         )

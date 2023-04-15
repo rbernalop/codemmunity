@@ -13,8 +13,8 @@ import ScriptHeader from "./ScriptHeader";
 import {connect} from "../../requests/websocket/connection";
 import {listenUsersLeft} from "../../requests/websocket/script/consumer/userLeftScript";
 import {listenUsersJoined} from "../../requests/websocket/script/consumer/userJoinedScript";
-import {listenScriptChanges} from "../../requests/websocket/script/consumer/scriptChange";
 import {joinScript} from "../../requests/websocket/script/producer/joinScript";
+import {leaveScript} from "../../requests/websocket/script/producer/leaveScript";
 
 const languages = [
     {
@@ -52,6 +52,7 @@ const ScriptPage = () => {
     const { id } = useParams()
     const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem("token") !== null)
 
+    const [stompClient, setStompClient] = useState(null)
     const [formTab, setFormTab] = useState("login")
     const [scriptUsers, setScriptUsers] = useState([])
 
@@ -74,10 +75,14 @@ const ScriptPage = () => {
         }
 
         connect((generatedStompClient) => {
+            setStompClient(generatedStompClient)
             listenUsersJoined(generatedStompClient, id, scriptUsers, setScriptUsers, (code) => editorRef.current.setValue(code))
             listenUsersLeft(generatedStompClient, id, scriptUsers, setScriptUsers)
-            listenScriptChanges(generatedStompClient, id, setCode)
             joinScript(generatedStompClient, id, localStorage.getItem("username"))
+            window.addEventListener("beforeunload", () =>
+            {
+                leaveScript(generatedStompClient, id, localStorage.getItem("username"))
+            });
         }, () => {
             errorNotification("Error connecting to server", "Try again later", "topRight")
         });
@@ -107,7 +112,7 @@ const ScriptPage = () => {
                     <CodeEditorOptions id={id} language={language.key} setLanguage={setLanguage} languages={languages} />
                 </Sider>
                 <Content style={{ padding: '24px 24px', height: '100vh' }}>
-                    <CodeEditor roomId={id} language={language.key} setCode={setCode} editorRef={editorRef} />
+                    <CodeEditor scriptId={id} language={language.key} setCode={setCode} editorRef={editorRef} stompClient={stompClient} />
                 </Content>
                 <Sider width={"fit-content"} style={{padding: '24px 24px', backgroundColor: '#F5F5F5', height: '100vh'}}>
                     <CodeRunBox

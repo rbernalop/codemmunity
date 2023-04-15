@@ -7,7 +7,7 @@ export const listenScriptChanges = (stompClient, scriptId, updateCode) => {
         let data = JSON.parse(event.body);
         const username = localStorage.getItem('username');
         if (data.username === username) return
-        updateCode(data.change);
+        updateCode(data.change, data.changedScript)
     }
 
     listenEvent(stompClient, event, handler)
