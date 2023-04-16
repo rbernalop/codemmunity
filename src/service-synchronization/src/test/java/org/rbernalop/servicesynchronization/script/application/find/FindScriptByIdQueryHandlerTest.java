@@ -13,7 +13,6 @@ import org.rbernalop.servicesynchronization.shared.application.script.find.FindS
 import org.rbernalop.servicesynchronization.shared.application.user_script.find.FindUsersByScriptIdQuery;
 import org.rbernalop.servicesynchronization.shared.application.user_script.find.FindUsersByScriptIdResponse;
 import org.rbernalop.servicesynchronization.shared.domain.port.ScriptManager;
-import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.domain.exception.EntityNotFoundException;
 import org.rbernalop.shared.domain.valueobject.ScriptId;
 import org.rbernalop.shared.infrastructure.testing.UnitTestCase;

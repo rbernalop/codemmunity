@@ -9,7 +9,6 @@ import org.rbernalop.servicesynchronization.script.domain.value_object.ScriptCon
 import org.rbernalop.servicesynchronization.shared.application.script.create.CreateScriptCommand;
 import org.rbernalop.servicesynchronization.shared.application.script.create.CreateScriptCommandMother;
 import org.rbernalop.servicesynchronization.shared.domain.port.ScriptManager;
-import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.domain.valueobject.ScriptId;
 import org.rbernalop.shared.infrastructure.testing.UnitTestCase;
 

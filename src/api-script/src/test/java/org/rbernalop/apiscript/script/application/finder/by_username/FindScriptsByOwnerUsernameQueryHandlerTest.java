@@ -9,7 +9,6 @@ import org.rbernalop.apiscript.script.domain.port.ScriptRepository;
 import org.rbernalop.apiscript.shared.application.script.find.by_userid.FindScriptsByUsernameQuery;
 import org.rbernalop.apiscript.shared.application.script.find.by_userid.FindScriptsByUserIdQueryMother;
 import org.rbernalop.shared.domain.exception.NegativeException;
-import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.domain.valueobject.UserUsername;
 import org.rbernalop.shared.infrastructure.testing.UnitTestCase;
 import org.springframework.data.domain.PageRequest;
@@ -20,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class FindScriptsByuserUsernameQueryHandlerTest extends UnitTestCase {
-
     @Mock
     private ScriptRepository scriptRepository;
 

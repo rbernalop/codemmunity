@@ -10,7 +10,6 @@ import org.rbernalop.shared.domain.valueobject.ScriptId;
 import org.rbernalop.apiscript.shared.application.script.find.by_id.FindScriptsByIdQuery;
 import org.rbernalop.apiscript.shared.application.script.find.by_id.FindScriptsByIdQueryMother;
 import org.rbernalop.apiscript.shared.application.script.find.by_id.FindScriptsByIdResponse;
-import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.infrastructure.testing.UnitTestCase;
 
 import java.util.Optional;

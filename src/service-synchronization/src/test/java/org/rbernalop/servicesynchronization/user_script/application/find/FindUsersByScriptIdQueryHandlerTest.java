@@ -8,7 +8,6 @@ import org.rbernalop.servicesynchronization.shared.application.user_script.find.
 import org.rbernalop.servicesynchronization.shared.application.user_script.find.FindUsersByScriptIdResponse;
 import org.rbernalop.servicesynchronization.shared.application.user_script.find.FindUsersByScriptIdResponseMother;
 import org.rbernalop.servicesynchronization.shared.domain.port.ScriptManager;
-import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.domain.valueobject.ScriptId;
 import org.rbernalop.shared.domain.valueobject.UserUsername;
 import org.rbernalop.shared.infrastructure.testing.UnitTestCase;
