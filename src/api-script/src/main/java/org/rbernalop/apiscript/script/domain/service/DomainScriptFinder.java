@@ -2,7 +2,7 @@ package org.rbernalop.apiscript.script.domain.service;
 
 import lombok.AllArgsConstructor;
 import org.rbernalop.apiscript.script.domain.aggregate.Script;
-import org.rbernalop.apiscript.script.domain.repository.ScriptRepository;
+import org.rbernalop.apiscript.script.domain.port.ScriptRepository;
 import org.rbernalop.shared.domain.valueobject.PaginationRequest;
 import org.rbernalop.shared.domain.valueobject.ScriptId;
 import org.rbernalop.shared.domain.exception.EntityNotFoundException;

@@ -1,11 +1,11 @@
 package org.rbernalop.apiscript.script.application.finder.by_username;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.rbernalop.apiscript.script.domain.aggregate.Script;
 import org.rbernalop.apiscript.script.domain.aggregate.ScriptMother;
-import org.rbernalop.apiscript.script.domain.repository.ScriptRepository;
+import org.rbernalop.apiscript.script.domain.port.ScriptRepository;
 import org.rbernalop.apiscript.shared.application.script.find.by_userid.FindScriptsByUsernameQuery;
 import org.rbernalop.apiscript.shared.application.script.find.by_userid.FindScriptsByUserIdQueryMother;
 import org.rbernalop.shared.domain.exception.NegativeException;
@@ -23,15 +23,10 @@ class FindScriptsByuserUsernameQueryHandlerTest extends UnitTestCase {
 
     @Mock
     private ScriptRepository scriptRepository;
-    @Mock
-    private QueryBus queryBus;
 
+
+    @InjectMocks
     private FindScriptsByUsernameQueryHandler handler;
-
-    @BeforeEach
-    protected void setUp() {
-        handler = new FindScriptsByUsernameQueryHandler(queryBus, scriptRepository);
-    }
 
     @Test
     void should_find_scripts_by_user_id() {

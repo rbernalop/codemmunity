@@ -5,7 +5,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.rbernalop.apiscript.script.domain.aggregate.Script;
 import org.rbernalop.apiscript.script.domain.aggregate.ScriptMother;
-import org.rbernalop.apiscript.script.domain.repository.ScriptRepository;
+import org.rbernalop.apiscript.script.domain.port.ScriptRepository;
 import org.rbernalop.shared.domain.valueobject.ScriptId;
 import org.rbernalop.apiscript.shared.application.script.find.by_id.FindScriptsByIdQuery;
 import org.rbernalop.apiscript.shared.application.script.find.by_id.FindScriptsByIdQueryMother;
@@ -22,8 +22,7 @@ class FindScriptsByIdQueryHandlerTest extends UnitTestCase {
     @Mock
     private ScriptRepository scriptRepository;
 
-    @Mock
-    private QueryBus queryBus;
+
 
     @InjectMocks
     private FindScriptsByIdQueryHandler findScriptsByIdQueryHandler;

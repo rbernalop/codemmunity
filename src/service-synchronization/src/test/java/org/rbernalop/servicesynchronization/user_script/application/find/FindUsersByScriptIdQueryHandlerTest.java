@@ -20,8 +20,7 @@ class FindUsersByScriptIdQueryHandlerTest extends UnitTestCase {
     @Mock
     private ScriptManager scriptManager;
 
-    @Mock
-    private QueryBus queryBus;
+
 
     @InjectMocks
     private FindUsersByScriptIdQueryHandler findUsersByScriptIdQueryHandler;

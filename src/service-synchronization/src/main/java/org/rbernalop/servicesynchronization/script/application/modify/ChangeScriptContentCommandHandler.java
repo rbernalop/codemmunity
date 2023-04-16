@@ -6,6 +6,7 @@ import org.rbernalop.servicesynchronization.shared.application.script.modify.Cha
 import org.rbernalop.servicesynchronization.shared.domain.port.ScriptManager;
 import org.rbernalop.shared.domain.Service;
 import org.rbernalop.shared.domain.bus.command.CommandHandler;
+import org.rbernalop.shared.domain.bus.event.EventBus;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.domain.valueobject.ScriptId;
 
@@ -14,8 +15,8 @@ import org.rbernalop.shared.domain.valueobject.ScriptId;
 public class ChangeScriptContentCommandHandler implements CommandHandler<ChangeScriptContentCommand> {
     private final ScriptModifier scriptModifier;
 
-    public ChangeScriptContentCommandHandler(QueryBus queryBus, ScriptManager scriptManager) {
-        this.scriptModifier = new ScriptModifier(queryBus, scriptManager);
+    public ChangeScriptContentCommandHandler(QueryBus queryBus, EventBus eventBus, ScriptManager scriptManager) {
+        this.scriptModifier = new ScriptModifier(queryBus, eventBus, scriptManager);
     }
 
     @Override

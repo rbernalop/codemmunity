@@ -19,8 +19,7 @@ class ChangeScriptContentCommandHandlerTest extends UnitTestCase {
     @Mock
     private ScriptManager scriptManager;
 
-    @Mock
-    private QueryBus queryBus;
+
 
     @InjectMocks
     private ChangeScriptContentCommandHandler changeScriptContentCommandHandler;

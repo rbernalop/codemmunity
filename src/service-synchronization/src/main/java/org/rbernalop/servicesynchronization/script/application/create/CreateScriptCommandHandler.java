@@ -7,6 +7,7 @@ import org.rbernalop.servicesynchronization.shared.application.script.create.Cre
 import org.rbernalop.servicesynchronization.shared.domain.port.ScriptManager;
 import org.rbernalop.shared.domain.Service;
 import org.rbernalop.shared.domain.bus.command.CommandHandler;
+import org.rbernalop.shared.domain.bus.event.EventBus;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.domain.valueobject.ScriptId;
 
@@ -16,8 +17,8 @@ public class CreateScriptCommandHandler implements CommandHandler<CreateScriptCo
 
     private final ScriptCreator scriptCreator;
 
-    public CreateScriptCommandHandler(ScriptRepository scriptRepository, QueryBus queryBus, ScriptManager scriptManager) {
-        this.scriptCreator = new ScriptCreator(scriptRepository, queryBus, scriptManager);
+    public CreateScriptCommandHandler(QueryBus queryBus, EventBus eventBus, ScriptRepository scriptRepository, ScriptManager scriptManager) {
+        this.scriptCreator = new ScriptCreator(queryBus, eventBus, scriptRepository, scriptManager);
     }
 
     @Override

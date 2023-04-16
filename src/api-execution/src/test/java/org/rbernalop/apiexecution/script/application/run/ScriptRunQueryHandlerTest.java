@@ -2,7 +2,6 @@ package org.rbernalop.apiexecution.script.application.run;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.rbernalop.apiexecution.language.domain.aggregate.Language;
 import org.rbernalop.apiexecution.language.domain.aggregate.LanguageMother;
 import org.rbernalop.apiexecution.shared.application.language.find.by_id.FindLanguageByIdQuery;
@@ -10,16 +9,12 @@ import org.rbernalop.apiexecution.shared.application.language.find.by_id.FindLan
 import org.rbernalop.apiexecution.shared.application.script.run.ScriptRunQuery;
 import org.rbernalop.apiexecution.shared.application.script.run.ScriptRunQueryMother;
 import org.rbernalop.apiexecution.shared.application.script.run.ScriptRunResponse;
-import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.infrastructure.testing.UnitTestCase;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class ScriptRunQueryHandlerTest extends UnitTestCase {
-    @Mock
-    private QueryBus queryBus;
-
     @InjectMocks
     private ScriptRunQueryHandler scriptRunQueryHandler;
 

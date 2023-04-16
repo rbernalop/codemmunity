@@ -18,8 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class FindAllLanguagesQueryHandlerTest extends UnitTestCase {
-    @Mock
-    private QueryBus queryBus;
+
 
     @Mock
     private LanguageRepository languageRepository;

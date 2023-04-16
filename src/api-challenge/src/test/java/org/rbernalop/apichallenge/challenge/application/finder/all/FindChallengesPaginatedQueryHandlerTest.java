@@ -23,8 +23,7 @@ class FindChallengesPaginatedQueryHandlerTest extends UnitTestCase {
     @Mock
     private ChallengeRepository challengeRepository;
 
-    @Mock
-    private QueryBus queryBus;
+
 
     @InjectMocks
     private FindChallengesPaginatedQueryHandler findChallengesPaginatedQueryHandler;

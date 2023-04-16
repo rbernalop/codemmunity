@@ -23,8 +23,7 @@ class FindLanguageByIdQueryHandlerTest extends UnitTestCase {
     @Mock
     private LanguageRepository languageRepository;
 
-    @Mock
-    private QueryBus queryBus;
+
 
     @InjectMocks
     private FindLanguageByIdQueryHandler findLanguageByIdQueryHandler;

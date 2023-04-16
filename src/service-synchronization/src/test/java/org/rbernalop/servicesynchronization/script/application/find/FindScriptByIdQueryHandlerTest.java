@@ -24,8 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class FindScriptByIdQueryHandlerTest extends UnitTestCase {
-    @Mock
-    private QueryBus queryBus;
+
     @Mock
     private ScriptRepository scriptRepository;
     @Mock

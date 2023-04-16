@@ -7,6 +7,7 @@ import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.rbernalop.apiscript.script.domain.event.ScriptCreatedDomainEvent;
 import org.rbernalop.apiscript.script.domain.value_object.*;
 import org.rbernalop.shared.domain.AggregateRoot;
 import org.rbernalop.shared.domain.valueobject.LanguageId;
@@ -40,6 +41,7 @@ public class Script extends AggregateRoot {
         script.name = name;
         script.shareKey = key;
         script.languageId = languageId;
+        script.record(new ScriptCreatedDomainEvent(id.getValue(), key.getValue()));
         return script;
     }
 

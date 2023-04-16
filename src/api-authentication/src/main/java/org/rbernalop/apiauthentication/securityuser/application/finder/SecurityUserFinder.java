@@ -5,6 +5,7 @@ import org.rbernalop.apiauthentication.shared.application.user.finder.username.F
 import org.rbernalop.shared.domain.SecurityUser;
 import org.rbernalop.shared.application.UseCase;
 import org.rbernalop.shared.domain.Service;
+import org.rbernalop.shared.domain.bus.event.EventBus;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,8 +13,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 @Service
 public class SecurityUserFinder extends UseCase implements UserDetailsService {
 
-    public SecurityUserFinder(QueryBus queryBus) {
-        super(queryBus);
+    public SecurityUserFinder(QueryBus queryBus, EventBus eventBus) {
+        super(queryBus, eventBus);
     }
 
     @Override

@@ -8,6 +8,7 @@ import org.rbernalop.servicesynchronization.shared.application.user_script.find.
 import org.rbernalop.servicesynchronization.shared.application.user_script.find.FindUsersByScriptIdResponse;
 import org.rbernalop.servicesynchronization.shared.domain.port.ScriptManager;
 import org.rbernalop.shared.application.UseCase;
+import org.rbernalop.shared.domain.bus.event.EventBus;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.domain.exception.EntityNotFoundException;
 import org.rbernalop.shared.domain.valueobject.ScriptId;
@@ -19,8 +20,8 @@ public class ScriptFinder extends UseCase {
     private final ScriptRepository scriptRepository;
     private final ScriptManager scriptManager;
 
-    public ScriptFinder(QueryBus queryBus, ScriptRepository scriptRepository, ScriptManager scriptManager) {
-        super(queryBus);
+    public ScriptFinder(QueryBus queryBus, EventBus eventBus, ScriptRepository scriptRepository, ScriptManager scriptManager) {
+        super(queryBus, eventBus);
         this.scriptRepository = scriptRepository;
         this.scriptManager = scriptManager;
     }

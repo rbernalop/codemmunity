@@ -2,6 +2,7 @@ package org.rbernalop.apiscript.script.application.finder;
 
 import org.rbernalop.apiscript.script.domain.aggregate.Script;
 import org.rbernalop.apiscript.script.domain.service.DomainScriptFinder;
+import org.rbernalop.shared.domain.bus.event.EventBus;
 import org.rbernalop.shared.domain.valueobject.PaginationRequest;
 import org.rbernalop.shared.domain.valueobject.ScriptId;
 import org.rbernalop.apiscript.shared.application.script.find.by_id.FindScriptsByIdResponse;
@@ -15,8 +16,8 @@ import java.util.List;
 public class ScriptFinder extends UseCase {
     private final DomainScriptFinder domainScriptFinder;
 
-    public ScriptFinder(QueryBus queryBus, DomainScriptFinder domainScriptFinder) {
-        super(queryBus);
+    public ScriptFinder(QueryBus queryBus, EventBus eventBus, DomainScriptFinder domainScriptFinder) {
+        super(queryBus, eventBus);
         this.domainScriptFinder = domainScriptFinder;
     }
 
