@@ -22,7 +22,7 @@ public class ScriptCreator extends UseCase {
     public void create(ScriptId id, ScriptContent content) {
         scriptManager.setScriptContent(id, content);
 
-        Script script = new Script(id, content);
+        Script script = Script.create(id, content);
         scriptRepository.save(script);
     }
 }

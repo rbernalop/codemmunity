@@ -1,6 +1,6 @@
 # Codemmunity
 
-Project Name is a web-based platform for programming challenges and competitions, with the ability for users to collaborate on scripts with others. The platform offers various types of programming challenges to help users improve their coding skills.
+Codemmunity is a web-based platform for programming challenges and competitions, with the ability for users to collaborate on scripts with others. The platform offers various types of programming challenges to help users improve their coding skills.
 
 ## Technologies Used
 

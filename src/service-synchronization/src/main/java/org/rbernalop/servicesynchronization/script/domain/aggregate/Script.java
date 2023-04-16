@@ -20,9 +20,11 @@ public class Script extends AggregateRoot {
     @Embedded
     private ScriptContent content;
 
-    public Script(ScriptId id, ScriptContent content) {
-        this.id = id;
-        this.content = content;
+    public static Script create(ScriptId id, ScriptContent content) {
+        Script script = new Script();
+        script.id = id;
+        script.content = content;
+        return script;
     }
 
     @Override

@@ -3,12 +3,12 @@ package org.rbernalop.apiscript.script.application.create;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.rbernalop.apiscript.script.domain.exception.InvalidScriptDataException;
 import org.rbernalop.apiscript.script.domain.repository.ScriptRepository;
 import org.rbernalop.apiscript.shared.application.script.create.CreateScriptCommand;
 import org.rbernalop.apiscript.shared.application.script.create.CreateScriptCommandMother;
 import org.rbernalop.shared.domain.InvalidIdException;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
+import org.rbernalop.shared.domain.exception.InvalidUserDataException;
 import org.rbernalop.shared.infrastructure.testing.UnitTestCase;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -67,21 +67,11 @@ class CreateScriptCommandHandlerTest extends UnitTestCase {
     }
 
     @Test
-    void should_throw_InvalidScriptNameException_when_ScriptName_is_invalid() {
+    void should_throw_InvalidScriptNameException_when_userUsername_is_invalid() {
         CreateScriptCommand command = CreateScriptCommandMother.random();
-        command.setOwnerUserName(null);
+        command.setUserUsername(null);
 
-        assertThrows(InvalidScriptDataException.class, () -> createScriptCommandHandler.handle(command));
-
-        verify(scriptRepository, never()).save(any());
-    }
-
-    @Test
-    void should_throw_InvalidScriptNameException_when_OwnerUsername_is_invalid() {
-        CreateScriptCommand command = CreateScriptCommandMother.random();
-        command.setOwnerUserName(null);
-
-        assertThrows(InvalidScriptDataException.class, () -> createScriptCommandHandler.handle(command));
+        assertThrows(InvalidUserDataException.class, () -> createScriptCommandHandler.handle(command));
 
         verify(scriptRepository, never()).save(any());
     }
