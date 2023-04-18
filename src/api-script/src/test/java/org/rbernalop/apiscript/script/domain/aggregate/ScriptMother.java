@@ -4,6 +4,7 @@ import com.github.javafaker.Faker;
 import org.rbernalop.apiscript.script.domain.value_object.*;
 import org.rbernalop.shared.domain.valueobject.LanguageId;
 import org.rbernalop.shared.domain.valueobject.ScriptId;
+import org.rbernalop.shared.domain.valueobject.ShareKey;
 import org.rbernalop.shared.domain.valueobject.UserUsername;
 
 public class ScriptMother {
@@ -20,6 +21,7 @@ public class ScriptMother {
     }
 
     public static Script fromScriptAndNewName(Script script, String nextName) {
+        assert script.getId() != null;
         return Script.create(
             script.getId(),
             new UserUsername(script.getOwnerName()),
@@ -40,6 +42,7 @@ public class ScriptMother {
     }
 
     public static Script fromScriptAndNewShareKey(Script script, String shareKey) {
+        assert script.getId() != null;
         return Script.create(
             script.getId(),
             new UserUsername(script.getOwnerName()),

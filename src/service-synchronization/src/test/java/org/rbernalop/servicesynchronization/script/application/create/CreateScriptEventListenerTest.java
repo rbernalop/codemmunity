@@ -5,18 +5,18 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.rbernalop.servicesynchronization.script.domain.aggregate.Script;
 import org.rbernalop.servicesynchronization.script.domain.port.ScriptRepository;
-import org.rbernalop.servicesynchronization.script.domain.value_object.ScriptContent;
-import org.rbernalop.servicesynchronization.shared.application.script.create.CreateScriptCommand;
-import org.rbernalop.servicesynchronization.shared.application.script.create.CreateScriptCommandMother;
+import org.rbernalop.servicesynchronization.shared.application.script.create.ScriptCreatedDomainEventMother;
+import org.rbernalop.shared.domain.valueobject.ScriptContent;
 import org.rbernalop.servicesynchronization.shared.domain.port.ScriptManager;
 import org.rbernalop.shared.domain.valueobject.ScriptId;
+import org.rbernalop.shared.domain.valueobject.ShareKey;
 import org.rbernalop.shared.infrastructure.testing.UnitTestCase;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-class CreateScriptCommandHandlerTest extends UnitTestCase {
+class CreateScriptEventListenerTest extends UnitTestCase {
     @Mock
     private ScriptRepository scriptRepository;
 
@@ -26,20 +26,21 @@ class CreateScriptCommandHandlerTest extends UnitTestCase {
 
 
     @InjectMocks
-    private CreateScriptCommandHandler createScriptCommandHandler;
+    private CreateScriptEventListener createScriptCommandHandler;
 
     @Test
     void should_create_script() {
         // GIVEN
-        CreateScriptCommand command = CreateScriptCommandMother.random();
+        org.rbernalop.shared.domain.bus.event.script.ScriptCreatedDomainEvent command = ScriptCreatedDomainEventMother.random();
 
         // WHEN
         assertDoesNotThrow(() -> createScriptCommandHandler.handle(command));
 
         // THEN
-        ScriptId id = new ScriptId(command.getId());
+        ScriptId id = new ScriptId(command.getAggregateId());
+        ShareKey key = new ShareKey(command.getShareKey());
         ScriptContent content = new ScriptContent("");
-        Script script = Script.create(id, content);
+        Script script = Script.create(id, key, content);
         verify(scriptManager, times(1)).setScriptContent(id, content);
         verify(scriptRepository, times(1)).save(script);
     }

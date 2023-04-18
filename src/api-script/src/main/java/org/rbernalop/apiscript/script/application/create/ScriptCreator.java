@@ -6,9 +6,9 @@ import org.rbernalop.apiscript.script.domain.value_object.ScriptName;
 import org.rbernalop.shared.domain.bus.event.EventBus;
 import org.rbernalop.shared.domain.valueobject.ScriptId;
 import org.rbernalop.shared.domain.valueobject.LanguageId;
-import org.rbernalop.apiscript.script.domain.value_object.ShareKey;
 import org.rbernalop.shared.application.UseCase;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
+import org.rbernalop.shared.domain.valueobject.ShareKey;
 import org.rbernalop.shared.domain.valueobject.UserUsername;
 
 public class ScriptCreator extends UseCase {

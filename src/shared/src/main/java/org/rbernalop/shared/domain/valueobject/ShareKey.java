@@ -1,12 +1,11 @@
-package org.rbernalop.apiscript.script.domain.value_object;
+package org.rbernalop.shared.domain.valueobject;
 
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.rbernalop.shared.domain.valueobject.Identifier;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 public class ShareKey extends Identifier {
     private String key;
 

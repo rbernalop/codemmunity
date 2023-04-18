@@ -1,6 +1,6 @@
 package org.rbernalop.servicesynchronization.script.application.modify;
 
-import org.rbernalop.servicesynchronization.script.domain.value_object.ScriptContent;
+import org.rbernalop.shared.domain.valueobject.ScriptContent;
 import org.rbernalop.servicesynchronization.shared.domain.port.ScriptManager;
 import org.rbernalop.shared.application.UseCase;
 import org.rbernalop.shared.domain.bus.event.EventBus;

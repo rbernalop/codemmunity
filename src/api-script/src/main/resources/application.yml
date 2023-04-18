@@ -9,6 +9,11 @@ spring:
     jpa:
         hibernate:
             ddl-auto: ${SCRIPT_DB_DDL_AUTO:update}
+    rabbitmq:
+        addresses: ${SCRIPT_RABBITMQ_URL:localhost:5672}
+        template:
+            routing-key: ${SCRIPT_RABBITMQ_ROUTING_KEY:scripts.synchronization.routing-key}
+            exchange: ${SCRIPT_RABBITMQ_EXCHANGE:amq.direct}
 server:
     port: 8081
 eureka:

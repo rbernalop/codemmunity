@@ -1,11 +1,12 @@
 package org.rbernalop.servicesynchronization.script.application.find;
 
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.rbernalop.servicesynchronization.script.domain.aggregate.Script;
 import org.rbernalop.servicesynchronization.script.domain.port.ScriptRepository;
-import org.rbernalop.servicesynchronization.script.domain.value_object.ScriptContent;
+import org.rbernalop.shared.domain.valueobject.ScriptContent;
 import org.rbernalop.servicesynchronization.shared.application.script.find.FindScriptByIdQuery;
 import org.rbernalop.servicesynchronization.shared.application.script.find.FindScriptByIdQueryMother;
 import org.rbernalop.servicesynchronization.shared.application.script.find.FindScriptByIdResponse;
@@ -15,6 +16,7 @@ import org.rbernalop.servicesynchronization.shared.application.user_script.find.
 import org.rbernalop.servicesynchronization.shared.domain.port.ScriptManager;
 import org.rbernalop.shared.domain.exception.EntityNotFoundException;
 import org.rbernalop.shared.domain.valueobject.ScriptId;
+import org.rbernalop.shared.domain.valueobject.ShareKey;
 import org.rbernalop.shared.infrastructure.testing.UnitTestCase;
 
 import java.util.Optional;
@@ -58,8 +60,9 @@ class FindScriptByIdQueryHandlerTest extends UnitTestCase {
         FindScriptByIdQuery query = FindScriptByIdQueryMother.random();
         FindScriptByIdResponse expectedResponse = FindScriptByIdResponseMother.random();
         ScriptId scriptId = new ScriptId(query.getId());
+        ShareKey shareKey = new ShareKey(Faker.instance().internet().uuid());
         ScriptContent scriptContent = new ScriptContent(expectedResponse.getContent());
-        Script script = Script.create(scriptId, scriptContent);
+        Script script = Script.create(scriptId, shareKey, scriptContent);
 
         when(scriptManager.getScriptContent(scriptId)).thenReturn(null);
         when(scriptRepository.findById(scriptId)).thenReturn(Optional.of(script));

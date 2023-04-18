@@ -1,8 +1,8 @@
 package org.rbernalop.servicesynchronization.script.application.modify;
 
 import lombok.extern.slf4j.Slf4j;
-import org.rbernalop.servicesynchronization.script.domain.value_object.ScriptContent;
 import org.rbernalop.servicesynchronization.shared.application.script.modify.ChangeScriptContentCommand;
+import org.rbernalop.shared.domain.valueobject.ScriptContent;
 import org.rbernalop.servicesynchronization.shared.domain.port.ScriptManager;
 import org.rbernalop.shared.domain.Service;
 import org.rbernalop.shared.domain.bus.command.CommandHandler;

@@ -7,12 +7,10 @@ import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.rbernalop.apiscript.script.domain.event.ScriptCreatedDomainEvent;
+import org.rbernalop.shared.domain.bus.event.script.ScriptCreatedDomainEvent;
 import org.rbernalop.apiscript.script.domain.value_object.*;
 import org.rbernalop.shared.domain.AggregateRoot;
-import org.rbernalop.shared.domain.valueobject.LanguageId;
-import org.rbernalop.shared.domain.valueobject.ScriptId;
-import org.rbernalop.shared.domain.valueobject.UserUsername;
+import org.rbernalop.shared.domain.valueobject.*;
 
 @Entity
 @Table(name = "scripts")

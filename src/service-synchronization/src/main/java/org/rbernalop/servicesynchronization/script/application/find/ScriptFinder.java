@@ -2,7 +2,7 @@ package org.rbernalop.servicesynchronization.script.application.find;
 
 import org.rbernalop.servicesynchronization.script.domain.aggregate.Script;
 import org.rbernalop.servicesynchronization.script.domain.port.ScriptRepository;
-import org.rbernalop.servicesynchronization.script.domain.value_object.ScriptContent;
+import org.rbernalop.shared.domain.valueobject.ScriptContent;
 import org.rbernalop.servicesynchronization.shared.application.script.find.FindScriptByIdResponse;
 import org.rbernalop.servicesynchronization.shared.application.user_script.find.FindUsersByScriptIdQuery;
 import org.rbernalop.servicesynchronization.shared.application.user_script.find.FindUsersByScriptIdResponse;
