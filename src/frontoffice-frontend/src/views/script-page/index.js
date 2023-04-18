@@ -74,18 +74,25 @@ const ScriptPage = () => {
             return;
         }
 
-        connect((generatedStompClient) => {
+        function handleConnection(generatedStompClient) {
             setStompClient(generatedStompClient)
             listenUsersJoined(generatedStompClient, id, scriptUsers, setScriptUsers, (code) => editorRef.current.setValue(code))
             listenUsersLeft(generatedStompClient, id, scriptUsers, setScriptUsers)
             joinScript(generatedStompClient, id, localStorage.getItem("username"))
-            window.addEventListener("beforeunload", () =>
-            {
+            window.addEventListener("beforeunload", () => {
                 leaveScript(generatedStompClient, id, localStorage.getItem("username"))
             });
-        }, () => {
-            errorNotification("Error connecting to server", "Try again later", "topRight")
-        });
+        }
+
+        function handleError() {
+            setTimeout(() => {
+                connect(handleConnection, () => {
+                    errorNotification("Error connecting to server", "Try again later", "topRight")
+                })
+            }, 5000);
+        }
+
+        connect(handleConnection, handleError)
 
         findScriptById(id).then((response) => {
             setTitle(response.data.name);

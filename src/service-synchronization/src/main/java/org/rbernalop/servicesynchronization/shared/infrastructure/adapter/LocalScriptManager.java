@@ -30,7 +30,7 @@ public class LocalScriptManager implements ScriptManager {
     @Override
     public void addOnlineUser(ScriptId id, UserUsername username) {
         List<UserUsername> users = onlineUsers.get(id);
-        if (users == null) {
+        if (users == null || users.size() <= 0) {
             users =  new ArrayList<>(List.of(username));
             onlineUsers.put(id, users);
         } else if (!users.contains(username)) {
@@ -42,7 +42,7 @@ public class LocalScriptManager implements ScriptManager {
     @Override
     public void removeOnlineUser(ScriptId id, UserUsername username) {
         List<UserUsername> users = onlineUsers.get(id);
-        if (users == null) {
+        if (users == null || users.size() <= 0) {
             return;
         }
         users.remove(username);
@@ -52,5 +52,10 @@ public class LocalScriptManager implements ScriptManager {
     @Override
     public List<UserUsername> getOnlineUsernames(ScriptId id) {
         return onlineUsers.get(id);
+    }
+
+    @Override
+    public Map<ScriptId, ScriptContent> getScriptsContent() {
+        return scripts;
     }
 }
