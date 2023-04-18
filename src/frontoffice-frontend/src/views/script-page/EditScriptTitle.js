@@ -34,19 +34,19 @@ const EditScriptTitle = ({id, title, setTitle}) => {
     }
 
     return (
-    <h1 onClick={handleClick} onBlur={handleBlur}>
+    <span onClick={handleClick} onBlur={handleBlur}>
         {editing ? (
             <Input type="text"
                value={title}
                onChange={handleChange}
-               style={{width: '100%', height: '100%', padding: 0, margin: 0, border: 'none', outline: 'none', fontSize: '1.5rem', fontWeight: 'bold'}}
+               style={{height: '100%', padding: 0, margin: 0, border: 'none', outline: 'none', fontSize: '1.5rem', fontWeight: 'bold', width: 'fit-content'}}
                autoFocus={true}
                onKeyDown={handleKeyDown}
             />
         ) : (
             title
         )}
-    </h1>
+    </span>
     );
 }
 

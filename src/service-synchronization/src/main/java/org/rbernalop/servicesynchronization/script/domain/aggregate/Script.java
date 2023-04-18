@@ -43,4 +43,8 @@ public class Script extends AggregateRoot {
     public String getContent() {
         return content.getValue();
     }
+
+    public void changeContent(ScriptContent content) {
+        this.content = content;
+    }
 }

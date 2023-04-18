@@ -1,17 +1,20 @@
 import CodeEditor from "../../components/CodeEditor";
 import {useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import CodeEditorOptions from "../../components/CodeEditorOptions";
 import {Layout} from "antd";
 import {Content} from "antd/es/layout/layout";
 import Sider from "antd/es/layout/Sider";
 import CodeRunBox from "../../components/CodeRunBox";
-import EditScriptTitle from "./EditScriptTitle";
 import findScriptById from "../../requests/scripts/findScriptById";
 import {errorNotification} from "../../utils/notification";
-import {changeScriptLanguage} from "../../requests/scripts/changeScriptLanguage";
-import {runScript} from "../../requests/scripts/runScript";
 import Authenticate from "../authenticate";
+import ScriptHeader from "./ScriptHeader";
+import {connect} from "../../requests/websocket/connection";
+import {listenUsersLeft} from "../../requests/websocket/script/consumer/userLeftScript";
+import {listenUsersJoined} from "../../requests/websocket/script/consumer/userJoinedScript";
+import {joinScript} from "../../requests/websocket/script/producer/joinScript";
+import {leaveScript} from "../../requests/websocket/script/producer/leaveScript";
 
 const languages = [
     {
@@ -48,55 +51,53 @@ public class Main {
 const ScriptPage = () => {
     const { id } = useParams()
     const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem("token") !== null)
+
+    const [stompClient, setStompClient] = useState(null)
     const [formTab, setFormTab] = useState("login")
+    const [scriptUsers, setScriptUsers] = useState([])
+
     const [language, setLanguage] = useState(languages[0]);
     const [title, setTitle] = useState('');
+    const [shareKey, setShareKey] = useState('');
+
     const [compilationOutput, setCompilationOutput] = useState(''); // Estado para almacenar la salida
     const [executionOutput, setExecutionOutput] = useState(''); // Estado para almacenar la salida
-    const [code, setCode] = useState(language.sample);
+    const [code, setCode] = useState('');
     const [isRunning, setIsRunning] = useState(false);
 
-    const changeLanguage = (languageKey) => {
-        const language = languages.find(language => language.key === languageKey);
-        changeScriptLanguage(id, language.id).then(() => {
-            setLanguage(language);
-        }).catch(e =>
-            errorNotification("Error changing language", e.response.data.message || "Try again later", "topRight")
-        );
-    }
 
-    const runCode = () => {
-        if (!isAuthenticated) {
-            return;
-        }
-        setIsRunning(true);
-        runScript(code, language.id).then((response) => {
-            setIsRunning(false);
-            setCompilationOutput('');
-            setExecutionOutput(response.data.executionOutput);
-        }).catch(e => {
-            setIsRunning(false);
-            if (e.response.data.compilationError) {
-                setCompilationOutput(e.response.data.compilationError)
-                setExecutionOutput('');
-            } else if (e.response.data.executionError) {
-                setExecutionOutput(e.response.data.executionError)
-                setCompilationOutput('');
-            } else {
-                errorNotification("Error running code", e.response.data.message || "Try again later", "topRight")
-                setCompilationOutput('');
-                setExecutionOutput('');
-            }
-        });
-    };
+    const editorRef = useRef(null);
+
 
     useEffect(() => {
         if (!isAuthenticated) {
             return;
         }
+
+        function handleConnection(generatedStompClient) {
+            setStompClient(generatedStompClient)
+            listenUsersJoined(generatedStompClient, id, scriptUsers, setScriptUsers, (code) => editorRef.current.setValue(code))
+            listenUsersLeft(generatedStompClient, id, scriptUsers, setScriptUsers)
+            joinScript(generatedStompClient, id, localStorage.getItem("username"))
+            window.addEventListener("beforeunload", () => {
+                leaveScript(generatedStompClient, id, localStorage.getItem("username"))
+            });
+        }
+
+        function handleError() {
+            setTimeout(() => {
+                connect(handleConnection, () => {
+                    errorNotification("Error connecting to server", "Try again later", "topRight")
+                })
+            }, 5000);
+        }
+
+        connect(handleConnection, handleError)
+
         findScriptById(id).then((response) => {
             setTitle(response.data.name);
             setLanguage(languages.find(language => language.id === response.data.languageId));
+            setShareKey(response.data.shareKey);
         }).catch(e =>
             errorNotification("Error retrieving script", e.response.data.message || "Try again later",
                 "topRight")
@@ -111,20 +112,26 @@ const ScriptPage = () => {
 
     return (
         <>
-            <EditScriptTitle id={id} title={title} setTitle={setTitle} />
+            <ScriptHeader id={id} shareKey={shareKey} setShareKey={setShareKey} title={title} setTitle={setTitle}
+                  scriptUsers={scriptUsers} setLanguage={setLanguage} />
             <Layout>
                 <Sider width={"fit-content"}>
-                    <CodeEditorOptions language={language.key} setLanguage={changeLanguage} languages={languages} />
+                    <CodeEditorOptions id={id} language={language.key} setLanguage={setLanguage} languages={languages} />
                 </Sider>
                 <Content style={{ padding: '24px 24px', height: '100vh' }}>
-                    <CodeEditor roomId={id} language={language.key} code={language.sample} setCode={setCode} />
+                    <CodeEditor scriptId={id} language={language.key} setCode={setCode} editorRef={editorRef} stompClient={stompClient} />
                 </Content>
                 <Sider width={"fit-content"} style={{padding: '24px 24px', backgroundColor: '#F5F5F5', height: '100vh'}}>
                     <CodeRunBox
+                        isAuthenticated={isAuthenticated}
                         executionResult={executionOutput}
+                        setExecutionOutput={setExecutionOutput}
                         compilationResult={compilationOutput}
-                        runCode={() => {runCode()}}
+                        setCompilationOutput={setCompilationOutput}
+                        code={code}
+                        language={language}
                         isRunning={isRunning}
+                        setIsRunning={setIsRunning}
                     />
                 </Sider>
             </Layout>
