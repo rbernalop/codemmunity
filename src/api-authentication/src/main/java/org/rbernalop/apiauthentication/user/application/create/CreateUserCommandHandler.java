@@ -8,6 +8,7 @@ import org.rbernalop.apiauthentication.user.domain.port.UserRepository;
 import org.rbernalop.apiauthentication.user.domain.value_object.*;
 import org.rbernalop.shared.domain.Service;
 import org.rbernalop.shared.domain.bus.command.CommandHandler;
+import org.rbernalop.shared.domain.bus.event.EventBus;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.domain.valueobject.UserId;
 import org.rbernalop.shared.domain.valueobject.UserUsername;
@@ -17,8 +18,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @AllArgsConstructor
 @Slf4j
 public class CreateUserCommandHandler implements CommandHandler<CreateUserCommand> {
-    private final UserRepository userRepository;
     private final QueryBus queryBus;
+    private final EventBus eventBus;
+    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final CaptchaVerifier captchaVerifier;
 
@@ -36,7 +38,7 @@ public class CreateUserCommandHandler implements CommandHandler<CreateUserComman
         UserPassword password = new UserPassword(command.getPassword());
         UserBirthDate birthDate = new UserBirthDate(command.getBirthDate());
 
-        UserCreator userCreator = new UserCreator(queryBus, userRepository, passwordEncoder, captchaVerifier);
+        UserCreator userCreator = new UserCreator(queryBus, eventBus, userRepository, passwordEncoder, captchaVerifier);
         userCreator.create(id, name, surname, username, email, password, birthDate, command.getCaptchaToken());
     }
 }

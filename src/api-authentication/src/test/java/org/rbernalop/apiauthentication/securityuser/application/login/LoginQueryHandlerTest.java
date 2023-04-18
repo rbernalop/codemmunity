@@ -1,7 +1,7 @@
 package org.rbernalop.apiauthentication.securityuser.application.login;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.rbernalop.apiauthentication.securityuser.domain.port.TokenGenerator;
 import org.rbernalop.apiauthentication.securityuser.domain.port.UserAuthenticator;
@@ -13,7 +13,6 @@ import org.rbernalop.apiauthentication.shared.application.user.finder.username.F
 import org.rbernalop.apiauthentication.shared.application.user.finder.username.FindUserByUsernameQueryMother;
 import org.rbernalop.apiauthentication.shared.application.user.finder.username.FindUserByUsernameResponse;
 import org.rbernalop.apiauthentication.shared.application.user.finder.username.FindUserByUsernameResponseMother;
-import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.infrastructure.testing.UnitTestCase;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,18 +23,13 @@ class LoginQueryHandlerTest extends UnitTestCase {
     @Mock
     private TokenGenerator tokenGenerator;
 
-    @Mock
-    private QueryBus queryBus;
+
 
     @Mock
     private UserAuthenticator userAuthenticator;
 
+    @InjectMocks
     private LoginQueryHandler loginQueryHandler;
-
-    @BeforeEach
-    void setUp() {
-        loginQueryHandler = new LoginQueryHandler(tokenGenerator, queryBus, userAuthenticator);
-    }
 
     @Test
     void should_make_login_and_return_token() {

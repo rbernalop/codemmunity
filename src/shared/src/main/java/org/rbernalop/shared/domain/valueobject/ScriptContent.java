@@ -1,4 +1,4 @@
-package org.rbernalop.servicesynchronization.script.domain.value_object;
+package org.rbernalop.shared.domain.valueobject;
 
 import jakarta.persistence.Embeddable;
 import lombok.EqualsAndHashCode;

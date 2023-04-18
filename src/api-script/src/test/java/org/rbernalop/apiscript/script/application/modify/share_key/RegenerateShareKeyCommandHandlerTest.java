@@ -5,7 +5,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.rbernalop.apiscript.script.domain.aggregate.Script;
 import org.rbernalop.apiscript.script.domain.aggregate.ScriptMother;
-import org.rbernalop.apiscript.script.domain.repository.ScriptRepository;
+import org.rbernalop.apiscript.script.domain.port.ScriptRepository;
 import org.rbernalop.apiscript.shared.application.script.modify.RegenerateShareKeyCommand;
 import org.rbernalop.apiscript.shared.application.script.modify.RegenerateShareKeyCommandMother;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
@@ -17,8 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class RegenerateShareKeyCommandHandlerTest extends UnitTestCase {
-    @Mock
-    private QueryBus queryBus;
+
 
     @Mock
     private ScriptRepository scriptRepository;

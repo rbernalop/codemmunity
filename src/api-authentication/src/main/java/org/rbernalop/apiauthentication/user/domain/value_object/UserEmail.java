@@ -1,6 +1,4 @@
 package org.rbernalop.apiauthentication.user.domain.value_object;
-
-
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.rbernalop.shared.domain.exception.InvalidUserDataException;

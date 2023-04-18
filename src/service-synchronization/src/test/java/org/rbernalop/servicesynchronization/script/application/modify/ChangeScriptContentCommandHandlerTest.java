@@ -3,11 +3,10 @@ package org.rbernalop.servicesynchronization.script.application.modify;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.rbernalop.servicesynchronization.script.domain.value_object.ScriptContent;
+import org.rbernalop.shared.domain.valueobject.ScriptContent;
 import org.rbernalop.servicesynchronization.shared.application.script.modify.ChangeScriptContentCommand;
 import org.rbernalop.servicesynchronization.shared.application.script.modify.ChangeScriptContentCommandMother;
 import org.rbernalop.servicesynchronization.shared.domain.port.ScriptManager;
-import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.domain.valueobject.ScriptId;
 import org.rbernalop.shared.infrastructure.testing.UnitTestCase;
 
@@ -19,8 +18,7 @@ class ChangeScriptContentCommandHandlerTest extends UnitTestCase {
     @Mock
     private ScriptManager scriptManager;
 
-    @Mock
-    private QueryBus queryBus;
+
 
     @InjectMocks
     private ChangeScriptContentCommandHandler changeScriptContentCommandHandler;

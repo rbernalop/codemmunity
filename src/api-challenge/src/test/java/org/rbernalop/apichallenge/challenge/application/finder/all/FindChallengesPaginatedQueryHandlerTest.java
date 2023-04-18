@@ -9,7 +9,6 @@ import org.rbernalop.apichallenge.challenge.domain.port.ChallengeRepository;
 import org.rbernalop.apichallenge.shared.application.challenge.finder.all.FindChallengesPaginatedQuery;
 import org.rbernalop.apichallenge.shared.application.challenge.finder.all.FindChallengesPaginatedQueryMother;
 import org.rbernalop.apichallenge.shared.application.challenge.finder.all.FindChallengesPaginatedResponse;
-import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.infrastructure.testing.UnitTestCase;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -23,8 +22,7 @@ class FindChallengesPaginatedQueryHandlerTest extends UnitTestCase {
     @Mock
     private ChallengeRepository challengeRepository;
 
-    @Mock
-    private QueryBus queryBus;
+
 
     @InjectMocks
     private FindChallengesPaginatedQueryHandler findChallengesPaginatedQueryHandler;

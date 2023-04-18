@@ -1,7 +1,6 @@
 package org.rbernalop.apichallenge.challenge.infrastructure.controller;
 
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.rbernalop.apichallenge.challenge.domain.aggregate.Challenge;
 import org.rbernalop.apichallenge.challenge.domain.aggregate.ChallengeMother;
@@ -26,13 +25,6 @@ class ChallengeGetControllerTest extends IntegrationTestCase {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    private Category savedCategory;
-
-    @BeforeEach
-    void setUp() {
-        savedCategory = categoryRepository.save(ChallengeCategoryMother.random());
-    }
-
     @AfterEach
     void tearDown() {
         challengeRepository.deleteAll();
@@ -42,7 +34,8 @@ class ChallengeGetControllerTest extends IntegrationTestCase {
     @Test
     void should_get_all_challenges() throws Exception {
         // GIVEN
-        Challenge challenge = ChallengeMother.randomFromCategory(savedCategory);
+        Category category = categoryRepository.save(ChallengeCategoryMother.random());
+        Challenge challenge = ChallengeMother.randomFromCategory(category);
         challengeRepository.save(challenge);
         int page = 0;
         int size = 10;

@@ -1,11 +1,12 @@
 package org.rbernalop.apiscript.script.application.create;
 
 import lombok.extern.slf4j.Slf4j;
-import org.rbernalop.apiscript.script.domain.repository.ScriptRepository;
+import org.rbernalop.apiscript.script.domain.port.ScriptRepository;
 import org.rbernalop.apiscript.script.domain.value_object.ScriptName;
+import org.rbernalop.shared.domain.bus.event.EventBus;
 import org.rbernalop.shared.domain.valueobject.ScriptId;
 import org.rbernalop.shared.domain.valueobject.LanguageId;
-import org.rbernalop.apiscript.script.domain.value_object.ShareKey;
+import org.rbernalop.shared.domain.valueobject.ShareKey;
 import org.rbernalop.apiscript.shared.application.script.create.CreateScriptCommand;
 import org.rbernalop.shared.domain.Service;
 import org.rbernalop.shared.domain.bus.command.CommandHandler;
@@ -18,8 +19,8 @@ public class CreateScriptCommandHandler implements CommandHandler<CreateScriptCo
 
     private final ScriptCreator scriptCreator;
 
-    public CreateScriptCommandHandler(QueryBus queryBus, ScriptRepository scriptRepository) {
-        this.scriptCreator = new ScriptCreator(queryBus, scriptRepository);
+    public CreateScriptCommandHandler(QueryBus queryBus, EventBus eventBus, ScriptRepository scriptRepository) {
+        this.scriptCreator = new ScriptCreator(queryBus, eventBus, scriptRepository);
     }
 
     @Override

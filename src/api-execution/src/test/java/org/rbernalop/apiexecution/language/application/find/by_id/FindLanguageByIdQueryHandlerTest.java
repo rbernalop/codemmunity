@@ -9,7 +9,6 @@ import org.rbernalop.apiexecution.language.domain.repository.LanguageRepository;
 import org.rbernalop.apiexecution.shared.application.language.find.by_id.FindLanguageByIdMother;
 import org.rbernalop.apiexecution.shared.application.language.find.by_id.FindLanguageByIdQuery;
 import org.rbernalop.apiexecution.shared.application.language.find.by_id.FindLanguageByIdResponse;
-import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.domain.exception.EntityNotFoundException;
 import org.rbernalop.shared.domain.valueobject.LanguageId;
 import org.rbernalop.shared.infrastructure.testing.UnitTestCase;
@@ -23,8 +22,7 @@ class FindLanguageByIdQueryHandlerTest extends UnitTestCase {
     @Mock
     private LanguageRepository languageRepository;
 
-    @Mock
-    private QueryBus queryBus;
+
 
     @InjectMocks
     private FindLanguageByIdQueryHandler findLanguageByIdQueryHandler;

@@ -5,11 +5,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.rbernalop.apiscript.script.domain.aggregate.Script;
 import org.rbernalop.apiscript.script.domain.aggregate.ScriptMother;
-import org.rbernalop.apiscript.script.domain.repository.ScriptRepository;
+import org.rbernalop.apiscript.script.domain.port.ScriptRepository;
 import org.rbernalop.shared.domain.valueobject.ScriptId;
 import org.rbernalop.apiscript.shared.application.script.modify.ChangeScriptLanguageCommand;
 import org.rbernalop.apiscript.shared.application.script.modify.ChangeScriptLanguageCommandMother;
-import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.infrastructure.testing.UnitTestCase;
 
 import java.util.Optional;
@@ -18,9 +17,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class ChangeScriptLanguageCommandHandlerTest extends UnitTestCase {
-    @Mock
-    private QueryBus queryBus;
-
     @Mock
     private ScriptRepository scriptRepository;
 

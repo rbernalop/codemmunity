@@ -2,8 +2,9 @@ package org.rbernalop.apiscript.script.application.finder.by_username;
 
 import lombok.extern.slf4j.Slf4j;
 import org.rbernalop.apiscript.script.application.finder.ScriptFinder;
-import org.rbernalop.apiscript.script.domain.repository.ScriptRepository;
+import org.rbernalop.apiscript.script.domain.port.ScriptRepository;
 import org.rbernalop.apiscript.script.domain.service.DomainScriptFinder;
+import org.rbernalop.shared.domain.bus.event.EventBus;
 import org.rbernalop.shared.domain.valueobject.PaginationRequest;
 import org.rbernalop.apiscript.shared.application.script.find.by_userid.FindScriptsByUsernameQuery;
 import org.rbernalop.apiscript.shared.application.script.find.by_userid.FindScriptsByUsernameResponse;
@@ -17,9 +18,9 @@ import org.rbernalop.shared.domain.valueobject.UserUsername;
 public class FindScriptsByUsernameQueryHandler implements QueryHandler<FindScriptsByUsernameQuery, FindScriptsByUsernameResponse> {
     private final ScriptFinder scriptFinder;
 
-    public FindScriptsByUsernameQueryHandler(QueryBus queryBus, ScriptRepository scriptRepository) {
+    public FindScriptsByUsernameQueryHandler(QueryBus queryBus, EventBus eventBus, ScriptRepository scriptRepository) {
         DomainScriptFinder domainScriptFinder = new DomainScriptFinder(scriptRepository);
-        this.scriptFinder = new ScriptFinder(queryBus, domainScriptFinder);
+        this.scriptFinder = new ScriptFinder(queryBus, eventBus, domainScriptFinder);
     }
 
     @Override
