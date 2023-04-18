@@ -1,6 +1,4 @@
 package org.rbernalop.apiauthentication.user.domain.port;
-
-
 import org.rbernalop.apiauthentication.user.domain.aggregate.User;
 import org.rbernalop.apiauthentication.user.domain.value_object.UserEmail;
 import org.rbernalop.shared.domain.valueobject.UserId;

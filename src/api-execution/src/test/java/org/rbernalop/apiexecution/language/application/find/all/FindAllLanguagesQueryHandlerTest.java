@@ -10,7 +10,6 @@ import org.rbernalop.apiexecution.shared.application.language.find.LanguageRespo
 import org.rbernalop.apiexecution.shared.application.language.find.all.FindAllLanguagesQuery;
 import org.rbernalop.apiexecution.shared.application.language.find.all.FindAllLanguagesQueryMother;
 import org.rbernalop.apiexecution.shared.application.language.find.all.FindAllLanguagesResponse;
-import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.infrastructure.testing.UnitTestCase;
 import java.util.List;
 
@@ -18,8 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class FindAllLanguagesQueryHandlerTest extends UnitTestCase {
-    @Mock
-    private QueryBus queryBus;
+
 
     @Mock
     private LanguageRepository languageRepository;

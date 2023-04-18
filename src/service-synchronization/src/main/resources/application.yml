@@ -9,6 +9,9 @@ spring:
     jpa:
         hibernate:
             ddl-auto: ${SYNCHRONIZATION_DB_DDL_AUTO:update}
+    rabbitmq:
+        addresses: ${SYNCHRONIZATION_RABBITMQ_URL:localhost:5672}
+        queue: ${SYNCHRONIZATION_RABBITMQ_QUEUE:scripts-synchronization-queue}
 server:
     port: 8083
 eureka:

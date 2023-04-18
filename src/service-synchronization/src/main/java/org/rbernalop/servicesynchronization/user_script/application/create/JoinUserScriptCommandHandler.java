@@ -5,6 +5,7 @@ import org.rbernalop.servicesynchronization.shared.application.user_script.creat
 import org.rbernalop.servicesynchronization.shared.domain.port.ScriptManager;
 import org.rbernalop.shared.domain.Service;
 import org.rbernalop.shared.domain.bus.command.CommandHandler;
+import org.rbernalop.shared.domain.bus.event.EventBus;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.domain.valueobject.ScriptId;
 import org.rbernalop.shared.domain.valueobject.UserUsername;
@@ -15,8 +16,8 @@ public class JoinUserScriptCommandHandler implements CommandHandler<JoinUserScri
 
     private final UserScriptCreator userScriptCreator;
 
-    public JoinUserScriptCommandHandler(ScriptManager scriptManager, QueryBus queryBus) {
-        this.userScriptCreator = new UserScriptCreator(scriptManager, queryBus);
+    public JoinUserScriptCommandHandler(QueryBus queryBus, EventBus eventBus, ScriptManager scriptManager) {
+        this.userScriptCreator = new UserScriptCreator(queryBus, eventBus, scriptManager);
     }
 
     @Override

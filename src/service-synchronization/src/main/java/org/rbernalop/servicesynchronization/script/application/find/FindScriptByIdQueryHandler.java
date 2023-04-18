@@ -6,6 +6,7 @@ import org.rbernalop.servicesynchronization.shared.application.script.find.FindS
 import org.rbernalop.servicesynchronization.shared.application.script.find.FindScriptByIdResponse;
 import org.rbernalop.servicesynchronization.shared.domain.port.ScriptManager;
 import org.rbernalop.shared.domain.Service;
+import org.rbernalop.shared.domain.bus.event.EventBus;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.domain.bus.query.QueryHandler;
 import org.rbernalop.shared.domain.valueobject.ScriptId;
@@ -16,8 +17,8 @@ public class FindScriptByIdQueryHandler implements QueryHandler<FindScriptByIdQu
 
     private final ScriptFinder scriptFinder;
 
-    public FindScriptByIdQueryHandler(QueryBus queryBus, ScriptRepository scriptRepository, ScriptManager scriptManager) {
-        this.scriptFinder = new ScriptFinder(queryBus, scriptRepository, scriptManager);
+    public FindScriptByIdQueryHandler(QueryBus queryBus, EventBus eventBus, ScriptRepository scriptRepository, ScriptManager scriptManager) {
+        this.scriptFinder = new ScriptFinder(queryBus, eventBus, scriptRepository, scriptManager);
     }
 
     @Override

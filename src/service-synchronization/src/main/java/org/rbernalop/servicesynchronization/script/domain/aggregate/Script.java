@@ -4,10 +4,10 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.rbernalop.servicesynchronization.script.domain.value_object.ScriptContent;
+import org.rbernalop.shared.domain.valueobject.ScriptContent;
 import org.rbernalop.shared.domain.AggregateRoot;
-import org.rbernalop.shared.domain.valueobject.Identifier;
 import org.rbernalop.shared.domain.valueobject.ScriptId;
+import org.rbernalop.shared.domain.valueobject.ShareKey;
 
 @Entity
 @Table(name = "scripts")
@@ -18,18 +18,26 @@ public class Script extends AggregateRoot {
     private ScriptId id;
 
     @Embedded
+    private ShareKey shareKey;
+
+    @Embedded
     private ScriptContent content;
 
-    public static Script create(ScriptId id, ScriptContent content) {
+    public static Script create(ScriptId id, ShareKey shareKey, ScriptContent content) {
         Script script = new Script();
         script.id = id;
+        script.shareKey = shareKey;
         script.content = content;
         return script;
     }
 
     @Override
-    public Identifier getId() {
+    public ScriptId getId() {
         return id;
+    }
+
+    public ShareKey getShareKey() {
+        return shareKey;
     }
 
     public String getContent() {

@@ -6,11 +6,10 @@ import org.mockito.Mock;
 import org.rbernalop.apiscript.script.domain.aggregate.Script;
 import org.rbernalop.apiscript.script.domain.aggregate.ScriptMother;
 import org.rbernalop.apiscript.script.domain.exception.InvalidScriptDataException;
-import org.rbernalop.apiscript.script.domain.repository.ScriptRepository;
+import org.rbernalop.apiscript.script.domain.port.ScriptRepository;
 import org.rbernalop.shared.domain.valueobject.ScriptId;
 import org.rbernalop.apiscript.shared.application.script.modify.RenameScriptCommand;
 import org.rbernalop.apiscript.shared.application.script.modify.RenameScriptCommandMother;
-import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.domain.exception.EntityNotFoundException;
 import org.rbernalop.shared.domain.exception.NotAllowedOperationException;
 import org.rbernalop.shared.infrastructure.testing.UnitTestCase;
@@ -24,8 +23,7 @@ class RenameScriptCommandHandlerTest extends UnitTestCase {
     @Mock
     private ScriptRepository scriptRepository;
 
-    @Mock
-    private QueryBus queryBus;
+
 
     @InjectMocks
     private RenameScriptCommandHandler renameScriptCommandHandler;

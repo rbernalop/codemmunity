@@ -1,4 +1,4 @@
-package org.rbernalop.apiscript.script.domain.repository;
+package org.rbernalop.apiscript.script.domain.port;
 
 import org.rbernalop.apiscript.script.domain.aggregate.Script;
 import org.rbernalop.shared.domain.valueobject.ScriptId;

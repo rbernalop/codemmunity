@@ -8,16 +8,18 @@ import org.rbernalop.apiauthentication.securityuser.domain.port.UserAuthenticato
 import org.rbernalop.apiauthentication.shared.application.user.finder.username.FindUserByUsernameQuery;
 import org.rbernalop.apiauthentication.shared.application.user.finder.username.FindUserByUsernameResponse;
 import org.rbernalop.shared.application.UseCase;
+import org.rbernalop.shared.domain.bus.event.EventBus;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
 
 public class UserLoginUseCase extends UseCase {
     private final UserAuthenticator userAuthenticator;
     private final TokenGenerator tokenGenerator;
 
-    public UserLoginUseCase(TokenGenerator tokenGenerator,
-                            QueryBus queryBus,
+    public UserLoginUseCase(QueryBus queryBus,
+                            EventBus eventBus,
+                            TokenGenerator tokenGenerator,
                             UserAuthenticator userAuthenticator) {
-        super(queryBus);
+        super(queryBus, eventBus);
         this.tokenGenerator = tokenGenerator;
         this.userAuthenticator = userAuthenticator;
     }

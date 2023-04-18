@@ -5,6 +5,7 @@ import org.rbernalop.servicesynchronization.shared.application.user_script.delet
 import org.rbernalop.servicesynchronization.shared.domain.port.ScriptManager;
 import org.rbernalop.shared.domain.Service;
 import org.rbernalop.shared.domain.bus.command.CommandHandler;
+import org.rbernalop.shared.domain.bus.event.EventBus;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.domain.valueobject.ScriptId;
 import org.rbernalop.shared.domain.valueobject.UserUsername;
@@ -14,8 +15,8 @@ import org.rbernalop.shared.domain.valueobject.UserUsername;
 public class LeaveUserScriptCommandHandler implements CommandHandler<LeaveUserScriptCommand> {
     private final UserScriptRemover userScriptRemover;
 
-    public LeaveUserScriptCommandHandler(ScriptManager scriptManager, QueryBus queryBus) {
-        this.userScriptRemover = new UserScriptRemover(scriptManager, queryBus);
+    public LeaveUserScriptCommandHandler(QueryBus queryBus, EventBus eventBus, ScriptManager scriptManager) {
+        this.userScriptRemover = new UserScriptRemover(queryBus, eventBus, scriptManager);
     }
 
     @Override
