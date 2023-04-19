@@ -3,6 +3,7 @@ package org.rbernalop.apichallenge.shared.infrastructure.controller;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.rbernalop.shared.domain.exception.EntityNotFoundException;
 import org.rbernalop.shared.domain.exception.NegativeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -26,8 +27,14 @@ public class ApiChallengeExceptionHandler extends ResponseEntityExceptionHandler
 
     @ExceptionHandler(NegativeException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public CustomError handleNegativeException(NegativeException exception) {
+    public CustomError handleBadRequestExceptions(NegativeException exception) {
         return generateError(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public CustomError handleNotFoundExceptions(EntityNotFoundException exception) {
+        return generateError(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
 }
 

@@ -8,6 +8,7 @@ import org.rbernalop.apichallenge.challenge.domain.entity.Category;
 import org.rbernalop.apichallenge.challenge.domain.entity.ChallengeCategoryMother;
 import org.rbernalop.apichallenge.challenge.domain.port.CategoryRepository;
 import org.rbernalop.apichallenge.challenge.domain.port.ChallengeRepository;
+import org.rbernalop.apichallenge.challenge.domain.value_object.ChallengeIdMother;
 import org.rbernalop.shared.infrastructure.testing.IntegrationTestCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
@@ -16,8 +17,8 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ChallengeGetControllerTest extends IntegrationTestCase {
-    private static final String GET_CHALLENGES_URL = "/api/v1/challenge";
+class ChallengeGetByIdResponseTest extends IntegrationTestCase {
+    private final static String CHALLENGE_GET_BY_ID_URL = "/api/v1/challenge/";
 
     @Autowired
     private ChallengeRepository challengeRepository;
@@ -37,38 +38,36 @@ class ChallengeGetControllerTest extends IntegrationTestCase {
         Category category = categoryRepository.save(ChallengeCategoryMother.random());
         Challenge challenge = ChallengeMother.randomFromCategory(category);
         challengeRepository.save(challenge);
-        int page = 0;
-        int size = 10;
 
         // WHEN
+        assertNotNull(challenge.getId());
         MvcResult mvcResult = assertRequest(
             HttpMethod.GET,
-        GET_CHALLENGES_URL + "?page=" + page + "&size=" + size,
+            CHALLENGE_GET_BY_ID_URL + challenge.getId().getValue(),
             HttpStatus.OK
         );
 
         // THEN
-        ChallengeGetResponses challengeGetResponses = objectMapper.readValue(
-            mvcResult.getResponse().getContentAsString(), ChallengeGetResponses.class);
-        assertEquals(1, challengeGetResponses.getChallenges().size());
-        assertNotNull(challenge.getId());
-        assertEquals(challenge.getId().getValue(), challengeGetResponses.getChallenges().get(0).getId());
-        assertEquals(challenge.getTitle(), challengeGetResponses.getChallenges().get(0).getTitle());
-        assertEquals(challenge.getCategory(), challengeGetResponses.getChallenges().get(0).getCategory());
-        assertEquals(challenge.getDifficulty(), challengeGetResponses.getChallenges().get(0).getDifficulty());
+        ChallengeGetByIdResponse challengeGetByIdResponse = objectMapper.readValue(
+            mvcResult.getResponse().getContentAsString(), ChallengeGetByIdResponse.class);
+        assertEquals(challenge.getId().getValue(), challengeGetByIdResponse.getId());
+        assertEquals(challenge.getTitle(), challengeGetByIdResponse.getTitle());
+        assertEquals(challenge.getDescription(), challengeGetByIdResponse.getDescription());
+        assertEquals(challenge.getCategory(), challengeGetByIdResponse.getCategory());
+        assertEquals(challenge.getDifficulty(), challengeGetByIdResponse.getDifficulty());
+        assertEquals(challenge.getUserUsername(), challengeGetByIdResponse.getCreatorUsername());
     }
 
     @Test
-    void should_return_bad_request_when_page_or_size_are_negative() throws Exception {
+    void should_return_not_found_when_challenge_does_not_exist() throws Exception {
         // GIVEN
-        int page = -1;
-        int size = -1;
+        String challengeId = ChallengeIdMother.random().getValue();
 
         // WHEN
         assertRequest(
             HttpMethod.GET,
-            GET_CHALLENGES_URL + "?page=" + page + "&size=" + size,
-            HttpStatus.BAD_REQUEST
+            CHALLENGE_GET_BY_ID_URL + challengeId,
+            HttpStatus.NOT_FOUND
         );
 
         // THEN
