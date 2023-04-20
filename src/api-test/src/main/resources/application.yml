@@ -1,0 +1,28 @@
+spring:
+    application:
+        name: api-test
+    datasource:
+        url: ${TEST_DB_URL:jdbc:postgresql://localhost:5432/testdb}
+        username: ${TEST_DB_USERNAME:postgres}
+        password: ${TEST_DB_PASSWORD:postgres}
+        driver-class-name: ${TEST_DB_DRIVER_CLASS_NAME:org.postgresql.Driver}
+    jpa:
+        hibernate:
+            ddl-auto: ${TEST_DB_DDL_AUTO:update}
+    rabbitmq:
+        addresses: ${TEST_RABBITMQ_URL:localhost:5672}
+        template:
+            routing-key: ${TEST_RABBITMQ_ROUTING_KEY:test.user.routing-key}
+            exchange: ${TEST_RABBITMQ_EXCHANGE:amq.direct}
+server:
+    port: 8086
+eureka:
+    client:
+        service-url:
+            defaultZone: http://${EUREKA_SERVER_ADDRESS:localhost}:8761/eureka
+        fetch-registry: true
+        register-with-eureka: true
+    instance:
+        prefer-ip-address: true
+        ip-address: ${TEST_ADDRESS:localhost}
+        instance-id: ${TEST_ADDRESS:localhost}:8086
