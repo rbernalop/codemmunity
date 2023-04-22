@@ -3,7 +3,7 @@ package org.rbernalop.apichallenge.challenge.application.finder.by_id;
 import lombok.extern.slf4j.Slf4j;
 import org.rbernalop.apichallenge.challenge.application.finder.ChallengeFinder;
 import org.rbernalop.apichallenge.challenge.domain.port.ChallengeRepository;
-import org.rbernalop.apichallenge.challenge.domain.value_object.ChallengeId;
+import org.rbernalop.shared.domain.valueobject.ChallengeId;
 import org.rbernalop.apichallenge.shared.application.challenge.finder.by_id.FindChallengeByIdQuery;
 import org.rbernalop.apichallenge.shared.application.challenge.finder.by_id.FindChallengeByIdResponse;
 import org.rbernalop.shared.domain.Service;

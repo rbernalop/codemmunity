@@ -1,11 +1,11 @@
 package org.rbernalop.apiexecution.script.infrastructure.adapter;
 
-import org.rbernalop.apiexecution.script.domain.exception.CompilationException;
+import org.rbernalop.shared.domain.exception.CompilationException;
 import org.rbernalop.apiexecution.script.domain.exception.ExecutionException;
-import org.rbernalop.apiexecution.script.domain.exception.FileException;
+import org.rbernalop.shared.domain.exception.FileException;
 import org.rbernalop.apiexecution.script.domain.value_object.RunResult;
 import org.rbernalop.apiexecution.script.domain.port.ScriptRunner;
-import org.rbernalop.apiexecution.script.infrastructure.util.ShellRunner;
+import org.rbernalop.shared.infrastructure.ShellRunner;
 import org.springframework.data.util.Pair;
 
 import java.io.File;

@@ -1,7 +1,7 @@
 package org.rbernalop.apiexecution.language.domain.aggregate;
 
 import com.github.javafaker.Faker;
-import org.rbernalop.apiexecution.language.domain.value_object.LanguageName;
+import org.rbernalop.shared.domain.valueobject.LanguageName;
 import org.rbernalop.shared.domain.valueobject.LanguageId;
 
 import java.util.List;

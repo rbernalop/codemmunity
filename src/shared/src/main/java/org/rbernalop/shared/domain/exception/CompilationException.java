@@ -1,4 +1,4 @@
-package org.rbernalop.apiexecution.script.domain.exception;
+package org.rbernalop.shared.domain.exception;
 
 public class CompilationException extends RuntimeException {
     public CompilationException(String message) {

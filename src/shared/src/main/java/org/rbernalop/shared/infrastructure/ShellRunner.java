@@ -1,4 +1,4 @@
-package org.rbernalop.apiexecution.script.infrastructure.util;
+package org.rbernalop.shared.infrastructure;
 
 
 import org.springframework.data.util.Pair;

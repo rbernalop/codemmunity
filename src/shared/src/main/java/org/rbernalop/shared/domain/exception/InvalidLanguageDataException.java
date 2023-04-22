@@ -1,4 +1,4 @@
-package org.rbernalop.apiexecution.language.domain.exception;
+package org.rbernalop.shared.domain.exception;
 
 public class InvalidLanguageDataException extends RuntimeException {
     public InvalidLanguageDataException(String message) {

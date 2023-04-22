@@ -1,7 +1,7 @@
 package org.rbernalop.apiexecution.script.infrastructure.configuration;
 
 import lombok.extern.slf4j.Slf4j;
-import org.rbernalop.apiexecution.script.infrastructure.util.ShellRunner;
+import org.rbernalop.shared.infrastructure.ShellRunner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -8,9 +8,11 @@ import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.rbernalop.apitest.test.domain.value_object.TestId;
+import org.rbernalop.apitest.test.domain.value_object.TestName;
 import org.rbernalop.shared.domain.AggregateRoot;
+import org.rbernalop.shared.domain.valueobject.ChallengeId;
+import org.rbernalop.shared.domain.valueobject.LanguageName;
 import org.rbernalop.shared.domain.valueobject.ScriptContent;
-import org.rbernalop.shared.domain.valueobject.ScriptId;
 
 
 @Entity
@@ -22,16 +24,25 @@ public class Test extends AggregateRoot {
     private TestId id;
 
     @Embedded
-    private ScriptId scriptId;
+    private TestName testName;
+
+    @Embedded
+    private ChallengeId challengeId;
 
     @Embedded
     private ScriptContent testContent;
 
-    public static Test create(TestId id, ScriptId scriptId, ScriptContent testContent) {
+    @Embedded
+    private LanguageName languageName;
+
+    public static Test create(TestId id, TestName testName, ChallengeId challengeId, ScriptContent testContent,
+          LanguageName languageName) {
         Test test = new Test();
         test.id = id;
-        test.scriptId = scriptId;
+        test.testName = testName;
+        test.challengeId = challengeId;
         test.testContent = testContent;
+        test.languageName = languageName;
         return test;
     }
 
@@ -40,11 +51,19 @@ public class Test extends AggregateRoot {
         return id;
     }
 
-    public String getScriptId() {
-        return scriptId.getValue();
+    public String getTestName() {
+        return testName.getValue();
+    }
+
+    public String getChallengeId() {
+        return challengeId.getValue();
     }
 
     public String getTestContent() {
         return testContent.getValue();
+    }
+
+    public String getLanguageName() {
+        return languageName.getValue();
     }
 }
