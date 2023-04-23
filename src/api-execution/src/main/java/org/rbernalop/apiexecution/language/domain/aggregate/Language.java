@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.rbernalop.apiexecution.language.domain.value_object.LanguageName;
+import org.rbernalop.shared.domain.valueobject.LanguageName;
 import org.rbernalop.shared.domain.AggregateRoot;
 import org.rbernalop.shared.domain.valueobject.Identifier;
 import org.rbernalop.shared.domain.valueobject.LanguageId;

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import org.rbernalop.apichallenge.challenge.domain.entity.Category;
 import org.rbernalop.apichallenge.challenge.domain.value_object.ChallengeDescription;
 import org.rbernalop.apichallenge.challenge.domain.value_object.ChallengeDifficulty;
-import org.rbernalop.apichallenge.challenge.domain.value_object.ChallengeId;
+import org.rbernalop.shared.domain.valueobject.ChallengeId;
 import org.rbernalop.apichallenge.challenge.domain.value_object.ChallengeTitle;
 import org.rbernalop.shared.domain.AggregateRoot;
 import org.rbernalop.shared.domain.valueobject.UserUsername;

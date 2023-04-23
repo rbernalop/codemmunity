@@ -17,6 +17,7 @@
         <module>src/api-execution</module>
         <module>src/service-synchronization</module>
         <module>src/api-challenge</module>
+        <module>src/api-test</module>
     </modules>
 
     <properties>

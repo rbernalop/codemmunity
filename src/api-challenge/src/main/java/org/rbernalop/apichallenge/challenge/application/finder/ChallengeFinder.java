@@ -2,7 +2,7 @@ package org.rbernalop.apichallenge.challenge.application.finder;
 
 import org.rbernalop.apichallenge.challenge.domain.aggregate.Challenge;
 import org.rbernalop.apichallenge.challenge.domain.port.ChallengeRepository;
-import org.rbernalop.apichallenge.challenge.domain.value_object.ChallengeId;
+import org.rbernalop.shared.domain.valueobject.ChallengeId;
 import org.rbernalop.apichallenge.shared.application.challenge.finder.all.FindChallengesPaginatedResponse;
 import org.rbernalop.apichallenge.shared.application.challenge.finder.by_id.FindChallengeByIdResponse;
 import org.rbernalop.shared.application.UseCase;
