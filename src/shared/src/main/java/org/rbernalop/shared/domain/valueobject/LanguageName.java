@@ -7,16 +7,16 @@ import org.rbernalop.shared.domain.exception.InvalidLanguageDataException;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class LanguageName {
-    private String name;
+    private String languageName;
 
-    public LanguageName(String name) {
-        if (name == null || name.isBlank()) {
+    public LanguageName(String languageName) {
+        if (languageName == null || languageName.isBlank()) {
             throw new InvalidLanguageDataException("Language name cannot be empty");
         }
-        this.name = name;
+        this.languageName = languageName;
     }
 
     public String getValue() {
-        return name;
+        return languageName;
     }
 }

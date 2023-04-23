@@ -8,15 +8,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class ChallengeId extends Identifier {
-    private String id;
+    private String challengeId;
 
     public ChallengeId(String value) {
         super(value);
-        this.id = value;
+        this.challengeId = value;
     }
 
     @Override
     public String getValue() {
-        return id;
+        return challengeId;
     }
 }

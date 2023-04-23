@@ -4,16 +4,16 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 public class TestName {
-    private String name;
+    private String testName;
 
-    public TestName(String name) {
-        if(name == null || name.isBlank()) {
+    public TestName(String testName) {
+        if(testName == null || testName.isBlank()) {
             throw new IllegalArgumentException("Test name cannot be empty");
         }
-        this.name = name;
+        this.testName = testName;
     }
 
     public String getValue() {
-        return name;
+        return testName;
     }
 }

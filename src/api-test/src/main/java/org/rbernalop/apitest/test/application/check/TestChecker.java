@@ -1,7 +1,7 @@
 package org.rbernalop.apitest.test.application.check;
 
+import org.rbernalop.apitest.shared.application.test.TestResponse;
 import org.rbernalop.apitest.shared.application.test.check.CheckScriptTestsResponse;
-import org.rbernalop.apitest.shared.application.test.check.TestResponse;
 import org.rbernalop.apitest.test.domain.aggregate.Test;
 import org.rbernalop.apitest.test.domain.port.TestRepository;
 import org.rbernalop.apitest.test.domain.port.TestRunner;

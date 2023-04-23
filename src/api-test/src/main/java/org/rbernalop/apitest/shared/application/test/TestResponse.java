@@ -1,4 +1,4 @@
-package org.rbernalop.apitest.shared.application.test.check;
+package org.rbernalop.apitest.shared.application.test;
 
 import lombok.Getter;
 import lombok.Setter;
