@@ -36,3 +36,11 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Others ###
+junit-platform-console-standalone-1.7.2.jar
+.class
+Main.js
+Test.test.js
+package.json
+package-lock.json

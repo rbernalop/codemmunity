@@ -40,8 +40,13 @@ public class JavaTestRunner implements TestRunner {
             runResult.setPassed(executionSuccess);
             runResult.setCompilationResult(compilationOutput);
             runResult.setExecutionResult(executionOutput);
-            // scriptFile.delete();
-            // testFile.delete();
+            scriptFile.delete();
+            testFile.delete();
+
+            File[] classFiles = new File(".").listFiles((dir, name) -> name.endsWith(".class"));
+            for (File classFile : classFiles) {
+                classFile.delete();
+            }
         } catch (IOException e) {
             throw new FileException(e.getMessage());
         }
