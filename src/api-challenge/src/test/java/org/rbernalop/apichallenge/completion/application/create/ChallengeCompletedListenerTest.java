@@ -12,12 +12,12 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-class CreateCompletionListenerTest extends UnitTestCase {
+class ChallengeCompletedListenerTest extends UnitTestCase {
     @Mock
     private CompletionRepository completionRepository;
 
     @InjectMocks
-    private CreateCompletionListener createCompletionListener;
+    private ChallengeCompletedListener challengeCompletedListener;
 
     @Test
     void should_create_completion_when_challenge_completed_event_is_received() {
@@ -25,7 +25,7 @@ class CreateCompletionListenerTest extends UnitTestCase {
         ChallengeCompletedDomainEvent event = ChallengeCompletedDomainEventMother.random();
 
         // WHEN
-        assertDoesNotThrow(() -> createCompletionListener.handle(event));
+        assertDoesNotThrow(() -> challengeCompletedListener.handle(event));
 
         // THEN
         verify(completionRepository, times(1)).save(any());

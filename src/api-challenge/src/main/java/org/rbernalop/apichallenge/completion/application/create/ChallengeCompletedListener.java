@@ -14,10 +14,10 @@ import org.rbernalop.shared.domain.valueobject.UserUsername;
 
 @Service
 @Slf4j
-public class CreateCompletionListener {
+public class ChallengeCompletedListener {
     private final CompletionCreator completionCreator;
 
-    public CreateCompletionListener(QueryBus queryBus, EventBus eventBus, CompletionRepository completionRepository) {
+    public ChallengeCompletedListener(QueryBus queryBus, EventBus eventBus, CompletionRepository completionRepository) {
         this.completionCreator = new CompletionCreator(queryBus, eventBus, completionRepository);
     }
 
@@ -29,7 +29,7 @@ public class CreateCompletionListener {
         UserUsername userUsername = new UserUsername(event.getUsername());
         LanguageName languageName = new LanguageName(event.getLanguageName());
         ScriptContent scriptContent = new ScriptContent(event.getScriptContent());
-        completionCreator.execute(challengeId, userUsername, languageName, scriptContent);
+        completionCreator.create(challengeId, userUsername, languageName, scriptContent);
     }
 
 }

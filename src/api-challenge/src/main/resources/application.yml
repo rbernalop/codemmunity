@@ -9,6 +9,9 @@ spring:
     jpa:
         hibernate:
             ddl-auto: ${CHALLENGE_DB_DDL_AUTO:update}
+    rabbitmq:
+        addresses: ${CHALLENGE_RABBITMQ_URL:localhost:5672}
+        queue: ${CHALLENGE_RABBITMQ_QUEUE:test-challenge-queue}
 server:
     port: 8085
 eureka:

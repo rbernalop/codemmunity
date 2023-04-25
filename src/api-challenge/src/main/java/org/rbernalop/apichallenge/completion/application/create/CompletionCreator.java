@@ -19,7 +19,7 @@ public class CompletionCreator extends UseCase {
         this.completionRepository = completionRepository;
     }
 
-    public void execute(ChallengeId challengeId, UserUsername userUsername, LanguageName languageName, ScriptContent scriptContent) {
+    public void create(ChallengeId challengeId, UserUsername userUsername, LanguageName languageName, ScriptContent scriptContent) {
         CompletionId completionId = new CompletionId(challengeId, userUsername);
         Completion completion = Completion.create(completionId, languageName, scriptContent);
         completionRepository.save(completion);
