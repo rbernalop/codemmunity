@@ -28,6 +28,7 @@ public class Completion extends AggregateRoot {
     public static Completion create(CompletionId completionId, LanguageName languageName, ScriptContent scriptContent) {
         Completion completion = new Completion();
         completion.id = completionId;
+        completion.languageName = languageName;
         completion.scriptContent = scriptContent;
         return completion;
     }
@@ -35,6 +36,10 @@ public class Completion extends AggregateRoot {
     @Override
     public Identifier getId() {
         return null;
+    }
+
+    public CompletionId getCompletionId() {
+        return id;
     }
 
     public String getChallengeId() {
@@ -47,5 +52,9 @@ public class Completion extends AggregateRoot {
 
     public String getScriptContent() {
         return scriptContent.getValue();
+    }
+
+    public String getLanguageName() {
+        return languageName.getValue();
     }
 }
