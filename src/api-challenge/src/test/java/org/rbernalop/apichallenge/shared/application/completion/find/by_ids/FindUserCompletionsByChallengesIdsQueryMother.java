@@ -5,8 +5,8 @@ import org.rbernalop.apichallenge.completion.domain.value_object.CompletionId;
 import java.util.List;
 
 public class FindUserCompletionsByChallengesIdsQueryMother {
-    public static FindUserCompletionsByChallengesIdsQuery fromCompletionId(CompletionId completionId) {
-        return new FindUserCompletionsByChallengesIdsQuery(
+    public static FindUserCompletionsByIdsQuery fromCompletionId(CompletionId completionId) {
+        return new FindUserCompletionsByIdsQuery(
             List.of(completionId.getChallengeId()),
             completionId.getUserUsername()
         );

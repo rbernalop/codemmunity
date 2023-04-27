@@ -2,7 +2,7 @@ package org.rbernalop.apichallenge.completion.application.find;
 
 import org.rbernalop.apichallenge.completion.domain.aggregate.Completion;
 import org.rbernalop.apichallenge.completion.domain.port.CompletionRepository;
-import org.rbernalop.apichallenge.shared.application.completion.find.by_ids.FindUserCompletionsByChallengesIdsResponse;
+import org.rbernalop.apichallenge.shared.application.completion.find.by_ids.FindUserCompletionsByIdsResponse;
 import org.rbernalop.shared.application.UseCase;
 import org.rbernalop.shared.domain.bus.event.EventBus;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
@@ -19,8 +19,8 @@ public class CompletionFinder extends UseCase {
         this.completionRepository = completionRepository;
     }
 
-    public FindUserCompletionsByChallengesIdsResponse findUserCompletionsByChallengesIds(List<ChallengeId> challengeIds, UserUsername username) {
+    public FindUserCompletionsByIdsResponse findUserCompletionsByChallengesIds(List<ChallengeId> challengeIds, UserUsername username) {
         List<Completion> completions = completionRepository.findByChallengeIdInAndUserUsername(challengeIds, username);
-        return FindUserCompletionsByChallengesIdsResponse.from(completions);
+        return FindUserCompletionsByIdsResponse.from(completions);
     }
 }

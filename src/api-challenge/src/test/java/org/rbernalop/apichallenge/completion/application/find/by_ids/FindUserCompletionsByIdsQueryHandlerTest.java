@@ -7,9 +7,9 @@ import org.rbernalop.apichallenge.completion.domain.aggregate.Completion;
 import org.rbernalop.apichallenge.completion.domain.aggregate.CompletionMother;
 import org.rbernalop.apichallenge.completion.domain.port.CompletionRepository;
 import org.rbernalop.apichallenge.shared.application.completion.find.by_ids.CompletionResponse;
-import org.rbernalop.apichallenge.shared.application.completion.find.by_ids.FindUserCompletionsByChallengesIdsQuery;
+import org.rbernalop.apichallenge.shared.application.completion.find.by_ids.FindUserCompletionsByIdsQuery;
 import org.rbernalop.apichallenge.shared.application.completion.find.by_ids.FindUserCompletionsByChallengesIdsQueryMother;
-import org.rbernalop.apichallenge.shared.application.completion.find.by_ids.FindUserCompletionsByChallengesIdsResponse;
+import org.rbernalop.apichallenge.shared.application.completion.find.by_ids.FindUserCompletionsByIdsResponse;
 import org.rbernalop.shared.domain.valueobject.ChallengeId;
 import org.rbernalop.shared.domain.valueobject.UserUsername;
 import org.rbernalop.shared.infrastructure.testing.UnitTestCase;
@@ -21,18 +21,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class FindUserCompletionsByChallengesIdsQueryHandlerTest extends UnitTestCase {
+class FindUserCompletionsByIdsQueryHandlerTest extends UnitTestCase {
     @Mock
     private CompletionRepository completionRepository;
 
     @InjectMocks
-    private FindUserCompletionsByChallengesIdsQueryHandler findUserCompletionsByChallengesIdsQueryHandler;
+    private FindUserCompletionsByIdsQueryHandler findUserCompletionsByIdsQueryHandler;
 
     @Test
     void should_find_user_completions_by_challenges_ids() {
         // GIVEN
         Completion completion = CompletionMother.random();
-        FindUserCompletionsByChallengesIdsQuery query =
+        FindUserCompletionsByIdsQuery query =
             FindUserCompletionsByChallengesIdsQueryMother.fromCompletionId(completion.getCompletionId());
 
         ChallengeId challengeId = new ChallengeId(completion.getChallengeId());
@@ -41,8 +41,8 @@ class FindUserCompletionsByChallengesIdsQueryHandlerTest extends UnitTestCase {
             .thenReturn(List.of(completion));
 
         // WHEN
-        FindUserCompletionsByChallengesIdsResponse response =
-            assertDoesNotThrow(() -> findUserCompletionsByChallengesIdsQueryHandler.handle(query));
+        FindUserCompletionsByIdsResponse response =
+            assertDoesNotThrow(() -> findUserCompletionsByIdsQueryHandler.handle(query));
 
         // THEN
         verify(completionRepository, times(1)).findByChallengeIdInAndUserUsername(any(), any());

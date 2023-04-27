@@ -2,6 +2,7 @@ package org.rbernalop.apichallenge.shared.application.completion.find.by_ids;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.rbernalop.apichallenge.completion.domain.aggregate.Completion;
 import org.rbernalop.shared.domain.bus.query.Response;
@@ -13,10 +14,11 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Getter
 @Setter
-public class FindUserCompletionsByChallengesIdsResponse implements Response {
+@NoArgsConstructor
+public class FindUserCompletionsByIdsResponse implements Response {
     private Map<String, CompletionResponse> completions;
 
-    public static FindUserCompletionsByChallengesIdsResponse from(List<Completion> completions) {
+    public static FindUserCompletionsByIdsResponse from(List<Completion> completions) {
         Map<String, CompletionResponse> completionsMap = completions.stream().collect(
             Collectors.toMap(
                 Completion::getChallengeId,
@@ -24,6 +26,6 @@ public class FindUserCompletionsByChallengesIdsResponse implements Response {
             )
         );
 
-        return new FindUserCompletionsByChallengesIdsResponse(completionsMap);
+        return new FindUserCompletionsByIdsResponse(completionsMap);
     }
 }
