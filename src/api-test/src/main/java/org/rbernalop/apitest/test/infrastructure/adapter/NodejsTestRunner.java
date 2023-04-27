@@ -30,8 +30,8 @@ public class NodejsTestRunner implements TestRunner {
             runResult.setPassed(executionSuccess);
             runResult.setExecutionResult(executionResult);
 
-            // scriptFile.delete();
-            // testFile.delete();
+            scriptFile.delete();
+            testFile.delete();
         } catch (Exception e) {
             throw new FileException(e.getMessage());
         }

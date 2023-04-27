@@ -8,6 +8,9 @@ import org.rbernalop.apichallenge.challenge.domain.entity.Category;
 import org.rbernalop.apichallenge.challenge.domain.entity.ChallengeCategoryMother;
 import org.rbernalop.apichallenge.challenge.domain.port.CategoryRepository;
 import org.rbernalop.apichallenge.challenge.domain.port.ChallengeRepository;
+import org.rbernalop.apichallenge.completion.domain.aggregate.Completion;
+import org.rbernalop.apichallenge.completion.domain.aggregate.CompletionMother;
+import org.rbernalop.apichallenge.completion.domain.port.CompletionRepository;
 import org.rbernalop.shared.infrastructure.testing.IntegrationTestCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
@@ -25,6 +28,9 @@ class ChallengeGetControllerTest extends IntegrationTestCase {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private CompletionRepository completionRepository;
+
     @AfterEach
     void tearDown() {
         challengeRepository.deleteAll();
@@ -37,13 +43,16 @@ class ChallengeGetControllerTest extends IntegrationTestCase {
         Category category = categoryRepository.save(ChallengeCategoryMother.random());
         Challenge challenge = ChallengeMother.randomFromCategory(category);
         challengeRepository.save(challenge);
+        assertNotNull(challenge.getId());
+        Completion completion = CompletionMother.fromChallengeIdAndUsername(challenge.getId().getValue(), challenge.getUserUsername());
+        completionRepository.save(completion);
         int page = 0;
         int size = 10;
 
         // WHEN
         MvcResult mvcResult = assertRequest(
             HttpMethod.GET,
-        GET_CHALLENGES_URL + "?page=" + page + "&size=" + size,
+        GET_CHALLENGES_URL + "?page=" + page + "&size=" + size + "&user=" + challenge.getUserUsername(),
             HttpStatus.OK
         );
 
@@ -51,11 +60,12 @@ class ChallengeGetControllerTest extends IntegrationTestCase {
         ChallengeGetResponses challengeGetResponses = objectMapper.readValue(
             mvcResult.getResponse().getContentAsString(), ChallengeGetResponses.class);
         assertEquals(1, challengeGetResponses.getChallenges().size());
-        assertNotNull(challenge.getId());
-        assertEquals(challenge.getId().getValue(), challengeGetResponses.getChallenges().get(0).getId());
-        assertEquals(challenge.getTitle(), challengeGetResponses.getChallenges().get(0).getTitle());
-        assertEquals(challenge.getCategory(), challengeGetResponses.getChallenges().get(0).getCategory());
-        assertEquals(challenge.getDifficulty(), challengeGetResponses.getChallenges().get(0).getDifficulty());
+        ChallengeGetResponse actualChallenge = challengeGetResponses.getChallenges().get(0);
+        assertEquals(challenge.getId().getValue(), actualChallenge.getId());
+        assertEquals(challenge.getTitle(), actualChallenge.getTitle());
+        assertEquals(challenge.getCategory(), actualChallenge.getCategory());
+        assertEquals(challenge.getDifficulty(), actualChallenge.getDifficulty());
+        assertTrue(actualChallenge.isCompleted());
     }
 
     @Test

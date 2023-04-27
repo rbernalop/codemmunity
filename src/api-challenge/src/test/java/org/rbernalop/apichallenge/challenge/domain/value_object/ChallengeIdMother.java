@@ -8,4 +8,8 @@ public class ChallengeIdMother {
     public static ChallengeId random() {
         return new ChallengeId(Faker.instance().internet().uuid());
     }
+
+    public static ChallengeId fromId(String id) {
+        return new ChallengeId(id);
+    }
 }

@@ -8,12 +8,13 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.rbernalop.apichallenge.challenge.domain.value_object.CategoryId;
 import org.rbernalop.apichallenge.challenge.domain.value_object.CategoryName;
+import org.rbernalop.shared.domain.AggregateRoot;
 
 @Entity
 @Table(name = "categories")
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Category {
+public class Category extends AggregateRoot {
     @EmbeddedId
     private CategoryId id;
 
@@ -27,8 +28,8 @@ public class Category {
         return category;
     }
 
-    public String getId() {
-        return id.getValue();
+    public CategoryId getId() {
+        return id;
     }
 
     public String getName() {

@@ -24,8 +24,8 @@ public class TestResultSender extends UseCase {
             LanguageName languageName) {
         if (passed) {
             ChallengeCompletedDomainEvent event = new ChallengeCompletedDomainEvent(
-                    userUsername.getValue(),
                     challengeId.getValue(),
+                    userUsername.getValue(),
                     scriptContent.getValue(),
                     languageName.getValue()
             );

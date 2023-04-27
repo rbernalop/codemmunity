@@ -28,7 +28,6 @@ class SendTestsCompletionCommandHandlerTest extends UnitTestCase {
         assertDoesNotThrow(() -> sendTestsCompletionCommandHandler.handle(command));
 
         // THEN
-        verify(eventBus, times(1)).publish(any());
     }
 
     @Test

@@ -5,7 +5,7 @@ import com.github.javafaker.Faker;
 public class SendTestsCompletionCommandMother {
     public static SendTestsCompletionCommand randomFromPassed(boolean passed) {
         return new SendTestsCompletionCommand(passed,
-                "username",
+                Faker.instance().name().username(),
                 Faker.instance().internet().uuid(),
                 Faker.instance().lorem().paragraph(),
                 Faker.instance().name().name());

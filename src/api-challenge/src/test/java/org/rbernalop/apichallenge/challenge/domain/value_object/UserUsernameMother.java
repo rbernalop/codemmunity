@@ -8,4 +8,8 @@ public class UserUsernameMother {
     public static UserUsername random() {
         return new UserUsername(Faker.instance().name().username());
     }
+
+    public static UserUsername fromUsername(String requesterUsername) {
+        return new UserUsername(requesterUsername);
+    }
 }
