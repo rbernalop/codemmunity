@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.rbernalop.apichallenge.completion.application.find.CompletionFinder;
 import org.rbernalop.apichallenge.completion.domain.port.CompletionRepository;
 import org.rbernalop.apichallenge.shared.application.completion.find.by_ids.FindUserCompletionsByChallengesIdsQuery;
-import org.rbernalop.apichallenge.shared.application.completion.find.by_ids.FindUserCompletionsByChallengesResponse;
+import org.rbernalop.apichallenge.shared.application.completion.find.by_ids.FindUserCompletionsByChallengesIdsResponse;
 import org.rbernalop.shared.domain.Service;
 import org.rbernalop.shared.domain.bus.event.EventBus;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
@@ -16,8 +16,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class FindUserCompletionsByChallengesIdsQueryHandler
-        implements QueryHandler<FindUserCompletionsByChallengesIdsQuery, FindUserCompletionsByChallengesResponse> {
+public class FindUserCompletionsByChallengesIdsQueryHandler implements QueryHandler<FindUserCompletionsByChallengesIdsQuery, FindUserCompletionsByChallengesIdsResponse> {
     private final CompletionFinder completionFinder;
 
     public FindUserCompletionsByChallengesIdsQueryHandler(QueryBus queryBus, EventBus eventBus, CompletionRepository completionRepository) {
@@ -25,7 +24,7 @@ public class FindUserCompletionsByChallengesIdsQueryHandler
     }
 
     @Override
-    public FindUserCompletionsByChallengesResponse handle(FindUserCompletionsByChallengesIdsQuery query) {
+    public FindUserCompletionsByChallengesIdsResponse handle(FindUserCompletionsByChallengesIdsQuery query) {
         log.info("Finding user {} completions by challenges ids {}", query.getUsername(), query.getIds());
 
         List<ChallengeId> challengeIds = query.getIds().stream().map(ChallengeId::new).toList();

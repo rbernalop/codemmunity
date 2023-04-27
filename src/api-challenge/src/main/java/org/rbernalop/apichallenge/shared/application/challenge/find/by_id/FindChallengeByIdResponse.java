@@ -1,4 +1,4 @@
-package org.rbernalop.apichallenge.shared.application.challenge.finder.by_id;
+package org.rbernalop.apichallenge.shared.application.challenge.find.by_id;
 
 import lombok.Getter;
 import lombok.Setter;

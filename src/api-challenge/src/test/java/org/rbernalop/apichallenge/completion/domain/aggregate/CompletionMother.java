@@ -12,4 +12,12 @@ public class CompletionMother {
             ScriptContentMother.random()
         );
     }
+
+    public static Completion fromChallengeIdAndUsername(String id, String requesterUsername) {
+        return Completion.create(
+            CompletionIdMother.fromChallengeIdAndUsername(id, requesterUsername),
+            LanguageNameMother.random(),
+            ScriptContentMother.random()
+        );
+    }
 }

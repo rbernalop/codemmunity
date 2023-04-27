@@ -5,9 +5,12 @@ import org.rbernalop.apichallenge.completion.domain.value_object.CompletionId;
 import org.rbernalop.shared.domain.valueobject.ChallengeId;
 import org.rbernalop.shared.domain.valueobject.UserUsername;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface CompletionRepository extends JpaRepository<Completion, CompletionId> {
-    List<Completion> findByChallengeIdInAndUserUsername(List<ChallengeId> challengeIDs, UserUsername username);
+    @Query("SELECT c FROM Completion c WHERE c.id.challengeId IN :challengeIds AND c.id.userUsername = :userUsername")
+    List<Completion> findByChallengeIdInAndUserUsername(Collection<ChallengeId> completionId_challengeId, UserUsername userUsername);
 }

@@ -1,4 +1,4 @@
-package org.rbernalop.apichallenge.challenge.application.finder.by_id;
+package org.rbernalop.apichallenge.challenge.application.find.by_id;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -6,8 +6,8 @@ import org.mockito.Mock;
 import org.rbernalop.apichallenge.challenge.domain.aggregate.Challenge;
 import org.rbernalop.apichallenge.challenge.domain.aggregate.ChallengeMother;
 import org.rbernalop.apichallenge.challenge.domain.port.ChallengeRepository;
-import org.rbernalop.apichallenge.shared.application.challenge.finder.by_id.FindChallengeByIdQuery;
-import org.rbernalop.apichallenge.shared.application.challenge.finder.by_id.FindChallengeByIdResponse;
+import org.rbernalop.apichallenge.shared.application.challenge.find.by_id.FindChallengeByIdQuery;
+import org.rbernalop.apichallenge.shared.application.challenge.find.by_id.FindChallengeByIdResponse;
 import org.rbernalop.shared.domain.exception.EntityNotFoundException;
 import org.rbernalop.shared.infrastructure.testing.UnitTestCase;
 

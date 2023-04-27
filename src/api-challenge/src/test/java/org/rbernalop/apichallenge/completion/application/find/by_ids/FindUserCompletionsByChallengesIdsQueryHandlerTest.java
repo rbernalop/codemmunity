@@ -9,7 +9,7 @@ import org.rbernalop.apichallenge.completion.domain.port.CompletionRepository;
 import org.rbernalop.apichallenge.shared.application.completion.find.by_ids.CompletionResponse;
 import org.rbernalop.apichallenge.shared.application.completion.find.by_ids.FindUserCompletionsByChallengesIdsQuery;
 import org.rbernalop.apichallenge.shared.application.completion.find.by_ids.FindUserCompletionsByChallengesIdsQueryMother;
-import org.rbernalop.apichallenge.shared.application.completion.find.by_ids.FindUserCompletionsByChallengesResponse;
+import org.rbernalop.apichallenge.shared.application.completion.find.by_ids.FindUserCompletionsByChallengesIdsResponse;
 import org.rbernalop.shared.domain.valueobject.ChallengeId;
 import org.rbernalop.shared.domain.valueobject.UserUsername;
 import org.rbernalop.shared.infrastructure.testing.UnitTestCase;
@@ -41,13 +41,13 @@ class FindUserCompletionsByChallengesIdsQueryHandlerTest extends UnitTestCase {
             .thenReturn(List.of(completion));
 
         // WHEN
-        FindUserCompletionsByChallengesResponse response =
+        FindUserCompletionsByChallengesIdsResponse response =
             assertDoesNotThrow(() -> findUserCompletionsByChallengesIdsQueryHandler.handle(query));
 
         // THEN
         verify(completionRepository, times(1)).findByChallengeIdInAndUserUsername(any(), any());
         assertEquals(1, response.getCompletions().size());
-        CompletionResponse responseCompletion = response.getCompletions().get(completion.getCompletionId());
+        CompletionResponse responseCompletion = response.getCompletions().get(completion.getChallengeId());
         assertEquals(completion.getScriptContent(), responseCompletion.getScriptContent());
         assertEquals(completion.getLanguageName(), responseCompletion.getLanguageName());
     }

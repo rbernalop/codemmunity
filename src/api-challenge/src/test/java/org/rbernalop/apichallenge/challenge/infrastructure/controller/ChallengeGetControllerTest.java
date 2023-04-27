@@ -43,7 +43,7 @@ class ChallengeGetControllerTest extends IntegrationTestCase {
         // WHEN
         MvcResult mvcResult = assertRequest(
             HttpMethod.GET,
-        GET_CHALLENGES_URL + "?page=" + page + "&size=" + size,
+        GET_CHALLENGES_URL + "?page=" + page + "&size=" + size + "&user=" + challenge.getUserUsername(),
             HttpStatus.OK
         );
 

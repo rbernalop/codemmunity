@@ -2,9 +2,9 @@ package org.rbernalop.apichallenge.challenge.infrastructure.controller;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.rbernalop.apichallenge.shared.application.challenge.finder.ChallengeResponse;
-import org.rbernalop.apichallenge.shared.application.challenge.finder.all.FindChallengesPaginatedQuery;
-import org.rbernalop.apichallenge.shared.application.challenge.finder.all.FindChallengesPaginatedResponse;
+import org.rbernalop.apichallenge.shared.application.challenge.find.ChallengeResponse;
+import org.rbernalop.apichallenge.shared.application.challenge.find.all.FindChallengesPaginatedQuery;
+import org.rbernalop.apichallenge.shared.application.challenge.find.all.FindChallengesPaginatedResponse;
 import org.rbernalop.shared.domain.bus.command.CommandBus;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.infrastructure.controller.ApiController;
@@ -20,10 +20,12 @@ public class ChallengeGetController extends ApiController {
     }
 
     @GetMapping("challenge")
-    public ChallengeGetResponses getChallenge(@RequestParam("page") int page, @RequestParam("size") int size) {
+    public ChallengeGetResponses getChallenge(@RequestParam("page") int page, @RequestParam("size") int size,
+          @RequestParam("user") String username) {
         FindChallengesPaginatedQuery findChallengesPaginatedQuery = new FindChallengesPaginatedQuery();
         findChallengesPaginatedQuery.setPage(page);
         findChallengesPaginatedQuery.setSize(size);
+        findChallengesPaginatedQuery.setRequesterUsername(username);
 
         FindChallengesPaginatedResponse findChallengesPaginatedResponse = ask(findChallengesPaginatedQuery);
 

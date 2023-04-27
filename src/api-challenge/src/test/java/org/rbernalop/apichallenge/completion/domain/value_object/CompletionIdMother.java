@@ -10,4 +10,11 @@ public class CompletionIdMother {
             UserUsernameMother.random()
         );
     }
+
+    public static CompletionId fromChallengeIdAndUsername(String id, String requesterUsername) {
+        return new CompletionId(
+            ChallengeIdMother.fromId(id),
+            UserUsernameMother.fromUsername(requesterUsername)
+        );
+    }
 }

@@ -1,4 +1,4 @@
-package org.rbernalop.apichallenge.shared.application.challenge.finder;
+package org.rbernalop.apichallenge.shared.application.challenge.find;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,8 +13,9 @@ public class ChallengeResponse {
     private String category;
     private long difficulty;
     private String userUsername;
+    private boolean isCompleted;
 
-    public static ChallengeResponse from(Challenge challenge) {
+    public static ChallengeResponse from(Challenge challenge, boolean isCompleted) {
         ChallengeResponse challengeResponse = new ChallengeResponse();
         assert challenge.getId() != null;
         challengeResponse.setId(challenge.getId().getValue());
@@ -23,6 +24,7 @@ public class ChallengeResponse {
         challengeResponse.setCategory(challenge.getCategory());
         challengeResponse.setDifficulty(challenge.getDifficulty());
         challengeResponse.setUserUsername(challenge.getUserUsername());
+        challengeResponse.setCompleted(isCompleted);
         return challengeResponse;
     }
 }

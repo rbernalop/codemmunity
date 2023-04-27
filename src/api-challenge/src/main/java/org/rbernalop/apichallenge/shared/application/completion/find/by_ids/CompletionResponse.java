@@ -8,11 +8,13 @@ import lombok.Setter;
 public class CompletionResponse {
     private String scriptContent;
     private String languageName;
+    private String completionUsername;
 
-    public static CompletionResponse from(String scriptContent, String languageName) {
+    public static CompletionResponse from(String scriptContent, String languageName, String completionUsername) {
         CompletionResponse completionResponse = new CompletionResponse();
         completionResponse.setScriptContent(scriptContent);
         completionResponse.setLanguageName(languageName);
+        completionResponse.setCompletionUsername(completionUsername);
         return completionResponse;
     }
 }
