@@ -56,6 +56,7 @@ class ChallengeGetResponse {
     private String title;
     private String category;
     private long difficulty;
+    private boolean isCompleted;
 
     public static ChallengeGetResponse from(ChallengeResponse challengeResponse) {
         ChallengeGetResponse challengeGetResponse = new ChallengeGetResponse();
@@ -63,6 +64,7 @@ class ChallengeGetResponse {
         challengeGetResponse.setTitle(challengeResponse.getTitle());
         challengeGetResponse.setCategory(challengeResponse.getCategory());
         challengeGetResponse.setDifficulty(challengeResponse.getDifficulty());
+        challengeGetResponse.setCompleted(challengeResponse.isCompleted());
         return challengeGetResponse;
     }
 }
