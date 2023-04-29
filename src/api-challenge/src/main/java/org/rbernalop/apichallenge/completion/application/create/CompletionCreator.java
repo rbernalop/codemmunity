@@ -11,6 +11,8 @@ import org.rbernalop.shared.domain.valueobject.LanguageName;
 import org.rbernalop.shared.domain.valueobject.ScriptContent;
 import org.rbernalop.shared.domain.valueobject.UserUsername;
 
+import java.util.Optional;
+
 public class CompletionCreator extends UseCase {
     private final CompletionRepository completionRepository;
 
@@ -21,7 +23,15 @@ public class CompletionCreator extends UseCase {
 
     public void create(ChallengeId challengeId, UserUsername userUsername, LanguageName languageName, ScriptContent scriptContent) {
         CompletionId completionId = new CompletionId(challengeId, userUsername);
-        Completion completion = Completion.create(completionId, languageName, scriptContent);
+        Optional<Completion> completionOptional = completionRepository.findById(completionId);
+        Completion completion;
+        if (completionOptional.isPresent()) {
+            completion = completionOptional.get();
+            completion.update(languageName, scriptContent);
+            return;
+        } else {
+            completion = Completion.create(completionId, languageName, scriptContent);
+        }
         completionRepository.save(completion);
     }
 }

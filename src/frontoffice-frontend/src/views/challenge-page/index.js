@@ -10,6 +10,7 @@ import {findChallengeById} from "../../requests/challenges/findChallengeById";
 import {errorNotification} from "../../utils/notification";
 import ChallengeDataCard from "./ChallengeDataCard";
 import TestRunBox from "../../components/TestRunBox";
+import {sendChange} from "../../requests/websocket/script/producer/sendScriptChange";
 
 const ChallengePage = () => {
     const { id } = useParams()
@@ -32,9 +33,11 @@ const ChallengePage = () => {
         "}\n" +
         "module.exports = bubblesort;\n");
     const [isRunning, setIsRunning] = useState(false);
+    const [stompClient, setStompClient] = useState(null)
 
 
     useEffect(() => {
+        editorRef.current.setValue(code)
         findChallengeById(id).then((response) => {
             setChallengeData(response.data)
         }).catch((e) => {
@@ -42,13 +45,22 @@ const ChallengePage = () => {
         })
     }, [])
 
+    useEffect(() => {
+        editorRef.current.on('change', (instance, changes) => {
+            setCode(editorRef.current.getValue());
+            if(changes.origin !== "setValue" && changes.origin !== undefined) {
+                sendChange(stompClient, id, localStorage.getItem("username"), changes, instance.getValue());
+            }
+        });
+    }, [setCode, stompClient]);
+
     return (
         <>
             <Layout>
                 <Sider width={"fit-content"} style={{padding: '24px 24px', backgroundColor: '#F5F5F5', height: '100vh'}}>
                     <ChallengeDataCard challenge={challengeData} />
                     <hr />
-                    <TestRunBox challengeId={id} languageName={language.name} isRunning={isRunning} setIsRunning={setIsRunning} />
+                    <TestRunBox challengeId={id} languageName={language.name} isRunning={isRunning} setIsRunning={setIsRunning} code={code} />
                 </Sider>
                 <Content style={{ padding: '24px 24px', height: '100vh' }}>
                     <CodeEditor language={language.key} editorRef={editorRef} code={code} />
