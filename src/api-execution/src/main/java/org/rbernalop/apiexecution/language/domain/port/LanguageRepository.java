@@ -1,4 +1,4 @@
-package org.rbernalop.apiexecution.language.domain.repository;
+package org.rbernalop.apiexecution.language.domain.port;
 
 import org.rbernalop.apiexecution.language.domain.aggregate.Language;
 import org.rbernalop.shared.domain.valueobject.LanguageId;

@@ -3,7 +3,7 @@ package org.rbernalop.apiexecution.script.infrastructure.controller;
 import org.junit.jupiter.api.*;
 import org.rbernalop.apiexecution.language.domain.aggregate.Language;
 import org.rbernalop.apiexecution.language.domain.aggregate.LanguageMother;
-import org.rbernalop.apiexecution.language.domain.repository.LanguageRepository;
+import org.rbernalop.apiexecution.language.domain.port.LanguageRepository;
 import org.rbernalop.shared.infrastructure.testing.IntegrationTestCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
