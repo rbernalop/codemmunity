@@ -1,0 +1,23 @@
+spring:
+    application:
+        name: service-challenge-synchronization
+    datasource:
+        url: ${CHALLENGE_SYNCHRONIZATION_DB_URL:jdbc:postgresql://localhost:5432/challenge-synchronizationdb}
+        username: ${CHALLENGE_SYNCHRONIZATION_DB_USERNAME:postgres}
+        password: ${CHALLENGE_SYNCHRONIZATION_DB_PASSWORD:postgres}
+        driver-class-name: ${CHALLENGE_SYNCHRONIZATION_DB_DRIVER_CLASS_NAME:org.postgresql.Driver}
+    jpa:
+        hibernate:
+            ddl-auto: ${CHALLENGE_SYNCHRONIZATION_DB_DDL_AUTO:update}
+server:
+    port: 8087
+eureka:
+    client:
+        service-url:
+            defaultZone: http://${EUREKA_SERVER_ADDRESS:localhost}:8761/eureka
+        fetch-registry: true
+        register-with-eureka: true
+    instance:
+        prefer-ip-address: true
+        ip-address: ${CHALLENGE_SYNCHRONIZATION_ADDRESS:localhost}
+        instance-id: ${CHALLENGE_SYNCHRONIZATION_ADDRESS:localhost}:8087

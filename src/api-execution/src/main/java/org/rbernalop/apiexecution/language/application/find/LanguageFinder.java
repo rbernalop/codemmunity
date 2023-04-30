@@ -1,7 +1,7 @@
 package org.rbernalop.apiexecution.language.application.find;
 
 import org.rbernalop.apiexecution.language.domain.aggregate.Language;
-import org.rbernalop.apiexecution.language.domain.repository.LanguageRepository;
+import org.rbernalop.apiexecution.language.domain.port.LanguageRepository;
 import org.rbernalop.apiexecution.shared.application.language.find.all.FindAllLanguagesResponse;
 import org.rbernalop.apiexecution.shared.application.language.find.by_id.FindLanguageByIdResponse;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
