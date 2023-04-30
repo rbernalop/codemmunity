@@ -2,7 +2,7 @@ package org.rbernalop.apiexecution.language.application.find.all;
 
 import lombok.extern.slf4j.Slf4j;
 import org.rbernalop.apiexecution.language.application.find.LanguageFinder;
-import org.rbernalop.apiexecution.language.domain.repository.LanguageRepository;
+import org.rbernalop.apiexecution.language.domain.port.LanguageRepository;
 import org.rbernalop.apiexecution.shared.application.language.find.all.FindAllLanguagesQuery;
 import org.rbernalop.apiexecution.shared.application.language.find.all.FindAllLanguagesResponse;
 import org.rbernalop.shared.domain.Service;

@@ -5,7 +5,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.rbernalop.apiexecution.language.domain.aggregate.Language;
 import org.rbernalop.apiexecution.language.domain.aggregate.LanguageMother;
-import org.rbernalop.apiexecution.language.domain.repository.LanguageRepository;
+import org.rbernalop.apiexecution.language.domain.port.LanguageRepository;
 import org.rbernalop.apiexecution.shared.application.language.find.by_id.FindLanguageByIdMother;
 import org.rbernalop.apiexecution.shared.application.language.find.by_id.FindLanguageByIdQuery;
 import org.rbernalop.apiexecution.shared.application.language.find.by_id.FindLanguageByIdResponse;
