@@ -18,8 +18,8 @@ public class ChallengeGetByIdController extends ApiController {
     }
 
     @GetMapping("challenge/{id}")
-    public ChallengeGetByIdResponse getChallengeById(@PathVariable String id) {
-        FindChallengeByIdQuery query = new FindChallengeByIdQuery(id);
+    public ChallengeGetByIdResponse getChallengeById(@PathVariable String id, @RequestParam String languageName) {
+        FindChallengeByIdQuery query = new FindChallengeByIdQuery(id, languageName);
         FindChallengeByIdResponse response = ask(query);
         return new ChallengeGetByIdResponse(response);
     }
@@ -35,6 +35,7 @@ class ChallengeGetByIdResponse {
     private String category;
     private long difficulty;
     private String creatorUsername;
+    private String baseScript;
 
     public ChallengeGetByIdResponse(FindChallengeByIdResponse response) {
         this.id = response.getId();
@@ -43,5 +44,6 @@ class ChallengeGetByIdResponse {
         this.category = response.getCategory();
         this.difficulty = response.getDifficulty();
         this.creatorUsername = response.getUserUsername();
+        this.baseScript = response.getBaseCode();
     }
 }

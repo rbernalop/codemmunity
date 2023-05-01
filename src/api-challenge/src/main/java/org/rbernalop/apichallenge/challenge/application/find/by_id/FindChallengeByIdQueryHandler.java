@@ -10,6 +10,7 @@ import org.rbernalop.shared.domain.Service;
 import org.rbernalop.shared.domain.bus.event.EventBus;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.domain.bus.query.QueryHandler;
+import org.rbernalop.shared.domain.valueobject.LanguageName;
 
 @Service
 @Slf4j
@@ -26,6 +27,7 @@ public class FindChallengeByIdQueryHandler implements QueryHandler<FindChallenge
         log.info("Finding challenge by id: {}", query.getId());
 
         ChallengeId challengeId = new ChallengeId(query.getId());
-        return challengeFinder.findById(challengeId);
+        LanguageName languageName = new LanguageName(query.getLanguageName());
+        return challengeFinder.findById(challengeId, languageName);
     }
 }

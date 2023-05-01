@@ -13,4 +13,9 @@ public class BaseCodeMother {
         BaseCodeId id = new BaseCodeId(challengeId, languageName);
         return new BaseCode(id, new ScriptContent(Faker.instance().lorem().paragraph()));
     }
+
+    public static BaseCode fromChallengeIdAndLanguageName(ChallengeId id, LanguageName languageName) {
+        BaseCodeId baseCodeId = new BaseCodeId(id, languageName);
+        return new BaseCode(baseCodeId, new ScriptContent(Faker.instance().lorem().paragraph()));
+    }
 }

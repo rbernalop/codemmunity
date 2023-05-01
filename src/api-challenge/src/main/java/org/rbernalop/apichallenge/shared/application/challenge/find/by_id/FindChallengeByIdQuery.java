@@ -10,4 +10,5 @@ import org.rbernalop.shared.domain.bus.query.Query;
 @Setter
 public class FindChallengeByIdQuery implements Query {
     private String id;
+    private String languageName;
 }

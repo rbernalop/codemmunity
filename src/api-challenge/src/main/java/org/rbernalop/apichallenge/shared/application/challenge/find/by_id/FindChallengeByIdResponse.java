@@ -14,8 +14,9 @@ public class FindChallengeByIdResponse implements Response {
     private String category;
     private long difficulty;
     private String userUsername;
+    private String baseCode;
 
-    public static FindChallengeByIdResponse from(Challenge challenge) {
+    public static FindChallengeByIdResponse from(Challenge challenge, String baseCode) {
         FindChallengeByIdResponse response = new FindChallengeByIdResponse();
         assert challenge.getId() != null;
         response.setId(challenge.getId().getValue());
@@ -24,6 +25,7 @@ public class FindChallengeByIdResponse implements Response {
         response.setCategory(challenge.getCategory());
         response.setDifficulty(challenge.getDifficulty());
         response.setUserUsername(challenge.getUserUsername());
+        response.setBaseCode(baseCode);
         return response;
     }
 }
