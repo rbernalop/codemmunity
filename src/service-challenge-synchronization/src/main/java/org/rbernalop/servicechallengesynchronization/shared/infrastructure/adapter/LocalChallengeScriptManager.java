@@ -22,6 +22,9 @@ public class LocalChallengeScriptManager implements ChallengeScriptManager {
     @Override
     public void setScriptContent(ChallengeScriptId id, ScriptContent content) {
         ChallengeScript script = scripts.get(id);
+        if (script == null) {
+            return;
+        }
         script.updateContent(content);
         scripts.put(id, script);
     }
