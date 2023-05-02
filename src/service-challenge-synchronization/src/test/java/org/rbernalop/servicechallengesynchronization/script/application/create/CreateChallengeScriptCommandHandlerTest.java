@@ -12,8 +12,7 @@ import org.rbernalop.servicechallengesynchronization.shared.domain.port.Challeng
 import org.rbernalop.shared.infrastructure.testing.UnitTestCase;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 class CreateChallengeScriptCommandHandlerTest extends UnitTestCase {
     @Mock
@@ -31,11 +30,29 @@ class CreateChallengeScriptCommandHandlerTest extends UnitTestCase {
         ChallengeScript challengeScript = ChallengeScriptMother.random();
         CreateChallengeScriptCommand challengeScriptCommand = CreateChallengeScriptCommandMother.fromChallengeScript(challengeScript);
 
+        when(challengeScriptRepository.existsById(challengeScript.getChallengeScriptId())).thenReturn(false);
         // WHEN
         assertDoesNotThrow(() -> createChallengeScriptCommandHandler.handle(challengeScriptCommand));
 
         // THEN
+        verify(challengeScriptRepository, times(1)).existsById(challengeScript.getChallengeScriptId());
         verify(challengeScriptRepository, times(1)).save(challengeScript);
-        verify(challengeScriptManager, times(1)).create(challengeScript);
+    }
+
+    @Test
+    void should_do_nothing_when_challenge_script_exists_in_db() {
+        // GIVEN
+        ChallengeScript challengeScript = ChallengeScriptMother.random();
+        CreateChallengeScriptCommand challengeScriptCommand = CreateChallengeScriptCommandMother.fromChallengeScript(challengeScript);
+
+        when(challengeScriptRepository.existsById(challengeScript.getChallengeScriptId())).thenReturn(true);
+
+        // WHEN
+        assertDoesNotThrow(() -> createChallengeScriptCommandHandler.handle(challengeScriptCommand));
+
+        // THEN
+        verify(challengeScriptRepository, times(1)).existsById(challengeScript.getChallengeScriptId());
+        verify(challengeScriptManager, never()).create(challengeScript);
+        verify(challengeScriptRepository, never()).save(challengeScript);
     }
 }

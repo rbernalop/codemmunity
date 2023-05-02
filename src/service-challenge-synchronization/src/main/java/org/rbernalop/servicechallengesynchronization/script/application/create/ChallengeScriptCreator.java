@@ -23,7 +23,9 @@ public class ChallengeScriptCreator extends UseCase {
 
     public void create(ChallengeScriptId id, ScriptContent content, LanguageName languageName) {
         ChallengeScript challengeScript = ChallengeScript.create(id, languageName, content);
-        challengeScriptRepository.save(challengeScript);
-        challengeScriptManager.create(challengeScript);
+        if(!challengeScriptRepository.existsById(id)) {
+            challengeScriptManager.create(challengeScript);
+            challengeScriptRepository.save(challengeScript);
+        }
     }
 }
