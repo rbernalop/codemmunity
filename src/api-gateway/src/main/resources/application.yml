@@ -23,7 +23,7 @@ spring:
                 - id: service-synchronization
                   uri: lb://service-synchronization
                   predicates:
-                    - Path=/service/v1/**
+                    - Path=/service/v1/script/**
                 - id: api-challenge
                   uri: lb://api-challenge
                   predicates:
@@ -36,6 +36,10 @@ spring:
                     - Path=/api/v1/test/**
                   filters:
                     - AuthorizedFilter
+                - id: service-challenge-synchronization
+                  uri: lb://service-challenge-synchronization
+                  predicates:
+                      - Path=/service/v1/challengeScript/**
     main:
         allow-bean-definition-overriding: true
 server:

@@ -10,35 +10,52 @@ import {findChallengeById} from "../../requests/challenges/findChallengeById";
 import {errorNotification} from "../../utils/notification";
 import ChallengeDataCard from "./ChallengeDataCard";
 import TestRunBox from "../../components/TestRunBox";
-import {sendChange} from "../../requests/websocket/script/producer/sendScriptChange";
+import {connect} from "../../requests/websocket/connection";
+import {
+    sendChallengeScriptContentChange
+} from "../../requests/websocket/challengeScript/producer/sendChallengeScriptChange";
+import {listenChallengeScriptJoin} from "../../requests/websocket/challengeScript/consumer/userJoinedChallengeScript";
+import {joinChallengeScript} from "../../requests/websocket/challengeScript/producer/joinChallengeScript";
+import {createChallengeScript} from "../../requests/websocket/challengeScript/producer/createChallengeScript";
 
 const ChallengePage = () => {
     const { id } = useParams()
+    const challengeScriptSocketPath = '/service/v1/challengeScript'
     const [language, setLanguage] = useState(LANGUAJES[0]);
     const editorRef = useRef(null);
     const [challengeData, setChallengeData] = useState({});
-    const [code, setCode] = useState(
-        "function bubblesort(arr) {\n" +
-        "    let n = arr.length;\n" +
-        "    for (let i = 0; i < n - 1; i++) {\n" +
-        "        for (let j = 0; j < n - i - 1; j++) {\n" +
-        "            if (arr[j] > arr[j + 1]) {\n" +
-        "                let temp = arr[j];\n" +
-        "                arr[j] = arr[j + 1];\n" +
-        "                arr[j + 1] = temp;\n" +
-        "            }\n" +
-        "        }\n" +
-        "    }\n" +
-        "    return arr;\n" +
-        "}\n" +
-        "module.exports = bubblesort;\n");
+    const [code, setCode] = useState("");
     const [isRunning, setIsRunning] = useState(false);
     const [stompClient, setStompClient] = useState(null)
 
 
     useEffect(() => {
-        editorRef.current.setValue(code)
-        findChallengeById(id).then((response) => {
+        function handleConnection(generatedStompClient, scriptCode) {
+            setStompClient(generatedStompClient)
+            listenChallengeScriptJoin(generatedStompClient, id, (content) => {
+                    editorRef.current.setValue(content)
+                    setCode(content)
+                }, (languageName) => {
+                    setLanguage(LANGUAJES.find((l) => l.name === languageName))
+                },
+                () =>
+                    createChallengeScript(generatedStompClient, id, localStorage.getItem("username"), language.name, scriptCode)
+            )
+            joinChallengeScript(generatedStompClient, id, localStorage.getItem("username"))
+        }
+
+        function handleError(scriptCode) {
+            setTimeout(() => {
+                connect((stomp) => handleConnection(stomp, scriptCode), () =>
+                    errorNotification("Error connecting to server", "Try again later", "topRight")
+                , challengeScriptSocketPath)
+            }, 5000);
+        }
+
+
+        findChallengeById(id, language.name).then((response) => {
+            editorRef.current.setValue(response.data.baseScript)
+            connect((stomp) => handleConnection(stomp, response.data.baseScript), () => handleConnection(response.data.baseScript), challengeScriptSocketPath)
             setChallengeData(response.data)
         }).catch((e) => {
             errorNotification("Error while retrieving challenge", e.response.data.message || "Try again later", "topRight")
@@ -49,7 +66,7 @@ const ChallengePage = () => {
         editorRef.current.on('change', (instance, changes) => {
             setCode(editorRef.current.getValue());
             if(changes.origin !== "setValue" && changes.origin !== undefined) {
-                sendChange(stompClient, id, localStorage.getItem("username"), changes, instance.getValue());
+                sendChallengeScriptContentChange(stompClient, id, localStorage.getItem("username"), changes, instance.getValue());
             }
         });
     }, [setCode, stompClient]);

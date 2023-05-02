@@ -6,6 +6,11 @@ export const listenUsersJoined = (stompClient, scriptId, usersJoined, setUsersJo
     const handler = (event) => {
         let data = JSON.parse(event.body);
         const username = localStorage.getItem('username');
+
+        if (data.scriptId !== scriptId) {
+            return;
+        }
+
         if (data.username === username) {
             setScriptContent(data.scriptContent);
         }

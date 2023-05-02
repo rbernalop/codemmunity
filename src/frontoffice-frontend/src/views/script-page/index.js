@@ -21,6 +21,7 @@ import {LANGUAJES} from "../../constants/languages";
 
 const ScriptPage = () => {
     const { id } = useParams()
+    const scriptSocketPath = '/service/v1/script'
     const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem("token") !== null)
 
     const [stompClient, setStompClient] = useState(null)
@@ -59,11 +60,11 @@ const ScriptPage = () => {
             setTimeout(() => {
                 connect(handleConnection, () => {
                     errorNotification("Error connecting to server", "Try again later", "topRight")
-                })
+                }, scriptSocketPath)
             }, 5000);
         }
 
-        connect(handleConnection, handleError)
+        connect(handleConnection, handleError, scriptSocketPath)
 
         findScriptById(id).then((response) => {
             setTitle(response.data.name);
