@@ -5,7 +5,8 @@ import org.rbernalop.apiauthentication.shared.application.user.finder.username.F
 import org.rbernalop.apiauthentication.shared.application.user.finder.username.FindUserByUsernameResponse;
 import org.rbernalop.apiauthentication.user.application.finder.UserFinder;
 import org.rbernalop.apiauthentication.user.domain.port.UserRepository;
-import org.rbernalop.apiauthentication.user.domain.value_object.UserUsername;
+import org.rbernalop.shared.domain.bus.event.EventBus;
+import org.rbernalop.shared.domain.valueobject.UserUsername;
 import org.rbernalop.shared.domain.Service;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.domain.bus.query.QueryHandler;
@@ -15,8 +16,8 @@ import org.rbernalop.shared.domain.bus.query.QueryHandler;
 public class FindUserByUsernameQueryHandler implements QueryHandler<FindUserByUsernameQuery, FindUserByUsernameResponse> {
     private final UserFinder userFinder;
 
-    public FindUserByUsernameQueryHandler(UserRepository userRepository, QueryBus queryBus) {
-        this.userFinder = new UserFinder(queryBus, userRepository);
+    public FindUserByUsernameQueryHandler(QueryBus queryBus, EventBus eventBus, UserRepository userRepository) {
+        this.userFinder = new UserFinder(queryBus, eventBus, userRepository);
     }
 
     @Override

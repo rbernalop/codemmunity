@@ -31,8 +31,6 @@ public class AuthorizedFilter implements GatewayFilterFactory<AuthorizedFilter.C
                 return response.setComplete();
             }
 
-            System.out.println("Usuario: " + user.getUsername());
-
             UriComponentsBuilder builder = UriComponentsBuilder.fromUri(request.getURI()).queryParam("user", user.getUsername());
             request = request.mutate().uri(builder.build().toUri()).build();
 

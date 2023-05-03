@@ -90,6 +90,15 @@ services:
             - applicationdb:/var/lib/postgresql/data
             - applicationdb_data:/var/lib/postgresql/data
 
+    #
+    # MESSAGE BROKER
+    #
+    rabbitmq:
+        image: rabbitmq:3.9.11-management-alpine
+        container_name: rabbitmq
+        ports:
+            - "5672:5672"
+            - "15672:15672"
 
 volumes:
     sonarqube_data: { }

@@ -1,7 +1,7 @@
 package org.rbernalop.apiauthentication.user.application.finder.username;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.rbernalop.apiauthentication.shared.application.user.finder.username.FindUserByUsernameQuery;
 import org.rbernalop.apiauthentication.shared.application.user.finder.username.FindUserByUsernameQueryMother;
@@ -10,8 +10,7 @@ import org.rbernalop.apiauthentication.shared.application.user.finder.username.F
 import org.rbernalop.apiauthentication.user.domain.aggregate.UserMother;
 import org.rbernalop.apiauthentication.user.domain.aggregate.User;
 import org.rbernalop.apiauthentication.user.domain.port.UserRepository;
-import org.rbernalop.apiauthentication.user.domain.value_object.UserUsername;
-import org.rbernalop.shared.domain.bus.query.QueryBus;
+import org.rbernalop.shared.domain.valueobject.UserUsername;
 import org.rbernalop.shared.infrastructure.testing.UnitTestCase;
 
 import java.util.Optional;
@@ -22,15 +21,9 @@ import static org.mockito.Mockito.when;
 class FindUserByUsernameQueryHandlerTest extends UnitTestCase {
     @Mock
     private UserRepository userRepository;
-    @Mock
-    private QueryBus queryBus;
 
+    @InjectMocks
     private FindUserByUsernameQueryHandler handler;
-
-    @BeforeEach
-    protected void setUp() {
-        handler = new FindUserByUsernameQueryHandler(userRepository, queryBus);
-    }
 
     @Test
     void should_find_user_by_username() {

@@ -5,12 +5,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.rbernalop.apiexecution.language.domain.aggregate.Language;
 import org.rbernalop.apiexecution.language.domain.aggregate.LanguageMother;
-import org.rbernalop.apiexecution.language.domain.repository.LanguageRepository;
+import org.rbernalop.apiexecution.language.domain.port.LanguageRepository;
 import org.rbernalop.apiexecution.shared.application.language.find.LanguageResponse;
 import org.rbernalop.apiexecution.shared.application.language.find.all.FindAllLanguagesQuery;
 import org.rbernalop.apiexecution.shared.application.language.find.all.FindAllLanguagesQueryMother;
 import org.rbernalop.apiexecution.shared.application.language.find.all.FindAllLanguagesResponse;
-import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.infrastructure.testing.UnitTestCase;
 import java.util.List;
 
@@ -18,8 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class FindAllLanguagesQueryHandlerTest extends UnitTestCase {
-    @Mock
-    private QueryBus queryBus;
+
 
     @Mock
     private LanguageRepository languageRepository;

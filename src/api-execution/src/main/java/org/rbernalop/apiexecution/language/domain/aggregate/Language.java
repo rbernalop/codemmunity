@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.rbernalop.apiexecution.language.domain.value_object.LanguageName;
+import org.rbernalop.shared.domain.valueobject.LanguageName;
 import org.rbernalop.shared.domain.AggregateRoot;
 import org.rbernalop.shared.domain.valueobject.Identifier;
 import org.rbernalop.shared.domain.valueobject.LanguageId;
@@ -23,9 +23,11 @@ public class Language extends AggregateRoot {
     @Embedded
     private LanguageName name;
 
-    public Language(LanguageId id, LanguageName name) {
-        this.id = id;
-        this.name = name;
+    public static Language create(LanguageId id, LanguageName name) {
+        Language language = new Language();
+        language.id = id;
+        language.name = name;
+        return language;
     }
 
     @Override

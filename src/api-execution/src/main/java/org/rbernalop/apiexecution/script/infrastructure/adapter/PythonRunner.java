@@ -1,10 +1,11 @@
 package org.rbernalop.apiexecution.script.infrastructure.adapter;
 
+import com.github.javafaker.Faker;
 import org.rbernalop.apiexecution.script.domain.exception.ExecutionException;
-import org.rbernalop.apiexecution.script.domain.exception.FileException;
+import org.rbernalop.shared.domain.exception.FileException;
 import org.rbernalop.apiexecution.script.domain.value_object.RunResult;
 import org.rbernalop.apiexecution.script.domain.port.ScriptRunner;
-import org.rbernalop.apiexecution.script.infrastructure.util.ShellRunner;
+import org.rbernalop.shared.infrastructure.ShellRunner;
 import org.springframework.data.util.Pair;
 
 import java.io.File;
@@ -15,11 +16,12 @@ public class PythonRunner implements ScriptRunner {
     public RunResult run(String code) {
         RunResult runResult = new RunResult();
 
-        File file = new File("Main.py");
+        String fileName = Faker.instance().name().firstName() + ".py";
+        File file = new File(fileName);
         try {
             file.createNewFile();
             Files.writeString(file.toPath(), code);
-            String executionCommand = "python3 Main.py";
+            String executionCommand = "python3 " + fileName;
             Pair<String, Boolean> result = ShellRunner.executeCommand(executionCommand);
             String executionResult = result.getFirst();
             boolean executionSuccess = result.getSecond();

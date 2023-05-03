@@ -1,11 +1,12 @@
 package org.rbernalop.apiexecution.script.infrastructure.adapter;
 
-import org.rbernalop.apiexecution.script.domain.exception.CompilationException;
+import com.github.javafaker.Faker;
+import org.rbernalop.shared.domain.exception.CompilationException;
 import org.rbernalop.apiexecution.script.domain.exception.ExecutionException;
-import org.rbernalop.apiexecution.script.domain.exception.FileException;
+import org.rbernalop.shared.domain.exception.FileException;
 import org.rbernalop.apiexecution.script.domain.value_object.RunResult;
 import org.rbernalop.apiexecution.script.domain.port.ScriptRunner;
-import org.rbernalop.apiexecution.script.infrastructure.util.ShellRunner;
+import org.rbernalop.shared.infrastructure.ShellRunner;
 import org.springframework.data.util.Pair;
 
 import java.io.File;
@@ -17,12 +18,17 @@ public class JavaRunner implements ScriptRunner {
     public RunResult run(String code) {
         RunResult runResult = new RunResult();
 
-        File file = new File("Main.java");
+        Pair<String, Boolean> result;
+        String filesPath = Faker.instance().name().firstName();
+        String scriptFileName = filesPath + "/Main.java";
+        File folder = new File(filesPath);
+        File file = new File(scriptFileName);
         try {
+            folder.mkdir();
             file.createNewFile();
             Files.writeString(file.toPath(), code);
-            String compilationCommand = "javac Main.java";
-            Pair<String, Boolean> result = ShellRunner.executeCommand(compilationCommand);
+            String compilationCommand = "javac " + scriptFileName;
+            result = ShellRunner.executeCommand(compilationCommand);
             String compilationResult = result.getFirst();
             boolean compilationSuccess = result.getSecond();
             if(!compilationSuccess) {
@@ -30,7 +36,7 @@ public class JavaRunner implements ScriptRunner {
             }
             runResult.setCompilationResult(compilationResult);
 
-            String executionCommand = "java Main";
+            String executionCommand = "java -classpath " + filesPath + " Main";
             result = ShellRunner.executeCommand(executionCommand);
             String executionResult = result.getFirst();
             boolean executionSuccess = result.getSecond();
@@ -39,11 +45,14 @@ public class JavaRunner implements ScriptRunner {
             }
             runResult.setExecutionResult(executionResult);
 
-            file.delete();
-            File classFile = new File("Main.class");
-            classFile.delete();
         } catch (IOException e) {
             throw new FileException(e.getMessage());
+        } finally {
+            String removeCommand = "rm -rf " + filesPath;
+            result = ShellRunner.executeCommand(removeCommand);
+            if(!result.getSecond()) {
+                throw new FileException(result.getFirst());
+            }
         }
 
         return runResult;

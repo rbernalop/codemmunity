@@ -1,0 +1,26 @@
+spring:
+    application:
+        name: api-challenge
+    datasource:
+        url: ${CHALLENGE_DB_URL:jdbc:postgresql://localhost:5432/challengedb}
+        username: ${CHALLENGE_DB_USERNAME:postgres}
+        password: ${CHALLENGE_DB_PASSWORD:postgres}
+        driver-class-name: ${CHALLENGE_DB_DRIVER_CLASS_NAME:org.postgresql.Driver}
+    jpa:
+        hibernate:
+            ddl-auto: ${CHALLENGE_DB_DDL_AUTO:update}
+    rabbitmq:
+        addresses: ${CHALLENGE_RABBITMQ_URL:localhost:5672}
+        queue: ${CHALLENGE_RABBITMQ_QUEUE:test-challenge-queue}
+server:
+    port: 8085
+eureka:
+    client:
+        service-url:
+            defaultZone: http://${EUREKA_SERVER_ADDRESS:localhost}:8761/eureka
+        fetch-registry: true
+        register-with-eureka: true
+    instance:
+        prefer-ip-address: true
+        ip-address: ${CHALLENGE_ADDRESS:localhost}
+        instance-id: ${CHALLENGE_ADDRESS:localhost}:8085

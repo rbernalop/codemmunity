@@ -1,0 +1,9 @@
+spring:
+    datasource:
+        url: ${SYNCHRONIZATION_DB_URL:jdbc:postgresql://localhost:5432/synchronizationtestdb}
+        username: ${SYNCHRONIZATION_DB_USERNAME:postgres}
+        password: ${SYNCHRONIZATION_DB_PASSWORD:postgres}
+        driver-class-name: ${SYNCHRONIZATION_DB_DRIVER_CLASS_NAME:org.postgresql.Driver}
+    jpa:
+        hibernate:
+            ddl-auto: update

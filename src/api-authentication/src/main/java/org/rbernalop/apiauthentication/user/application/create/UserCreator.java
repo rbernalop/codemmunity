@@ -8,7 +8,10 @@ import org.rbernalop.apiauthentication.user.domain.port.UserRepository;
 import org.rbernalop.apiauthentication.user.domain.service.DomainUserSearcher;
 import org.rbernalop.apiauthentication.user.domain.value_object.*;
 import org.rbernalop.shared.application.UseCase;
+import org.rbernalop.shared.domain.bus.event.EventBus;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
+import org.rbernalop.shared.domain.valueobject.UserId;
+import org.rbernalop.shared.domain.valueobject.UserUsername;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class UserCreator extends UseCase {
@@ -18,9 +21,9 @@ public class UserCreator extends UseCase {
     private final PasswordEncoder passwordEncoder;
     private final CaptchaVerifier captchaVerifier;
 
-    public UserCreator(QueryBus queryBus, UserRepository userRepository, PasswordEncoder passwordEncoder,
+    public UserCreator(QueryBus queryBus, EventBus eventBus, UserRepository userRepository, PasswordEncoder passwordEncoder,
                        CaptchaVerifier captchaVerifier) {
-        super(queryBus);
+        super(queryBus, eventBus);
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.captchaVerifier = captchaVerifier;

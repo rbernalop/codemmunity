@@ -3,12 +3,12 @@ package org.rbernalop.apiscript.script.application.create;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.rbernalop.apiscript.script.domain.exception.InvalidScriptDataException;
-import org.rbernalop.apiscript.script.domain.repository.ScriptRepository;
+import org.rbernalop.apiscript.script.domain.port.ScriptRepository;
 import org.rbernalop.apiscript.shared.application.script.create.CreateScriptCommand;
 import org.rbernalop.apiscript.shared.application.script.create.CreateScriptCommandMother;
 import org.rbernalop.shared.domain.InvalidIdException;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
+import org.rbernalop.shared.domain.exception.InvalidUserDataException;
 import org.rbernalop.shared.infrastructure.testing.UnitTestCase;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,9 +19,6 @@ class CreateScriptCommandHandlerTest extends UnitTestCase {
 
     @Mock
     private ScriptRepository scriptRepository;
-
-    @Mock
-    private QueryBus queryBus;
 
     @InjectMocks
     private CreateScriptCommandHandler createScriptCommandHandler;
@@ -34,6 +31,7 @@ class CreateScriptCommandHandlerTest extends UnitTestCase {
         assertDoesNotThrow(() -> createScriptCommandHandler.handle(command));
 
         verify(scriptRepository, times(1)).save(any());
+        verify(eventBus, times(1)).publish(any());
     }
 
     @Test
@@ -44,6 +42,7 @@ class CreateScriptCommandHandlerTest extends UnitTestCase {
         assertThrows(InvalidIdException.class, () -> createScriptCommandHandler.handle(command));
 
         verify(scriptRepository, never()).save(any());
+        verify(eventBus, never()).publish(any());
     }
 
     @Test
@@ -54,6 +53,7 @@ class CreateScriptCommandHandlerTest extends UnitTestCase {
         assertThrows(InvalidIdException.class, () -> createScriptCommandHandler.handle(command));
 
         verify(scriptRepository, never()).save(any());
+        verify(eventBus, never()).publish(any());
     }
 
     @Test
@@ -64,25 +64,17 @@ class CreateScriptCommandHandlerTest extends UnitTestCase {
         assertThrows(InvalidIdException.class, () -> createScriptCommandHandler.handle(command));
 
         verify(scriptRepository, never()).save(any());
+        verify(eventBus, never()).publish(any());
     }
 
     @Test
-    void should_throw_InvalidScriptNameException_when_ScriptName_is_invalid() {
+    void should_throw_InvalidScriptNameException_when_userUsername_is_invalid() {
         CreateScriptCommand command = CreateScriptCommandMother.random();
-        command.setOwnerUserName(null);
+        command.setUserUsername(null);
 
-        assertThrows(InvalidScriptDataException.class, () -> createScriptCommandHandler.handle(command));
+        assertThrows(InvalidUserDataException.class, () -> createScriptCommandHandler.handle(command));
 
         verify(scriptRepository, never()).save(any());
-    }
-
-    @Test
-    void should_throw_InvalidScriptNameException_when_OwnerUsername_is_invalid() {
-        CreateScriptCommand command = CreateScriptCommandMother.random();
-        command.setOwnerUserName(null);
-
-        assertThrows(InvalidScriptDataException.class, () -> createScriptCommandHandler.handle(command));
-
-        verify(scriptRepository, never()).save(any());
+        verify(eventBus, never()).publish(any());
     }
 }

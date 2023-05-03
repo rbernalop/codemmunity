@@ -1,22 +1,21 @@
 package org.rbernalop.apiauthentication.user.application.create;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.rbernalop.apiauthentication.shared.application.user.create.CreateUserCommand;
 import org.rbernalop.apiauthentication.shared.application.user.create.CreateUserCommandMother;
 import org.rbernalop.apiauthentication.user.domain.aggregate.User;
 import org.rbernalop.apiauthentication.user.domain.aggregate.UserMother;
 import org.rbernalop.apiauthentication.user.domain.exception.InvalidCaptchaException;
-import org.rbernalop.apiauthentication.user.domain.exception.InvalidUserDataException;
+import org.rbernalop.shared.domain.exception.InvalidUserDataException;
 import org.rbernalop.apiauthentication.user.domain.exception.UserAlreadyExistsException;
 import org.rbernalop.apiauthentication.user.domain.port.CaptchaVerifier;
 import org.rbernalop.apiauthentication.user.domain.port.UserRepository;
 import org.rbernalop.apiauthentication.user.domain.value_object.UserEmail;
-import org.rbernalop.apiauthentication.user.domain.value_object.UserId;
-import org.rbernalop.apiauthentication.user.domain.value_object.UserUsername;
+import org.rbernalop.shared.domain.valueobject.UserId;
+import org.rbernalop.shared.domain.valueobject.UserUsername;
 import org.rbernalop.shared.domain.InvalidIdException;
-import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.infrastructure.testing.UnitTestCase;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -27,12 +26,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 class CreateUserCommandHandlerTest extends UnitTestCase {
-
     @Mock
     private UserRepository repository;
-
-    @Mock
-    private QueryBus queryBus;
 
     @Mock
     private PasswordEncoder passwordEncoder;
@@ -40,12 +35,8 @@ class CreateUserCommandHandlerTest extends UnitTestCase {
     @Mock
     private CaptchaVerifier captchaVerifier;
 
+    @InjectMocks
     private CreateUserCommandHandler handler;
-
-    @BeforeEach
-    void setUp() {
-        handler = new CreateUserCommandHandler(repository, queryBus, passwordEncoder, captchaVerifier);
-    }
 
     @Test
     void should_create_a_valid_user() {

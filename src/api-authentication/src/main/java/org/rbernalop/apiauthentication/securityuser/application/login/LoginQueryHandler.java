@@ -6,6 +6,7 @@ import org.rbernalop.apiauthentication.securityuser.domain.port.UserAuthenticato
 import org.rbernalop.apiauthentication.shared.application.securityuser.login.LoginQuery;
 import org.rbernalop.apiauthentication.shared.application.securityuser.login.LoginQueryResponse;
 import org.rbernalop.shared.domain.Service;
+import org.rbernalop.shared.domain.bus.event.EventBus;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.domain.bus.query.QueryHandler;
 
@@ -15,10 +16,11 @@ public class LoginQueryHandler implements QueryHandler<LoginQuery, LoginQueryRes
 
     private final UserLoginUseCase userLoginUseCase;
 
-    public LoginQueryHandler(TokenGenerator tokenGenerator,
-         QueryBus queryBus,
-         UserAuthenticator userAuthenticator) {
-        userLoginUseCase = new UserLoginUseCase(tokenGenerator, queryBus, userAuthenticator);
+    public LoginQueryHandler(QueryBus queryBus,
+            EventBus eventBus,
+            TokenGenerator tokenGenerator,
+            UserAuthenticator userAuthenticator) {
+        userLoginUseCase = new UserLoginUseCase(queryBus, eventBus, tokenGenerator, userAuthenticator);
     }
 
     @Override

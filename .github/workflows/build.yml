@@ -38,20 +38,17 @@ jobs:
               run: mvn clean test
               env:
                     AUTHENTICATION_DB_URL: jdbc:postgresql://localhost:5432/testdb
-                    AUTHENTICATION_DB_USERNAME: postgres
-                    AUTHENTICATION_DB_PASSWORD: postgres
-                    AUTHENTICATION_DB_DRIVER_CLASS_NAME: org.postgresql.Driver
                     AUTHENTICATION_DB_DDL_AUTO: create-drop
                     SCRIPT_DB_URL: jdbc:postgresql://localhost:5432/testdb
-                    SCRIPT_DB_USERNAME: postgres
-                    SCRIPT_DB_PASSWORD: postgres
-                    SCRIPT_DB_DRIVER_CLASS_NAME: org.postgresql.Driver
                     SCRIPT_DB_DDL_AUTO: create-drop
                     EXECUTION_DB_URL: jdbc:postgresql://localhost:5432/testdb
-                    EXECUTION_DB_USERNAME: postgres
-                    EXECUTION_DB_PASSWORD: postgres
-                    EXECUTION_DB_DRIVER_CLASS_NAME: org.postgresql.Driver
                     EXECUTION_DB_DDL_AUTO: create-drop
+                    SYNCHRONIZATION_DB_URL: jdbc:postgresql://localhost:5432/testdb
+                    SYNCHRONIZATION_DB_DDL_AUTO: create-drop
+                    CHALLENGE_DB_URL: jdbc:postgresql://localhost:5432/testdb
+                    CHALLENGE_DB_DDL_AUTO: create-drop
+                    TEST_DB_URL: jdbc:postgresql://localhost:5432/testdb
+                    TEST_DB_DDL_AUTO: create-drop
             # MESSAGE
             -   name: Send OK Discord Message
                 uses: rjstone/discord-webhook-notify@v1

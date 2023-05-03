@@ -7,9 +7,10 @@ import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.rbernalop.shared.domain.bus.event.script.ScriptCreatedDomainEvent;
 import org.rbernalop.apiscript.script.domain.value_object.*;
 import org.rbernalop.shared.domain.AggregateRoot;
-import org.rbernalop.shared.domain.valueobject.LanguageId;
+import org.rbernalop.shared.domain.valueobject.*;
 
 @Entity
 @Table(name = "scripts")
@@ -20,7 +21,7 @@ public class Script extends AggregateRoot {
     private ScriptId id;
 
     @Embedded
-    private OwnerUsername ownerUsername;
+    private UserUsername userUsername;
 
     @Embedded
     private ScriptName name;
@@ -31,16 +32,15 @@ public class Script extends AggregateRoot {
     @Embedded
     private LanguageId languageId;
 
-    public Script(ScriptId id, OwnerUsername ownerUsername, ScriptName name, ShareKey shareKey, LanguageId languageId) {
-        this.id = id;
-        this.ownerUsername = ownerUsername;
-        this.name = name;
-        this.shareKey = shareKey;
-        this.languageId = languageId;
-    }
-
-    public static Script create(ScriptId id, ShareKey key, LanguageId languageId, OwnerUsername ownerUserName) {
-        return new Script(id, ownerUserName, new ScriptName("Untitled script"), key, languageId);
+    public static Script create(ScriptId id, UserUsername userUsername, ScriptName name, ShareKey key, LanguageId languageId) {
+        Script script = new Script();
+        script.id = id;
+        script.userUsername = userUsername;
+        script.name = name;
+        script.shareKey = key;
+        script.languageId = languageId;
+        script.record(new ScriptCreatedDomainEvent(id.getValue(), key.getValue()));
+        return script;
     }
 
     public ScriptId getId() {
@@ -48,7 +48,7 @@ public class Script extends AggregateRoot {
     }
 
     public String getOwnerName() {
-        return ownerUsername.getValue();
+        return userUsername.getValue();
     }
 
     public String getName() {

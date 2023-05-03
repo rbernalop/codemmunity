@@ -4,7 +4,8 @@ import org.rbernalop.apiauthentication.shared.application.user.finder.username.F
 import org.rbernalop.apiauthentication.user.domain.aggregate.User;
 import org.rbernalop.apiauthentication.user.domain.port.UserRepository;
 import org.rbernalop.apiauthentication.user.domain.service.DomainUserFinder;
-import org.rbernalop.apiauthentication.user.domain.value_object.UserUsername;
+import org.rbernalop.shared.domain.bus.event.EventBus;
+import org.rbernalop.shared.domain.valueobject.UserUsername;
 import org.rbernalop.shared.application.UseCase;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
 
@@ -12,8 +13,8 @@ public class UserFinder extends UseCase {
 
     private final DomainUserFinder domainUserFinder;
 
-    public UserFinder(QueryBus queryBus, UserRepository userRepository) {
-        super(queryBus);
+    public UserFinder(QueryBus queryBus, EventBus eventBus, UserRepository userRepository) {
+        super(queryBus, eventBus);
         this.domainUserFinder = new DomainUserFinder(userRepository);
     }
 

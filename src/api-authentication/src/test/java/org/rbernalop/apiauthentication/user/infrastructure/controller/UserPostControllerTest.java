@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.rbernalop.apiauthentication.user.domain.aggregate.UserMother;
 import org.rbernalop.apiauthentication.user.domain.aggregate.User;
 import org.rbernalop.apiauthentication.user.domain.port.UserRepository;
-import org.rbernalop.apiauthentication.user.domain.value_object.UserId;
+import org.rbernalop.shared.domain.valueobject.UserId;
 import org.rbernalop.apiauthentication.user.infrastructure.feign.GoogleCaptchaAPIClient;
 import org.rbernalop.apiauthentication.user.infrastructure.feign.GoogleCaptchaResponse;
 import org.rbernalop.shared.infrastructure.testing.IntegrationTestCase;

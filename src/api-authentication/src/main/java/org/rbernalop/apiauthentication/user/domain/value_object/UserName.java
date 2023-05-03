@@ -1,8 +1,6 @@
 package org.rbernalop.apiauthentication.user.domain.value_object;
-
-
 import lombok.NoArgsConstructor;
-import org.rbernalop.apiauthentication.user.domain.exception.InvalidUserDataException;
+import org.rbernalop.shared.domain.exception.InvalidUserDataException;
 
 @NoArgsConstructor
 public class UserName {

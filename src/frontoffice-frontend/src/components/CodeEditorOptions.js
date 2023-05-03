@@ -1,9 +1,10 @@
 import {Menu} from "antd";
+import {LANGUAJES} from "../constants/languages";
 
-const CodeEditorOptions = ({language, setLanguage, languages}) => {
+const CodeEditorOptions = ({language, changeLanguage}) => {
 
     const handleLanguageChange = (e) => {
-        setLanguage(e.key);
+        changeLanguage(e.key);
     }
 
     return (
@@ -12,7 +13,7 @@ const CodeEditorOptions = ({language, setLanguage, languages}) => {
             defaultSelectedKeys={[language]}
             style={{ height: '100%', borderRight: 0 }}
         >
-            {languages.map((language) => (
+            {LANGUAJES.map((language) => (
                 <Menu.Item key={language.key} value={language.key} onClick={handleLanguageChange}>
                     {language.icon}
                 </Menu.Item>

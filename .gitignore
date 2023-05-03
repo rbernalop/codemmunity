@@ -99,3 +99,9 @@ target/
 
 ### Videos ###
 *.mp4
+
+### Others ###
+junit-platform-console-standalone-1.7.2.jar
+package-lock.json
+package.json
+node_modules

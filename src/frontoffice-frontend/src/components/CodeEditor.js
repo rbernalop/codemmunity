@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect} from 'react';
 import Codemirror from 'codemirror';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/dracula.css';
@@ -7,15 +7,13 @@ import 'codemirror/mode/python/python';
 import 'codemirror/mode/clike/clike';
 import 'codemirror/addon/edit/closetag';
 import 'codemirror/addon/edit/closebrackets';
+import {sendChange} from "../requests/websocket/script/producer/sendScriptChange";
+import {listenScriptChanges} from "../requests/websocket/script/consumer/scriptChange";
 
 const CodeEditor = ({
-        // roomId,
         language,
-        code,
-        setCode,
+        editorRef,
     }) => {
-
-    const editorRef = useRef(null);
 
     useEffect(() => {
         async function init() {
@@ -31,21 +29,12 @@ const CodeEditor = ({
                     }
                 );
                 editorRef.current.setSize('100%', '100%');
-                editorRef.current.setValue(code);
             } else {
                 editorRef.current.setOption('mode', {name: language, json: true});
-                editorRef.current.setValue(code);
             }
         }
         init();
     }, [language]);
-
-    // WHEN CODE CHANGES
-    useEffect(() => {
-        editorRef.current.on('change', () => {
-            setCode(editorRef.current.getValue());
-        });
-    }, [setCode]);
 
     return <textarea id="realtimeEditor" />;
 };

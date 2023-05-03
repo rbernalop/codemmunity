@@ -1,6 +1,6 @@
 package org.rbernalop.apiexecution.script.domain.port;
 
-import org.rbernalop.apiexecution.script.domain.exception.FactoryException;
+import org.rbernalop.shared.domain.exception.FactoryException;
 
 public class ScriptRunnerFactory {
     public static ScriptRunner get(String language) {
