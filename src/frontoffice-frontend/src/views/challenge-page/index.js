@@ -17,6 +17,10 @@ import {
 import {listenChallengeScriptJoin} from "../../requests/websocket/challengeScript/consumer/userJoinedChallengeScript";
 import {joinChallengeScript} from "../../requests/websocket/challengeScript/producer/joinChallengeScript";
 import {createChallengeScript} from "../../requests/websocket/challengeScript/producer/createChallengeScript";
+import {findBaseCodeById} from "../../requests/baseCode/findBaseCodeById";
+import {
+    sendChallengeScriptLanguageChange
+} from "../../requests/websocket/challengeScript/producer/sendChallengeScriptLanguageChange";
 
 const ChallengePage = () => {
     const { id } = useParams()
@@ -55,7 +59,7 @@ const ChallengePage = () => {
 
         findChallengeById(id, language.name).then((response) => {
             editorRef.current.setValue(response.data.baseScript)
-            connect((stomp) => handleConnection(stomp, response.data.baseScript), () => handleConnection(response.data.baseScript), challengeScriptSocketPath)
+            connect((stomp) => handleConnection(stomp, response.data.baseScript), () => handleError(response.data.baseScript), challengeScriptSocketPath)
             setChallengeData(response.data)
         }).catch((e) => {
             errorNotification("Error while retrieving challenge", e.response.data.message || "Try again later", "topRight")
@@ -83,7 +87,19 @@ const ChallengePage = () => {
                     <CodeEditor language={language.key} editorRef={editorRef} code={code} />
                 </Content>
                 <Sider width={"fit-content"}>
-                    <CodeEditorOptions id={id} language={language.key} setLanguage={setLanguage} languages={LANGUAJES} />
+                    <CodeEditorOptions language={language.key} changeLanguage={(languageKey) => {
+                            const language = LANGUAJES.find(language => language.key === languageKey);
+                                findBaseCodeById(language.name, id).then((response) => {
+                                sendChallengeScriptLanguageChange(stompClient, id, localStorage.getItem("username"), language.name)
+                                sendChallengeScriptContentChange(stompClient, id, localStorage.getItem("username"), {origin: "setValue"}, response.code)
+                                setLanguage(language);
+                                setCode(response.code)
+                                editorRef.current.setValue(response.code)
+                            }).catch((e) => {
+                                console.log(e)
+                                errorNotification("Error while retrieving base code", e.response.data.message || "Try again later", "topRight")
+                            })
+                    }} />
                 </Sider>
             </Layout>
         </>

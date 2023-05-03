@@ -18,6 +18,7 @@ import {leaveScript} from "../../requests/websocket/script/producer/leaveScript"
 import {sendChange} from "../../requests/websocket/script/producer/sendScriptChange";
 import {listenScriptChanges} from "../../requests/websocket/script/consumer/scriptChange";
 import {LANGUAJES} from "../../constants/languages";
+import {changeScriptLanguage} from "../../requests/scripts/changeScriptLanguage";
 
 const ScriptPage = () => {
     const { id } = useParams()
@@ -106,7 +107,14 @@ const ScriptPage = () => {
                   scriptUsers={scriptUsers} setLanguage={setLanguage} />
             <Layout>
                 <Sider width={"fit-content"}>
-                    <CodeEditorOptions id={id} language={language.key} setLanguage={setLanguage} languages={LANGUAJES} />
+                    <CodeEditorOptions language={language.key} setLanguage={(languageKey) => {
+                        const language = LANGUAJES.find(language => language.key === languageKey);
+                        changeScriptLanguage(id, language.id).then(() => {
+                            setLanguage(language);
+                        }).catch(e =>
+                            errorNotification("Error changing language", e.response.data.message || "Try again later", "topRight")
+                        )
+                    }} />
                 </Sider>
                 <Content style={{ padding: '24px 24px', height: '100vh' }}>
                     <CodeEditor language={language.key} editorRef={editorRef} />

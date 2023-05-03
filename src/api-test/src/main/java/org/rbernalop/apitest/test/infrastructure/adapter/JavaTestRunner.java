@@ -38,8 +38,8 @@ public class JavaTestRunner implements TestRunner {
                 throw new CompilationException(compilationOutput);
             }
 
-            String executionCommand = "java -jar junit-platform-console-standalone-1.7.2.jar --class-path " + filesPath + " -c MainTest";
-            Pair<String, Boolean> executionResult = ShellRunner.executeCommand(executionCommand);
+            String executionCommand = "java -jar ../junit-platform-console-standalone-1.7.2.jar --class-path . -c MainTest";
+            Pair<String, Boolean> executionResult = ShellRunner.executeCommand(executionCommand, filesPath);
             String executionOutput = executionResult.getFirst();
             boolean executionSuccess = executionResult.getSecond();
 

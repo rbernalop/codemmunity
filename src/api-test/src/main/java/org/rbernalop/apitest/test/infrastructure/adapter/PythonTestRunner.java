@@ -26,8 +26,8 @@ public class PythonTestRunner implements TestRunner {
             testFile.createNewFile();
             Files.writeString(testFile.toPath(), test);
 
-            String executionCommand = "sh run_pytest.sh " + filesPath;
-            Pair<String, Boolean> result = ShellRunner.executeCommand(executionCommand);
+            String executionCommand = "python3 Test.py";
+            Pair<String, Boolean> result = ShellRunner.executeCommand(executionCommand, filesPath);
             String executionResult = result.getFirst();
             boolean executionSuccess = result.getSecond();
             runResult.setPassed(executionSuccess);

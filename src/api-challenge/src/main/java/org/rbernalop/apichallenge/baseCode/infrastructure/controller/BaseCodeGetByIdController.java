@@ -19,7 +19,7 @@ public class BaseCodeGetByIdController extends ApiController {
     }
 
     @GetMapping("baseCode")
-    public String handle(@RequestParam("languageName") String languageName, @RequestParam("challengeId") String challengeId) {
+    public BaseCodeGetByIdResponse handle(@RequestParam("languageName") String languageName, @RequestParam("challengeId") String challengeId) {
         FindBaseCodeByIdQuery query = new FindBaseCodeByIdQuery(challengeId, languageName);
         FindBaseCodeByIdResponse response = ask(query);
         return BaseCodeGetByIdResponse.from(response);
@@ -36,12 +36,12 @@ class BaseCodeGetByIdResponse {
     private String languageName;
     private String code;
 
-    public static String from(FindBaseCodeByIdResponse response) {
+    public static BaseCodeGetByIdResponse from(FindBaseCodeByIdResponse response) {
         BaseCodeGetByIdResponse baseCodeGetByIdResponse = new BaseCodeGetByIdResponse();
         baseCodeGetByIdResponse.setChallengeId(response.getChallengeId());
         baseCodeGetByIdResponse.setLanguageName(response.getLanguageName());
         baseCodeGetByIdResponse.setCode(response.getCode());
-        return baseCodeGetByIdResponse.toString();
+        return baseCodeGetByIdResponse;
     }
 }
 

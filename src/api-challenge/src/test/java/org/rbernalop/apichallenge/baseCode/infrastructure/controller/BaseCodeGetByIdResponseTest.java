@@ -10,9 +10,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.web.servlet.MvcResult;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -21,21 +18,6 @@ class BaseCodeGetByIdResponseTest extends IntegrationTestCase {
 
     @Autowired
     private BaseCodeRepository repository;
-
-    private BaseCodeGetByIdResponse parseBaseCodeGetByIdResponse(String input) {
-        Pattern pattern = Pattern.compile("BaseCodeGetByIdResponse\\(challengeId=(.+?), languageName=(.+?), code=(.*?)\\)");
-        Matcher matcher = pattern.matcher(input);
-
-        if (matcher.find()) {
-            String challengeId = matcher.group(1);
-            String languageName = matcher.group(2);
-            String code = matcher.group(3);
-
-            return new BaseCodeGetByIdResponse(challengeId, languageName, code);
-        }
-
-        return null;
-    }
 
     @Test
     void should_return_base_code_by_id() throws Exception {
@@ -51,7 +33,7 @@ class BaseCodeGetByIdResponseTest extends IntegrationTestCase {
         );
 
         // THEN
-        BaseCodeGetByIdResponse response = parseBaseCodeGetByIdResponse(mvcResult.getResponse().getContentAsString());
+        BaseCodeGetByIdResponse response = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), BaseCodeGetByIdResponse.class);
         assertNotNull(response);
         assertEquals(baseCode.getChallengeId(), response.getChallengeId());
         assertEquals(baseCode.getLanguageName(), response.getLanguageName());
