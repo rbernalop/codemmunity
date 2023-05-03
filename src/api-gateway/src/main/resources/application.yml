@@ -27,7 +27,7 @@ spring:
                 - id: api-challenge
                   uri: lb://api-challenge
                   predicates:
-                    - Path=/api/v1/challenge/**
+                    - Path=/api/v1/challenge/**,/api/v1/baseCode/**
                   filters:
                     - AuthorizedFilter
                 - id: api-test
