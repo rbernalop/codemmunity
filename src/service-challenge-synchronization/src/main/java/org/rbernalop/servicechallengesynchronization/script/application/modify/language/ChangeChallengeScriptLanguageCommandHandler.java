@@ -2,6 +2,7 @@ package org.rbernalop.servicechallengesynchronization.script.application.modify.
 
 import lombok.extern.slf4j.Slf4j;
 import org.rbernalop.servicechallengesynchronization.script.application.modify.ScriptModifier;
+import org.rbernalop.servicechallengesynchronization.script.domain.port.ChallengeScriptRepository;
 import org.rbernalop.servicechallengesynchronization.shared.application.script.modify.language.ChangeChallengeScriptLanguageCommand;
 import org.rbernalop.servicechallengesynchronization.shared.domain.port.ChallengeScriptManager;
 import org.rbernalop.shared.domain.Service;
@@ -17,8 +18,9 @@ import org.rbernalop.shared.domain.valueobject.UserUsername;
 public class ChangeChallengeScriptLanguageCommandHandler implements CommandHandler<ChangeChallengeScriptLanguageCommand> {
     private final ScriptModifier scriptModifier;
 
-    public ChangeChallengeScriptLanguageCommandHandler(QueryBus queryBus, EventBus eventBus, ChallengeScriptManager challengeScriptManager) {
-        this.scriptModifier = new ScriptModifier(queryBus, eventBus, challengeScriptManager);
+    public ChangeChallengeScriptLanguageCommandHandler(QueryBus queryBus, EventBus eventBus, ChallengeScriptManager challengeScriptManager,
+           ChallengeScriptRepository challengeScriptRepository) {
+        this.scriptModifier = new ScriptModifier(queryBus, eventBus, challengeScriptManager, challengeScriptRepository);
     }
 
     @Override

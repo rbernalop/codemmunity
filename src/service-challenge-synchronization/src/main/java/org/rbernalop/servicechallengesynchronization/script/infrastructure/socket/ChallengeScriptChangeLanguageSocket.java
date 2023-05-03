@@ -1,4 +1,4 @@
-package org.rbernalop.servicechallengesynchronization.script.infrastructure.controller;
+package org.rbernalop.servicechallengesynchronization.script.infrastructure.socket;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -10,7 +10,7 @@ import org.springframework.data.util.Pair;
 
 @Configuration
 @Slf4j
-public class NodeJSTestºConfiguration {
+public class NodeJSTestConfiguration {
     @Bean
     public CommandLineRunner installNodeJSCompiler() {
         return args -> {

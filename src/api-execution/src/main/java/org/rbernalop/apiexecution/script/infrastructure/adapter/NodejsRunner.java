@@ -1,5 +1,6 @@
 package org.rbernalop.apiexecution.script.infrastructure.adapter;
 
+import com.github.javafaker.Faker;
 import org.rbernalop.apiexecution.script.domain.exception.ExecutionException;
 import org.rbernalop.shared.domain.exception.FileException;
 import org.rbernalop.apiexecution.script.domain.value_object.RunResult;
@@ -15,11 +16,12 @@ public class NodejsRunner implements ScriptRunner {
     public RunResult run(String code) {
         RunResult runResult = new RunResult();
 
-        File file = new File("Main.js");
+        String fileName = Faker.instance().name().firstName() + ".js";
+        File file = new File(fileName);
         try {
             file.createNewFile();
             Files.writeString(file.toPath(), code);
-            String executionCommand = "node Main.js";
+            String executionCommand = "node " + fileName;
             Pair<String, Boolean> result = ShellRunner.executeCommand(executionCommand);
             String executionResult = result.getFirst();
             boolean executionSuccess = result.getSecond();

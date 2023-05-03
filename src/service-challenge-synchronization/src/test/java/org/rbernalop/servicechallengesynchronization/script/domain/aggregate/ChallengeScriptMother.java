@@ -17,4 +17,18 @@ public class ChallengeScriptMother {
             new ScriptContent(Faker.instance().lorem().paragraph())
         );
     }
+
+    public static ChallengeScript fromIdAndContent(ChallengeScriptId challengeScriptId, ScriptContent content) {
+        return ChallengeScript.create(challengeScriptId,
+            new LanguageName(Faker.instance().name().username()),
+            content
+        );
+    }
+
+    public static ChallengeScript fromIdAndLanguage(ChallengeScriptId challengeScriptId, LanguageName language) {
+        return ChallengeScript.create(challengeScriptId,
+            language,
+            new ScriptContent(Faker.instance().lorem().paragraph())
+        );
+    }
 }

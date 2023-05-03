@@ -11,11 +11,8 @@ import {sendChange} from "../requests/websocket/script/producer/sendScriptChange
 import {listenScriptChanges} from "../requests/websocket/script/consumer/scriptChange";
 
 const CodeEditor = ({
-        scriptId,
         language,
-        setCode,
         editorRef,
-        stompClient,
     }) => {
 
     useEffect(() => {
@@ -38,23 +35,6 @@ const CodeEditor = ({
         }
         init();
     }, [language]);
-
-    // WHEN CODE CHANGES
-    useEffect(() => {
-        editorRef.current.on('change', (instance, changes) => {
-            setCode(editorRef.current.getValue());
-            if(changes.origin !== "setValue" && changes.origin !== undefined) {
-                sendChange(stompClient, scriptId, localStorage.getItem("username"), changes, instance.getValue());
-            }
-        });
-    }, [setCode, stompClient]);
-
-    useEffect(() => {
-        listenScriptChanges(stompClient, scriptId, (change, codeChanged) => {
-            editorRef.current.replaceRange(change.text, change.from, change.to, 'setValue');
-            setCode(codeChanged);
-        });
-    }, [stompClient]);
 
     return <textarea id="realtimeEditor" />;
 };

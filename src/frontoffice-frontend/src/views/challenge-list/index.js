@@ -1,6 +1,7 @@
 import {Progress, Table} from 'antd';
 import {useEffect, useState} from "react";
 import {findAllChallengesPaginated} from "../../requests/challenges/findAllChallengesPaginated";
+import {CheckCircleOutlined, CloseCircleOutlined} from "@ant-design/icons";
 
 const getDifficultyColor = (difficulty) => {
     const hue = (1 - difficulty / 5) * 120; // 120 is the hue range for green to red
@@ -40,6 +41,14 @@ const columns = [
             />
         ),
     },
+    {
+        title: 'Completed',
+        dataIndex: 'completed',
+        key: 'completed',
+        render: (completed) => (
+            (completed) ? <CheckCircleOutlined /> : <CloseCircleOutlined />
+        ),
+    }
 ];
 
 const ChallengeList = () => {

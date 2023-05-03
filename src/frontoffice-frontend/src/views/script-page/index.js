@@ -15,48 +15,21 @@ import {listenUsersLeft} from "../../requests/websocket/script/consumer/userLeft
 import {listenUsersJoined} from "../../requests/websocket/script/consumer/userJoinedScript";
 import {joinScript} from "../../requests/websocket/script/producer/joinScript";
 import {leaveScript} from "../../requests/websocket/script/producer/leaveScript";
-
-const languages = [
-    {
-        id: 'ccd651ad-012d-4c01-8287-43e117f75de6',
-        key: "javascript",
-        icon: <i className="devicon-nodejs-plain" style={{fontSize: 22}}></i>,
-        sample: `/* Simple Hello World in Node.js */
-console.log("Hello World");
-`
-    },
-    {
-        id: 'f7f620d1-cf38-431e-9640-9a6a05dea978',
-        key: "python",
-        icon: <i className="devicon-python-plain" style={{fontSize: 22}}></i>,
-        sample: `# Simple Hello World in Python
-print("Hello World")
-`
-    },
-    {
-        id: '35ecd470-d2eb-4e57-b9ae-970a8686b7bd',
-        key: "text/x-java",
-        icon: <i className="devicon-java-plain" style={{fontSize: 22}}></i>,
-        sample: `// Simple Hello World in Java
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("Hello World");
-    }
-}
-`
-    },
-];
-
+import {sendChange} from "../../requests/websocket/script/producer/sendScriptChange";
+import {listenScriptChanges} from "../../requests/websocket/script/consumer/scriptChange";
+import {LANGUAJES} from "../../constants/languages";
+import {changeScriptLanguage} from "../../requests/scripts/changeScriptLanguage";
 
 const ScriptPage = () => {
     const { id } = useParams()
+    const scriptSocketPath = '/service/v1/script'
     const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem("token") !== null)
 
     const [stompClient, setStompClient] = useState(null)
     const [formTab, setFormTab] = useState("login")
     const [scriptUsers, setScriptUsers] = useState([])
 
-    const [language, setLanguage] = useState(languages[0]);
+    const [language, setLanguage] = useState(LANGUAJES[0]);
     const [title, setTitle] = useState('');
     const [shareKey, setShareKey] = useState('');
 
@@ -88,21 +61,39 @@ const ScriptPage = () => {
             setTimeout(() => {
                 connect(handleConnection, () => {
                     errorNotification("Error connecting to server", "Try again later", "topRight")
-                })
+                }, scriptSocketPath)
             }, 5000);
         }
 
-        connect(handleConnection, handleError)
+        connect(handleConnection, handleError, scriptSocketPath)
 
         findScriptById(id).then((response) => {
             setTitle(response.data.name);
-            setLanguage(languages.find(language => language.id === response.data.languageId));
+            setLanguage(LANGUAJES.find(language => language.id === response.data.languageId));
             setShareKey(response.data.shareKey);
         }).catch(e =>
             errorNotification("Error retrieving script", e.response.data.message || "Try again later",
                 "topRight")
         );
     }, []);
+
+
+    // WHEN CODE CHANGES
+    useEffect(() => {
+        editorRef.current.on('change', (instance, changes) => {
+            setCode(editorRef.current.getValue());
+            if(changes.origin !== "setValue" && changes.origin !== undefined) {
+                sendChange(stompClient, id, localStorage.getItem("username"), changes, instance.getValue());
+            }
+        });
+    }, [setCode, stompClient]);
+
+    useEffect(() => {
+        listenScriptChanges(stompClient, id, (change, codeChanged) => {
+            editorRef.current.replaceRange(change.text, change.from, change.to, 'setValue');
+            setCode(codeChanged);
+        });
+    }, [stompClient]);
 
     if(!isAuthenticated) {
         return(
@@ -116,10 +107,17 @@ const ScriptPage = () => {
                   scriptUsers={scriptUsers} setLanguage={setLanguage} />
             <Layout>
                 <Sider width={"fit-content"}>
-                    <CodeEditorOptions id={id} language={language.key} setLanguage={setLanguage} languages={languages} />
+                    <CodeEditorOptions language={language.key} setLanguage={(languageKey) => {
+                        const language = LANGUAJES.find(language => language.key === languageKey);
+                        changeScriptLanguage(id, language.id).then(() => {
+                            setLanguage(language);
+                        }).catch(e =>
+                            errorNotification("Error changing language", e.response.data.message || "Try again later", "topRight")
+                        )
+                    }} />
                 </Sider>
                 <Content style={{ padding: '24px 24px', height: '100vh' }}>
-                    <CodeEditor scriptId={id} language={language.key} setCode={setCode} editorRef={editorRef} stompClient={stompClient} />
+                    <CodeEditor language={language.key} editorRef={editorRef} />
                 </Content>
                 <Sider width={"fit-content"} style={{padding: '24px 24px', backgroundColor: '#F5F5F5', height: '100vh'}}>
                     <CodeRunBox

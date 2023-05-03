@@ -57,4 +57,9 @@ public class Completion extends AggregateRoot {
     public String getLanguageName() {
         return languageName.getValue();
     }
+
+    public void update(LanguageName languageName, ScriptContent scriptContent) {
+        this.languageName = languageName;
+        this.scriptContent = scriptContent;
+    }
 }
