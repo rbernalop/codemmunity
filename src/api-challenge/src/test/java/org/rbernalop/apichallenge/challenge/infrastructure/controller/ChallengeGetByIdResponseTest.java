@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class ChallengeGetByIdResponseTest extends IntegrationTestCase {
-    private final static String CHALLENGE_GET_BY_ID_URL = "/api/v1/challenge/";
+    private static final String CHALLENGE_GET_BY_ID_URL = "/api/v1/challenge/";
 
     @Autowired
     private ChallengeRepository challengeRepository;
