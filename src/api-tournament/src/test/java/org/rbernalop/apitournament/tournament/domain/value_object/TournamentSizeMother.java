@@ -6,4 +6,8 @@ public class TournamentSizeMother {
     public static TournamentSize random() {
         return new TournamentSize(Faker.instance().number().numberBetween(2, 15));
     }
+
+    public static TournamentSize fromSize(int size) {
+        return new TournamentSize(size);
+    }
 }

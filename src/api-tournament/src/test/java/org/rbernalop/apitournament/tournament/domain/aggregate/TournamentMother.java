@@ -13,4 +13,15 @@ public class TournamentMother {
             TournamentSizeMother.random()
         );
     }
+
+    public static Tournament randomFromSize(int size) {
+        return Tournament.create(
+            TournamentIdMother.random(),
+            TournamentNameMother.random(),
+            TournamentDescriptionMother.random(),
+            UserUsernameMother.random(),
+            TournamentBeginningDateMother.random(),
+            TournamentSizeMother.fromSize(size)
+        );
+    }
 }

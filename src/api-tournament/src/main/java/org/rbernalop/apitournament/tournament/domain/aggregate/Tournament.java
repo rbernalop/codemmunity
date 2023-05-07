@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.rbernalop.apitournament.tournament.domain.entity.Competitor;
 import org.rbernalop.apitournament.tournament.domain.exception.CompetitorAlreadyInTournamentException;
+import org.rbernalop.apitournament.tournament.domain.exception.FullTournamentException;
 import org.rbernalop.apitournament.tournament.domain.value_object.*;
 import org.rbernalop.shared.domain.AggregateRoot;
 import org.rbernalop.shared.domain.valueobject.UserUsername;
@@ -84,6 +85,8 @@ public class Tournament extends AggregateRoot {
         Competitor competitor = Competitor.create(user, this);
         if(competitors.contains(competitor))
             throw new CompetitorAlreadyInTournamentException("User already joined");
+        if (size.getValue() <= competitors.size())
+            throw new FullTournamentException("Tournament is full");
         competitors.add(competitor);
     }
 }

@@ -1,5 +1,6 @@
 package org.rbernalop.apitournament.tournament.infrastructure.controller;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.rbernalop.apitournament.tournament.domain.aggregate.Tournament;
 import org.rbernalop.apitournament.tournament.domain.aggregate.TournamentMother;
@@ -19,6 +20,11 @@ class TournamentPostJoinControllerTest extends IntegrationTestCase {
 
     @Autowired
     private TournamentRepository repository;
+
+    @AfterEach
+    void tearDown() {
+        repository.deleteAll();
+    }
 
     @Test
     void should_join_tournament() throws Exception {
