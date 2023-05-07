@@ -49,6 +49,8 @@ jobs:
                     CHALLENGE_DB_DDL_AUTO: create-drop
                     TEST_DB_URL: jdbc:postgresql://localhost:5432/testdb
                     TEST_DB_DDL_AUTO: create-drop
+                    TOURNAMENT_DB_URL: jdbc:postgresql://localhost:5432/testdb
+                    TOURNAMENT_DB_DDL_AUTO: create-drop
             # MESSAGE
             -   name: Send OK Discord Message
                 uses: rjstone/discord-webhook-notify@v1

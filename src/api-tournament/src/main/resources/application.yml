@@ -1,0 +1,23 @@
+spring:
+    application:
+        name: api-tournament
+    datasource:
+        url: ${TOURNAMENT_DB_URL:jdbc:postgresql://localhost:5432/tournamentdb}
+        username: ${TOURNAMENT_DB_USERNAME:postgres}
+        password: ${TOURNAMENT_DB_PASSWORD:postgres}
+        driver-class-name: ${TOURNAMENT_DB_DRIVER_CLASS_NAME:org.postgresql.Driver}
+    jpa:
+        hibernate:
+            ddl-auto: ${TOURNAMENT_DB_DDL_AUTO:update}
+server:
+    port: 8088
+eureka:
+    client:
+        service-url:
+            defaultZone: http://${EUREKA_SERVER_ADDRESS:localhost}:8761/eureka
+        fetch-registry: true
+        register-with-eureka: true
+    instance:
+        prefer-ip-address: true
+        ip-address: ${TOURNAMENT_ADDRESS:localhost}
+        instance-id: ${TOURNAMENT_ADDRESS:localhost}:8088

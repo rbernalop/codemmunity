@@ -1,0 +1,9 @@
+spring:
+    datasource:
+        url: ${TOURNAMENT_DB_URL:jdbc:postgresql://localhost:5432/tournamenttestdb}
+        username: ${TOURNAMENT_DB_USERNAME:postgres}
+        password: ${TOURNAMENT_DB_PASSWORD:postgres}
+        driver-class-name: ${TOURNAMENT_DB_DRIVER_CLASS_NAME:org.postgresql.Driver}
+    jpa:
+        hibernate:
+            ddl-auto: update
