@@ -14,6 +14,7 @@ public class TournamentPostRequestMother {
         request.setName(Faker.instance().name().name());
         request.setDescription(Faker.instance().lorem().paragraph());
         request.setBeginningDate(Date.from(Instant.now().plus(Period.ofDays(1))));
+        request.setSize(Faker.instance().number().numberBetween(2, 15));
 
         return request;
     }

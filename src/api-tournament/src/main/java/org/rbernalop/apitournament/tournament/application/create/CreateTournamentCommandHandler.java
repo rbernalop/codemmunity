@@ -3,10 +3,7 @@ package org.rbernalop.apitournament.tournament.application.create;
 import lombok.extern.slf4j.Slf4j;
 import org.rbernalop.apitournament.shared.application.tournament.create.CreateTournamentCommand;
 import org.rbernalop.apitournament.tournament.domain.port.TournamentRepository;
-import org.rbernalop.apitournament.tournament.domain.value_object.TournamentBeginningDate;
-import org.rbernalop.apitournament.tournament.domain.value_object.TournamentDescription;
-import org.rbernalop.apitournament.tournament.domain.value_object.TournamentId;
-import org.rbernalop.apitournament.tournament.domain.value_object.TournamentName;
+import org.rbernalop.apitournament.tournament.domain.value_object.*;
 import org.rbernalop.shared.domain.Service;
 import org.rbernalop.shared.domain.bus.command.CommandHandler;
 import org.rbernalop.shared.domain.bus.event.EventBus;
@@ -32,6 +29,7 @@ public class CreateTournamentCommandHandler implements CommandHandler<CreateTour
         TournamentDescription description = new TournamentDescription(command.getDescription());
         UserUsername creatorUsername = new UserUsername(command.getCreatorUsername());
         TournamentBeginningDate beginningDate = new TournamentBeginningDate(command.getBeginningDate());
-        tournamentCreator.create(id, name, description, creatorUsername, beginningDate);
+        TournamentSize size = new TournamentSize(command.getSize());
+        tournamentCreator.create(id, name, description, creatorUsername, beginningDate, size);
     }
 }

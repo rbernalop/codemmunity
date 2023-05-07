@@ -1,20 +1,18 @@
 package org.rbernalop.apitournament.tournament.domain.aggregate;
 
-import jakarta.persistence.Embedded;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.rbernalop.apitournament.tournament.domain.value_object.TournamentBeginningDate;
-import org.rbernalop.apitournament.tournament.domain.value_object.TournamentDescription;
-import org.rbernalop.apitournament.tournament.domain.value_object.TournamentId;
-import org.rbernalop.apitournament.tournament.domain.value_object.TournamentName;
+import org.rbernalop.apitournament.tournament.domain.entity.Competitor;
+import org.rbernalop.apitournament.tournament.domain.exception.CompetitorAlreadyInTournamentException;
+import org.rbernalop.apitournament.tournament.domain.value_object.*;
 import org.rbernalop.shared.domain.AggregateRoot;
 import org.rbernalop.shared.domain.valueobject.UserUsername;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "tournaments")
@@ -36,14 +34,22 @@ public class Tournament extends AggregateRoot {
     @Embedded
     private TournamentBeginningDate beginningDate;
 
+    @Embedded
+    private TournamentSize size;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "id.tournament", fetch = FetchType.EAGER)
+    private List<Competitor> competitors;
+
     public static Tournament create(TournamentId id, TournamentName name, TournamentDescription description,
-            UserUsername creatorUsername, TournamentBeginningDate beginningDate) {
+            UserUsername creatorUsername, TournamentBeginningDate beginningDate, TournamentSize size) {
         Tournament tournament = new Tournament();
         tournament.id = id;
         tournament.name = name;
         tournament.description = description;
         tournament.creatorUsername = creatorUsername;
         tournament.beginningDate = beginningDate;
+        tournament.size = size;
+        tournament.competitors = new ArrayList<>(List.of(Competitor.create(creatorUsername, tournament)));
         return tournament;
     }
 
@@ -66,5 +72,18 @@ public class Tournament extends AggregateRoot {
 
     public Date getBeginningDate() {
         return beginningDate.getValue();
+    }
+
+    public List<String> getCompetitors() {
+        List<String> competitors = new ArrayList<>();
+        this.competitors.forEach(competitor -> competitors.add(competitor.getId().getCopetitorUsername()));
+        return competitors;
+    }
+
+    public void join(UserUsername user) {
+        Competitor competitor = Competitor.create(user, this);
+        if(competitors.contains(competitor))
+            throw new CompetitorAlreadyInTournamentException("User already joined");
+        competitors.add(competitor);
     }
 }

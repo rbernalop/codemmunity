@@ -7,7 +7,7 @@ import org.rbernalop.shared.domain.valueobject.Identifier;
 
 @Embeddable
 @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 public class TournamentId extends Identifier {
     private String tournamentId;
 
