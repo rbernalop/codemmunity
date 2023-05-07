@@ -13,7 +13,8 @@ public class CreateTournamentCommandMother {
                 Faker.instance().name().name(),
                 Faker.instance().lorem().paragraph(),
                 Faker.instance().name().username(),
-                Date.from(Instant.now().plus(Period.ofDays(1)))
+                Date.from(Instant.now().plus(Period.ofDays(1))),
+                Faker.instance().number().numberBetween(2, 15)
         );
     }
 
@@ -23,7 +24,8 @@ public class CreateTournamentCommandMother {
                 "",
                 Faker.instance().lorem().paragraph(),
                 Faker.instance().name().username(),
-                Date.from(Instant.now().plus(Period.ofDays(1)))
+                Date.from(Instant.now().plus(Period.ofDays(1))),
+                Faker.instance().number().numberBetween(2, 15)
         );
     }
 
@@ -33,7 +35,8 @@ public class CreateTournamentCommandMother {
                 Faker.instance().name().name(),
                 "",
                 Faker.instance().name().username(),
-                Date.from(Instant.now().plus(Period.ofDays(1)))
+                Date.from(Instant.now().plus(Period.ofDays(1))),
+                Faker.instance().number().numberBetween(2, 15)
         );
     }
 
@@ -43,7 +46,19 @@ public class CreateTournamentCommandMother {
                 Faker.instance().name().name(),
                 Faker.instance().lorem().paragraph(),
                 Faker.instance().name().username(),
-                Date.from(Instant.now().minus(Period.ofDays(1)))
+                Date.from(Instant.now().minus(Period.ofDays(1))),
+                Faker.instance().number().numberBetween(2, 15)
+        );
+    }
+
+    public static CreateTournamentCommand randomWithInvalidSize() {
+        return new CreateTournamentCommand(
+                Faker.instance().internet().uuid(),
+                Faker.instance().name().name(),
+                Faker.instance().lorem().paragraph(),
+                Faker.instance().name().username(),
+                Date.from(Instant.now().plus(Period.ofDays(1))),
+                Faker.instance().number().numberBetween(16, 100)
         );
     }
 }

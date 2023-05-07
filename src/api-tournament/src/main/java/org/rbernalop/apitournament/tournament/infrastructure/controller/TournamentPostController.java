@@ -26,7 +26,8 @@ public class TournamentPostController extends ApiController {
                 request.getName(),
                 request.getDescription(),
                 creatorUserName,
-                request.getBeginningDate()
+                request.getBeginningDate(),
+                request.getSize()
         );
 
         dispatch(command);
@@ -40,4 +41,5 @@ class TournamentPostRequest {
     private String name;
     private String description;
     private Date beginningDate;
+    private int size;
 }

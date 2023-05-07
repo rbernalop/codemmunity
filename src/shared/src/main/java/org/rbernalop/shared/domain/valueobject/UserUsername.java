@@ -4,9 +4,11 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.rbernalop.shared.domain.exception.InvalidUserDataException;
 
+import java.io.Serializable;
+
 @NoArgsConstructor
 @EqualsAndHashCode
-public class UserUsername {
+public class UserUsername implements Serializable {
     private String username;
 
     public UserUsername(String username) {

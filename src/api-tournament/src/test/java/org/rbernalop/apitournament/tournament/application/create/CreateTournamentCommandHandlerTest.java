@@ -49,7 +49,8 @@ class CreateTournamentCommandHandlerTest extends UnitTestCase {
         return new Object[]{
                 CreateTournamentCommandMother.randomWithInvalidName(),
                 CreateTournamentCommandMother.randomWithInvalidDescription(),
-                CreateTournamentCommandMother.randomWithInvalidDate()
+                CreateTournamentCommandMother.randomWithInvalidDate(),
+                CreateTournamentCommandMother.randomWithInvalidSize()
         };
     }
 }
