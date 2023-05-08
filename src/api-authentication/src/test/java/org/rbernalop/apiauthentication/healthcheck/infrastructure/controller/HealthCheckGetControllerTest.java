@@ -15,6 +15,7 @@ class HealthCheckGetControllerTest extends IntegrationTestCase {
 
     @Test
     void should_return_ok_status() throws UnsupportedEncodingException {
+        // GIVEN
         // WHEN
         MvcResult result = assertDoesNotThrow(() -> assertRequest(
             HttpMethod.GET,
