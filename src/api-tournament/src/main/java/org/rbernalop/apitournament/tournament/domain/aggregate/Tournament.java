@@ -75,10 +75,12 @@ public class Tournament extends AggregateRoot {
         return beginningDate.getValue();
     }
 
-    public List<String> getCompetitors() {
-        List<String> competitors = new ArrayList<>();
-        this.competitors.forEach(competitor -> competitors.add(competitor.getId().getCopetitorUsername()));
+    public List<Competitor> getCompetitors() {
         return competitors;
+    }
+
+    public int getSize() {
+        return size.getValue();
     }
 
     public void join(UserUsername user) {
