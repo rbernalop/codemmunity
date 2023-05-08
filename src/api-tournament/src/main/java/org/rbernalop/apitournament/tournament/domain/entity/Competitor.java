@@ -43,4 +43,8 @@ public class Competitor {
     public Tournament getTournament() {
         return id.getTournament();
     }
+
+    public Integer getPoints() {
+        return points.getValue();
+    }
 }

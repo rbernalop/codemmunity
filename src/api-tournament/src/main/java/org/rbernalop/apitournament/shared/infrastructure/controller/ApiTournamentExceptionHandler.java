@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.rbernalop.apitournament.tournament.domain.exception.InvalidTournamentDataException;
 import org.rbernalop.shared.domain.InvalidIdException;
+import org.rbernalop.shared.domain.exception.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -29,6 +30,12 @@ public class ApiTournamentExceptionHandler extends ResponseEntityExceptionHandle
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public CustomError handleBadRequestExceptions(Exception exception) {
         return generateError(exception.getCause().getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public CustomError handleNotFoundExceptions(EntityNotFoundException exception) {
+        return generateError(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
 }
 
