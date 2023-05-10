@@ -1,4 +1,4 @@
-package org.rbernalop.apichallenge.challenge.domain.value_object;
+package org.rbernalop.shared.domain.valueobject;
 
 import jakarta.persistence.Column;
 import lombok.NoArgsConstructor;

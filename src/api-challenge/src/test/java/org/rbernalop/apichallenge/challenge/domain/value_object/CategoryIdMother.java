@@ -1,6 +1,7 @@
 package org.rbernalop.apichallenge.challenge.domain.value_object;
 
 import com.github.javafaker.Faker;
+import org.rbernalop.shared.domain.valueobject.CategoryId;
 
 public class CategoryIdMother {
 

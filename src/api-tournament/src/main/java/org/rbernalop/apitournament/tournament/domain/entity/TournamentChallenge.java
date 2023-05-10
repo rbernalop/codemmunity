@@ -1,22 +1,17 @@
-package org.rbernalop.apichallenge.challenge.domain.aggregate;
+package org.rbernalop.apitournament.tournament.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.rbernalop.apichallenge.challenge.domain.entity.Category;
-import org.rbernalop.shared.domain.valueobject.ChallengeDescription;
-import org.rbernalop.shared.domain.valueobject.ChallengeDifficulty;
-import org.rbernalop.shared.domain.valueobject.ChallengeTitle;
-import org.rbernalop.shared.domain.AggregateRoot;
-import org.rbernalop.shared.domain.valueobject.ChallengeId;
-import org.rbernalop.shared.domain.valueobject.UserUsername;
+import org.rbernalop.apitournament.tournament.domain.aggregate.Tournament;
+import org.rbernalop.shared.domain.valueobject.*;
 
 @Entity
-@Table(name = "challenges")
+@Table(name = "tournament_challenges")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EqualsAndHashCode(callSuper = false)
-public class Challenge extends AggregateRoot {
+public class TournamentChallenge {
     @EmbeddedId
     private ChallengeId id;
 
@@ -33,21 +28,25 @@ public class Challenge extends AggregateRoot {
     private ChallengeDifficulty difficulty;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    private Category category;
+    private TournamentChallengeCategory category;
 
-    public static Challenge create(ChallengeId id, ChallengeTitle title, ChallengeDescription description,
-            UserUsername userUsername, ChallengeDifficulty difficulty, Category category) {
-        Challenge challenge = new Challenge();
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Tournament tournament;
+
+    public static TournamentChallenge create(ChallengeId id, ChallengeTitle title, ChallengeDescription description,
+            UserUsername userUsername, ChallengeDifficulty difficulty, TournamentChallengeCategory category,
+            Tournament tournament) {
+        TournamentChallenge challenge = new TournamentChallenge();
         challenge.id = id;
         challenge.title = title;
         challenge.description = description;
         challenge.userUsername = userUsername;
         challenge.difficulty = difficulty;
         challenge.category = category;
+        challenge.tournament = tournament;
         return challenge;
     }
 
-    @Override
     public ChallengeId getId() {
         return id;
     }

@@ -1,4 +1,4 @@
-package org.rbernalop.apichallenge.challenge.domain.entity;
+package org.rbernalop.apitournament.tournament.domain.entity;
 
 import jakarta.persistence.Embedded;
 import jakarta.persistence.EmbeddedId;
@@ -8,21 +8,20 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.rbernalop.shared.domain.valueobject.CategoryId;
 import org.rbernalop.shared.domain.valueobject.CategoryName;
-import org.rbernalop.shared.domain.AggregateRoot;
 
 @Entity
-@Table(name = "categories")
+@Table(name = "tournament_challenge_categories")
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Category extends AggregateRoot {
+public class TournamentChallengeCategory {
     @EmbeddedId
     private CategoryId id;
 
     @Embedded
     private CategoryName name;
 
-    public static Category create(CategoryId id, CategoryName name) {
-        Category category = new Category();
+    public static TournamentChallengeCategory create(CategoryId id, CategoryName name) {
+        TournamentChallengeCategory category = new TournamentChallengeCategory();
         category.id = id;
         category.name = name;
         return category;

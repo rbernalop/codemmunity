@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.rbernalop.apitournament.tournament.domain.entity.Competitor;
+import org.rbernalop.apitournament.tournament.domain.entity.TournamentChallenge;
 import org.rbernalop.apitournament.tournament.domain.exception.CompetitorAlreadyInTournamentException;
 import org.rbernalop.apitournament.tournament.domain.exception.FullTournamentException;
 import org.rbernalop.apitournament.tournament.domain.value_object.*;
@@ -40,6 +41,9 @@ public class Tournament extends AggregateRoot {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "id.tournament", fetch = FetchType.EAGER)
     private List<Competitor> competitors;
+
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "id", fetch = FetchType.EAGER)
+    private List<TournamentChallenge> challenges;
 
     public static Tournament create(TournamentId id, TournamentName name, TournamentDescription description,
             UserUsername creatorUsername, TournamentBeginningDate beginningDate, TournamentSize size) {
@@ -83,6 +87,10 @@ public class Tournament extends AggregateRoot {
         return size.getValue();
     }
 
+    public List<TournamentChallenge> getChallenges() {
+        return challenges;
+    }
+
     public void join(UserUsername user) {
         Competitor competitor = Competitor.create(user, this);
         if(competitors.contains(competitor))
@@ -90,5 +98,9 @@ public class Tournament extends AggregateRoot {
         if (size.getValue() <= competitors.size())
             throw new FullTournamentException("Tournament is full");
         competitors.add(competitor);
+    }
+
+    public void addChallenges(List<TournamentChallenge> challenges) {
+        this.challenges = challenges;
     }
 }
