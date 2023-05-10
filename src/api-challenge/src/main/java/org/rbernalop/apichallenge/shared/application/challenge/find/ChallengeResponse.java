@@ -27,4 +27,8 @@ public class ChallengeResponse {
         challengeResponse.setCompleted(isCompleted);
         return challengeResponse;
     }
+
+    public static ChallengeResponse from(Challenge challenge) {
+        return ChallengeResponse.from(challenge, false);
+    }
 }
