@@ -19,4 +19,5 @@ public class CreateTournamentCommand implements Command {
     private String creatorUsername;
     private Date beginningDate;
     private int size;
+    private int rounds;
 }

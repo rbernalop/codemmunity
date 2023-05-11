@@ -8,7 +8,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
 @EnableDiscoveryClient
-@EnableFeignClients
+@EnableFeignClients(basePackages = {"org.rbernalop.shared.infrastructure.feign"})
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 @ComponentScan({"org.rbernalop.shared", "org.rbernalop.apitournament"})
 public class APITournamentApplication {

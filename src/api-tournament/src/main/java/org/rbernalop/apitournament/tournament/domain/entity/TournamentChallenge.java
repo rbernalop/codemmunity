@@ -34,8 +34,7 @@ public class TournamentChallenge {
     private Tournament tournament;
 
     public static TournamentChallenge create(ChallengeId id, ChallengeTitle title, ChallengeDescription description,
-            UserUsername userUsername, ChallengeDifficulty difficulty, TournamentChallengeCategory category,
-            Tournament tournament) {
+            UserUsername userUsername, ChallengeDifficulty difficulty, TournamentChallengeCategory category) {
         TournamentChallenge challenge = new TournamentChallenge();
         challenge.id = id;
         challenge.title = title;
@@ -43,7 +42,6 @@ public class TournamentChallenge {
         challenge.userUsername = userUsername;
         challenge.difficulty = difficulty;
         challenge.category = category;
-        challenge.tournament = tournament;
         return challenge;
     }
 
@@ -69,5 +67,9 @@ public class TournamentChallenge {
 
     public String getCategory() {
         return category.getName();
+    }
+
+    public void setTournament(Tournament tournament) {
+        this.tournament = tournament;
     }
 }

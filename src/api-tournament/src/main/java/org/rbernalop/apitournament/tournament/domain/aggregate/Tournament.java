@@ -39,6 +39,9 @@ public class Tournament extends AggregateRoot {
     @Embedded
     private TournamentSize size;
 
+    @Embedded
+    private TournamentRounds rounds;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "id.tournament", fetch = FetchType.EAGER)
     private List<Competitor> competitors;
 
@@ -46,7 +49,8 @@ public class Tournament extends AggregateRoot {
     private List<TournamentChallenge> challenges;
 
     public static Tournament create(TournamentId id, TournamentName name, TournamentDescription description,
-            UserUsername creatorUsername, TournamentBeginningDate beginningDate, TournamentSize size) {
+            UserUsername creatorUsername, TournamentBeginningDate beginningDate, TournamentSize size,
+            List<TournamentChallenge> challenges, TournamentRounds rounds) {
         Tournament tournament = new Tournament();
         tournament.id = id;
         tournament.name = name;
@@ -55,6 +59,8 @@ public class Tournament extends AggregateRoot {
         tournament.beginningDate = beginningDate;
         tournament.size = size;
         tournament.competitors = new ArrayList<>(List.of(Competitor.create(creatorUsername, tournament)));
+        tournament.challenges = challenges;
+        tournament.rounds = rounds;
         return tournament;
     }
 
@@ -87,6 +93,10 @@ public class Tournament extends AggregateRoot {
         return size.getValue();
     }
 
+    public int getRounds() {
+        return rounds.getValue();
+    }
+
     public List<TournamentChallenge> getChallenges() {
         return challenges;
     }
@@ -98,9 +108,5 @@ public class Tournament extends AggregateRoot {
         if (size.getValue() <= competitors.size())
             throw new FullTournamentException("Tournament is full");
         competitors.add(competitor);
-    }
-
-    public void addChallenges(List<TournamentChallenge> challenges) {
-        this.challenges = challenges;
     }
 }

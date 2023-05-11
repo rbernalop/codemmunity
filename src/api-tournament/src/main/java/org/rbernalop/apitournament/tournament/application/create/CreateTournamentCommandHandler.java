@@ -2,6 +2,7 @@ package org.rbernalop.apitournament.tournament.application.create;
 
 import lombok.extern.slf4j.Slf4j;
 import org.rbernalop.apitournament.shared.application.tournament.create.CreateTournamentCommand;
+import org.rbernalop.apitournament.tournament.domain.port.RandomChallengeRetriever;
 import org.rbernalop.apitournament.tournament.domain.port.TournamentRepository;
 import org.rbernalop.apitournament.tournament.domain.value_object.*;
 import org.rbernalop.shared.domain.Service;
@@ -16,8 +17,9 @@ public class CreateTournamentCommandHandler implements CommandHandler<CreateTour
 
     private final TournamentCreator tournamentCreator;
 
-    public CreateTournamentCommandHandler(QueryBus queryBus, EventBus eventBus, TournamentRepository repository) {
-        this.tournamentCreator = new TournamentCreator(queryBus, eventBus, repository);
+    public CreateTournamentCommandHandler(QueryBus queryBus, EventBus eventBus, TournamentRepository repository,
+          RandomChallengeRetriever randomChallengeRetriever) {
+        this.tournamentCreator = new TournamentCreator(queryBus, eventBus, repository, randomChallengeRetriever);
     }
 
     @Override
@@ -30,6 +32,7 @@ public class CreateTournamentCommandHandler implements CommandHandler<CreateTour
         UserUsername creatorUsername = new UserUsername(command.getCreatorUsername());
         TournamentBeginningDate beginningDate = new TournamentBeginningDate(command.getBeginningDate());
         TournamentSize size = new TournamentSize(command.getSize());
-        tournamentCreator.create(id, name, description, creatorUsername, beginningDate, size);
+        TournamentRounds rounds = new TournamentRounds(command.getRounds());
+        tournamentCreator.create(id, name, description, creatorUsername, beginningDate, size, rounds);
     }
 }
