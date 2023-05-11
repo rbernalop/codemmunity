@@ -27,7 +27,7 @@ public class TournamentChallenge {
     @Embedded
     private ChallengeDifficulty difficulty;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private TournamentChallengeCategory category;
 
     @ManyToOne(fetch = FetchType.LAZY)
