@@ -44,6 +44,10 @@ public class Tournament extends AggregateRoot {
     @Embedded
     private TournamentRounds rounds;
 
+    @Embedded
+    private CurrentRound currentRound;
+
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "id.tournament", fetch = FetchType.EAGER)
     private List<Competitor> competitors;
 
@@ -63,6 +67,7 @@ public class Tournament extends AggregateRoot {
         tournament.competitors = new ArrayList<>(List.of(Competitor.create(creatorUsername, tournament)));
         tournament.challenges = challenges;
         tournament.rounds = rounds;
+        tournament.currentRound = new CurrentRound(1);
         challenges.forEach(challenge -> challenge.setTournament(tournament));
         return tournament;
     }
@@ -116,6 +121,6 @@ public class Tournament extends AggregateRoot {
     }
 
     public TournamentChallenge getCurrentChallenge() {
-        return challenges.get(0); // TODO: Add actual round
+        return challenges.get(currentRound.getValue() - 1);
     }
 }

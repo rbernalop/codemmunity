@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.rbernalop.apitournament.tournament.domain.entity.TournamentChallenge;
 import org.rbernalop.apitournament.tournament.domain.entity.TournamentChallengeMother;
 import org.rbernalop.apitournament.tournament.domain.port.RandomChallengeRetriever;
+import org.rbernalop.apitournament.tournament.domain.port.TournamentChallengeCategoryRepository;
+import org.rbernalop.apitournament.tournament.domain.port.TournamentChallengeRepository;
 import org.rbernalop.apitournament.tournament.domain.port.TournamentRepository;
 import org.rbernalop.shared.domain.valueobject.UserUsername;
 import org.rbernalop.shared.infrastructure.testing.IntegrationTestCase;
@@ -27,10 +29,18 @@ class TournamentPostControllerTest extends IntegrationTestCase {
     private RandomChallengeRetriever randomChallengeRetriever;
 
     @Autowired
+    private TournamentChallengeCategoryRepository tournamentChallengeCategoryRepository;
+
+    @Autowired
+    private TournamentChallengeRepository tournamentChallengeRepository;
+
+    @Autowired
     private TournamentRepository repository;
 
     @AfterEach
     void tearDown() {
+        tournamentChallengeRepository.deleteAll();
+        tournamentChallengeCategoryRepository.deleteAll();
         repository.deleteAll();
     }
 

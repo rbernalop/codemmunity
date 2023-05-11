@@ -16,7 +16,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-class TournamentGetByIdResponseTest extends IntegrationTestCase {
+class TournamentGetByIdControllerTest extends IntegrationTestCase {
     private static final String TOURNAMENT_GET_BY_ID_URL = "/api/v1/tournament/{id}";
 
     @Autowired

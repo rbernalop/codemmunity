@@ -4,6 +4,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.rbernalop.apitournament.tournament.domain.aggregate.Tournament;
 import org.rbernalop.apitournament.tournament.domain.aggregate.TournamentMother;
+import org.rbernalop.apitournament.tournament.domain.port.TournamentChallengeCategoryRepository;
+import org.rbernalop.apitournament.tournament.domain.port.TournamentChallengeRepository;
 import org.rbernalop.apitournament.tournament.domain.port.TournamentRepository;
 import org.rbernalop.apitournament.tournament.domain.value_object.UserUsernameMother;
 import org.rbernalop.shared.domain.valueobject.UserUsername;
@@ -19,10 +21,19 @@ class TournamentPostJoinControllerTest extends IntegrationTestCase {
     private static final String URL = "/api/v1/tournament/{id}/join";
 
     @Autowired
+    private TournamentChallengeCategoryRepository tournamentChallengeCategoryRepository;
+
+    @Autowired
+    private TournamentChallengeRepository tournamentChallengeRepository;
+
+
+    @Autowired
     private TournamentRepository repository;
 
     @AfterEach
     void tearDown() {
+        tournamentChallengeRepository.deleteAll();
+        tournamentChallengeCategoryRepository.deleteAll();
         repository.deleteAll();
     }
 
