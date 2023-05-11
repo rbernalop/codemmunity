@@ -2,6 +2,7 @@ package org.rbernalop.apitournament.tournament.infrastructure.controller;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.rbernalop.apitournament.shared.application.tournament.find.ChallengeResponse;
 import org.rbernalop.apitournament.shared.application.tournament.find.CompetitorResponse;
 import org.rbernalop.apitournament.shared.application.tournament.find.by_id.FindTournamentByIdQuery;
 import org.rbernalop.apitournament.shared.application.tournament.find.by_id.FindTournamentByIdResponse;
@@ -50,7 +51,31 @@ class TournamentGetByIdResponse {
         response.setDescription(competitor.getDescription());
         response.setBeginningDate(competitor.getBeginningDate());
         response.setSize(competitor.getSize());
-        response.setLeaderboard(competitor.getCompetitors().stream().map(LeaderboardGetByTournamentIdResponse::from).toList());
+        response.setLeaderboard(
+            competitor.getCompetitors().stream().map(LeaderboardGetByTournamentIdResponse::from).toList()
+        );
+        return response;
+    }
+}
+
+@Getter
+@Setter
+class CurrentChallengeGetByTournamentIdResponse {
+    private String id;
+    private String title;
+    private String description;
+    private String category;
+    private long difficulty;
+    private String creatorUsername;
+
+    public static CurrentChallengeGetByTournamentIdResponse from(ChallengeResponse challengeResponse) {
+        CurrentChallengeGetByTournamentIdResponse response = new CurrentChallengeGetByTournamentIdResponse();
+        response.setId(challengeResponse.getId());
+        response.setTitle(challengeResponse.getTitle());
+        response.setDescription(challengeResponse.getDescription());
+        response.setCategory(challengeResponse.getCategory());
+        response.setDifficulty(challengeResponse.getDifficulty());
+        response.setCreatorUsername(challengeResponse.getCreatorUsername());
         return response;
     }
 }

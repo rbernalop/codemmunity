@@ -4,6 +4,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.rbernalop.apitournament.tournament.domain.aggregate.Tournament;
 import org.rbernalop.apitournament.tournament.domain.aggregate.TournamentMother;
+import org.rbernalop.apitournament.tournament.domain.port.TournamentChallengeCategoryRepository;
+import org.rbernalop.apitournament.tournament.domain.port.TournamentChallengeRepository;
 import org.rbernalop.apitournament.tournament.domain.port.TournamentRepository;
 import org.rbernalop.shared.infrastructure.testing.IntegrationTestCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +20,18 @@ class TournamentGetByIdResponseTest extends IntegrationTestCase {
     private static final String TOURNAMENT_GET_BY_ID_URL = "/api/v1/tournament/{id}";
 
     @Autowired
+    private TournamentChallengeCategoryRepository tournamentChallengeCategoryRepository;
+
+    @Autowired
+    private TournamentChallengeRepository tournamentChallengeRepository;
+
+    @Autowired
     private TournamentRepository tournamentRepository;
 
     @AfterEach
     void tearDown() {
+        tournamentChallengeRepository.deleteAll();
+        tournamentChallengeCategoryRepository.deleteAll();
         tournamentRepository.deleteAll();
     }
 
