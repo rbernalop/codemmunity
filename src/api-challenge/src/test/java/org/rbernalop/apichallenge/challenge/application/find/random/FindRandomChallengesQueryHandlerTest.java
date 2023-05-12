@@ -6,6 +6,8 @@ import org.mockito.Mock;
 import org.rbernalop.apichallenge.challenge.domain.aggregate.Challenge;
 import org.rbernalop.apichallenge.challenge.domain.aggregate.ChallengeMother;
 import org.rbernalop.apichallenge.challenge.domain.port.ChallengeRepository;
+import org.rbernalop.apichallenge.shared.application.baseCode.find.by_challenge_ids.FindBaseCodeByChallengeIdsResponses;
+import org.rbernalop.apichallenge.shared.application.baseCode.find.by_challenge_ids.FindBaseCodeByChallengeIdsResponsesMother;
 import org.rbernalop.apichallenge.shared.application.challenge.find.ChallengeResponse;
 import org.rbernalop.apichallenge.shared.application.challenge.find.random.FindRandomChallengesQuery;
 import org.rbernalop.apichallenge.shared.application.challenge.find.random.FindRandomChallengesResponse;
@@ -29,9 +31,11 @@ class FindRandomChallengesQueryHandlerTest extends UnitTestCase {
         Challenge expectedChallenge = ChallengeMother.random();
         List<Challenge> challenges = List.of(expectedChallenge);
         FindRandomChallengesQuery query = new FindRandomChallengesQuery(challenges.size());
+        FindBaseCodeByChallengeIdsResponses baseCodeResponses = FindBaseCodeByChallengeIdsResponsesMother.random();
 
         when(challengeRepository.count()).thenReturn((long) challenges.size());
         when(challengeRepository.findRandomChallenges(challenges.size())).thenReturn(challenges);
+        when(queryBus.ask(any())).thenReturn(baseCodeResponses);
 
         // WHEN
         FindRandomChallengesResponse response = assertDoesNotThrow(() -> findRandomChallengesQueryHandler.handle(query));
@@ -39,6 +43,7 @@ class FindRandomChallengesQueryHandlerTest extends UnitTestCase {
         // THEN
         verify(challengeRepository, times(1)).count();
         verify(challengeRepository, times(1)).findRandomChallenges(challenges.size());
+        verify(queryBus, times(1)).ask(any());
         assertEquals(1, response.getChallenges().size());
         ChallengeResponse actualChallenge = response.getChallenges().get(0);
         assertNotNull(expectedChallenge.getId());

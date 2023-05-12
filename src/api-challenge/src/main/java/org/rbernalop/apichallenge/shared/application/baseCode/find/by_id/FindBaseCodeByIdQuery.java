@@ -1,4 +1,4 @@
-package org.rbernalop.apichallenge.shared.application.baseCode.find;
+package org.rbernalop.apichallenge.shared.application.baseCode.find.by_id;
 
 import lombok.*;
 import org.rbernalop.shared.domain.bus.query.Query;

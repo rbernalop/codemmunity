@@ -1,8 +1,8 @@
 package org.rbernalop.apichallenge.baseCode.infrastructure.controller;
 
 import lombok.*;
-import org.rbernalop.apichallenge.shared.application.baseCode.find.FindBaseCodeByIdQuery;
-import org.rbernalop.apichallenge.shared.application.baseCode.find.FindBaseCodeByIdResponse;
+import org.rbernalop.apichallenge.shared.application.baseCode.find.by_id.FindBaseCodeByIdQuery;
+import org.rbernalop.apichallenge.shared.application.baseCode.find.by_id.FindBaseCodeByIdResponse;
 import org.rbernalop.shared.domain.bus.command.CommandBus;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.infrastructure.controller.ApiController;

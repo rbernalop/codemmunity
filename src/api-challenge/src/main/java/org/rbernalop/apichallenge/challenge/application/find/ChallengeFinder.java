@@ -3,8 +3,10 @@ package org.rbernalop.apichallenge.challenge.application.find;
 import org.rbernalop.apichallenge.challenge.domain.aggregate.Challenge;
 import org.rbernalop.apichallenge.challenge.domain.port.ChallengeRepository;
 import org.rbernalop.apichallenge.challenge.domain.value_object.NumberChallenges;
-import org.rbernalop.apichallenge.shared.application.baseCode.find.FindBaseCodeByIdQuery;
-import org.rbernalop.apichallenge.shared.application.baseCode.find.FindBaseCodeByIdResponse;
+import org.rbernalop.apichallenge.shared.application.baseCode.find.by_challenge_ids.FindBaseCodeByChallengeIdsQuery;
+import org.rbernalop.apichallenge.shared.application.baseCode.find.by_challenge_ids.FindBaseCodeByChallengeIdsResponses;
+import org.rbernalop.apichallenge.shared.application.baseCode.find.by_id.FindBaseCodeByIdQuery;
+import org.rbernalop.apichallenge.shared.application.baseCode.find.by_id.FindBaseCodeByIdResponse;
 import org.rbernalop.apichallenge.shared.application.challenge.find.random.FindRandomChallengesResponse;
 import org.rbernalop.apichallenge.shared.application.completion.find.by_ids.FindUserCompletionsByIdsQuery;
 import org.rbernalop.apichallenge.shared.application.completion.find.by_ids.FindUserCompletionsByIdsResponse;
@@ -62,6 +64,12 @@ public class ChallengeFinder extends UseCase {
             throw new IllegalArgumentException("Not enough challenges in DB");
         }
         List<Challenge> challenges = challengeRepository.findRandomChallenges(numChallenges.getValue());
-        return FindRandomChallengesResponse.from(challenges);
+
+        FindBaseCodeByChallengeIdsQuery query = new FindBaseCodeByChallengeIdsQuery(challenges.stream().map(challenge ->
+            challenge.getId().getValue()
+        ).toList());
+        FindBaseCodeByChallengeIdsResponses baseCodeResponses = ask(query);
+
+        return FindRandomChallengesResponse.from(challenges, baseCodeResponses);
     }
 }

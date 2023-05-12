@@ -1,11 +1,13 @@
 package org.rbernalop.apichallenge.challenge.infrastructure.controller;
 
+import org.rbernalop.apichallenge.shared.application.challenge.find.BaseCodeResponse;
 import org.rbernalop.apichallenge.shared.application.challenge.find.ChallengeResponse;
 import org.rbernalop.apichallenge.shared.application.challenge.find.random.FindRandomChallengesQuery;
 import org.rbernalop.apichallenge.shared.application.challenge.find.random.FindRandomChallengesResponse;
 import org.rbernalop.shared.domain.bus.command.CommandBus;
 import org.rbernalop.shared.domain.bus.query.QueryBus;
 import org.rbernalop.shared.infrastructure.controller.ApiController;
+import org.rbernalop.shared.infrastructure.feign.challenge.random.BaseCodeGetRandomResponse;
 import org.rbernalop.shared.infrastructure.feign.challenge.random.ChallengeGetRandomResponse;
 import org.rbernalop.shared.infrastructure.feign.challenge.random.ChallengeGetRandomResponses;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,8 +31,11 @@ public class ChallengeGetRandomController extends ApiController {
 
         List<ChallengeGetRandomResponse> challenges = response.getChallenges().stream().map((ChallengeResponse challenge) ->
             new ChallengeGetRandomResponse(
-                challenge.getId(), challenge.getTitle(), challenge.getDescription(),
-                challenge.getCategory(), challenge.getUserUsername(), challenge.getDifficulty()
+                challenge.getId(), challenge.getTitle(), challenge.getDescription(), challenge.getCategory(),
+                challenge.getUserUsername(), challenge.getDifficulty(),
+                challenge.getBaseCodes().stream().map((BaseCodeResponse baseCode) ->
+                    new BaseCodeGetRandomResponse(baseCode.getLanguageName(), baseCode.getContent())
+                ).toList()
             )).toList();
 
         return ChallengeGetRandomResponses.from(challenges);

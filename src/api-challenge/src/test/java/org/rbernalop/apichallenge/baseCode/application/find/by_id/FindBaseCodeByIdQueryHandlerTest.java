@@ -6,9 +6,9 @@ import org.mockito.Mock;
 import org.rbernalop.apichallenge.baseCode.domain.aggregate.BaseCode;
 import org.rbernalop.apichallenge.baseCode.domain.aggregate.BaseCodeMother;
 import org.rbernalop.apichallenge.baseCode.domain.port.BaseCodeRepository;
-import org.rbernalop.apichallenge.shared.application.baseCode.find.FindBaseCodeByIdQuery;
+import org.rbernalop.apichallenge.shared.application.baseCode.find.by_id.FindBaseCodeByIdQuery;
 import org.rbernalop.apichallenge.shared.application.baseCode.find.FindBaseCodeByIdQueryMother;
-import org.rbernalop.apichallenge.shared.application.baseCode.find.FindBaseCodeByIdResponse;
+import org.rbernalop.apichallenge.shared.application.baseCode.find.by_id.FindBaseCodeByIdResponse;
 import org.rbernalop.shared.domain.exception.EntityNotFoundException;
 import org.rbernalop.shared.infrastructure.testing.UnitTestCase;
 
