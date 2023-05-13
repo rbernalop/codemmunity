@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.rbernalop.apitournament.tournament.domain.aggregate.Tournament;
 import org.rbernalop.shared.domain.valueobject.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "tournament_challenges")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -32,6 +34,9 @@ public class TournamentChallenge {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Tournament tournament;
+
+    @OneToMany(mappedBy = "id.challenge", cascade = CascadeType.ALL)
+    private List<TournamentChallengeBaseCode> baseCodes;
 
     public static TournamentChallenge create(ChallengeId id, ChallengeTitle title, ChallengeDescription description,
             UserUsername userUsername, ChallengeDifficulty difficulty, TournamentChallengeCategory category) {
@@ -71,5 +76,9 @@ public class TournamentChallenge {
 
     public void setTournament(Tournament tournament) {
         this.tournament = tournament;
+    }
+
+    public void setBaseCodes(List<TournamentChallengeBaseCode> baseCodes) {
+        this.baseCodes = baseCodes;
     }
 }

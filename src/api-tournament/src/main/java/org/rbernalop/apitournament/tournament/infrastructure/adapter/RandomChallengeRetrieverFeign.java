@@ -2,8 +2,10 @@ package org.rbernalop.apitournament.tournament.infrastructure.adapter;
 
 import lombok.AllArgsConstructor;
 import org.rbernalop.apitournament.tournament.domain.entity.TournamentChallenge;
+import org.rbernalop.apitournament.tournament.domain.entity.TournamentChallengeBaseCode;
 import org.rbernalop.apitournament.tournament.domain.entity.TournamentChallengeCategory;
 import org.rbernalop.apitournament.tournament.domain.port.RandomChallengeRetriever;
+import org.rbernalop.apitournament.tournament.domain.value_object.TournamentChallengeBaseCodeId;
 import org.rbernalop.shared.domain.valueobject.*;
 import org.rbernalop.shared.infrastructure.feign.challenge.random.ChallengeGetRandomFeign;
 import org.rbernalop.shared.infrastructure.feign.challenge.random.ChallengeGetRandomResponse;
@@ -27,9 +29,18 @@ public class RandomChallengeRetrieverFeign implements RandomChallengeRetriever {
         CategoryName categoryName = new CategoryName(challenge.getCategory());
         TournamentChallengeCategory challengeCategory = TournamentChallengeCategory.create(categoryId, categoryName);
 
-        return TournamentChallenge.create(
+        TournamentChallenge tournamentChallenge = TournamentChallenge.create(
             challengeId, challengeTitle, challengeDescription, userUsername, challengeDifficulty, challengeCategory
         );
+
+        List<TournamentChallengeBaseCode> baseCodes = challenge.getBaseCodes().stream()
+            .map(baseCode -> TournamentChallengeBaseCode.create(
+                new TournamentChallengeBaseCodeId(tournamentChallenge, new LanguageName(baseCode.getLanguageName())),
+                new ScriptContent(baseCode.getContent())
+            )).toList();
+
+        tournamentChallenge.setBaseCodes(baseCodes);
+        return tournamentChallenge;
     }
 
     @Override

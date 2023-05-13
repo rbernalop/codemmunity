@@ -4,9 +4,11 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.rbernalop.shared.domain.exception.InvalidLanguageDataException;
 
+import java.io.Serializable;
+
 @NoArgsConstructor
 @EqualsAndHashCode
-public class LanguageName {
+public class LanguageName implements Serializable {
     private String languageName;
 
     public LanguageName(String languageName) {
