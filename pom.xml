@@ -125,6 +125,33 @@
                         </execution>
                     </executions>
                 </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>sql-maven-plugin</artifactId>
+                    <version>1.5</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.postgresql</groupId>
+                            <artifactId>postgresql</artifactId>
+                            <version>42.5.1</version>
+                        </dependency>
+                    </dependencies>
+                    <configuration>
+                        <driver>org.postgresql.Driver</driver>
+                        <srcFiles>
+                            <srcFile>src/main/resources/seeders.sql</srcFile>
+                        </srcFiles>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>seed-database</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>execute</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
